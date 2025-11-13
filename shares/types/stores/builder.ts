@@ -1,14 +1,12 @@
 import type { ID } from "../primitives";
+import type { PrepQuestions } from "~~/shares/types/config/prep-questions";
 
 export interface BuilderState {
   contentId: ID;
   attributes: {
     name: string;
     description: string;
-    questions: {
-      order: number;
-      value: string;
-    }[];
+    questions: PrepQuestions;
     evaluations: string[];
     modes: {
       text: boolean;
