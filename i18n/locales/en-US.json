@@ -1,1 +1,111 @@
-{}
+{
+  "btn": {
+    "save": "Save",
+    "retry": "Retry"
+  },
+  "navigation": {
+    "file": {
+      "DEFAULT": "File",
+      "save": "Save",
+      "save-and-close": "Save and close",
+      "close-without-saving": "Close without saving",
+      "export-to-scorm": {
+        "DEFAULT": "Export to SCORM",
+        "scorm-12": "SCORM 1.2",
+        "scorm-2004": "SCORM 2004 (1.3)"
+      }
+    },
+    "general": "General",
+    "engine": "Engine",
+    "evaluation": "Evaluation"
+  },
+  "alerts": {
+    "close-with-changes": {
+      "title": "Are you sure?",
+      "description": "You have changes in progress. If you close without saving, you'll lose your changes. Are you sure you want to quit?",
+      "cancel": "No, stay",
+      "confirm": "Yes, close"
+    }
+  },
+  "labels": {
+    "saved-since": {
+      "moment-ago": "Saved a few seconds ago",
+      "seconds-precise": "Saved {time} seconds ago",
+      "minutes-ago": "Saved a few minutes ago",
+      "minutes-precise": "Saved {time} minutes ago",
+      "hour-ago": "Saved an hour ago | Saved {time} hours ago",
+      "yesterday": "Saved yesterday",
+      "days-ago": "Saved a day ago | Saved {time} days ago",
+      "last-week": "Saved last week",
+      "precisely-at": "Saved on {date} at {time}"
+    },
+    "models": {
+      "light-models": "Light models",
+      "heavy-models": "Heavy models"
+    },
+    "tooltips": {},
+    "toasts": {
+      "fix-errors-before-saving": "Fix errors before saving.",
+      "save-changes-before-exporting": "Save changes before exporting.",
+      "saving-changes": {
+        "loading": "Saving changes...",
+        "success": "Changes have been saved!",
+        "error": "An error occurred while saving changes."
+      },
+      "exporting-scorm": {
+        "loading": "Exporting simulation to SCORM {version}...",
+        "success": "Your simulation has been exported to SCORM {version}!",
+        "error": "An error occurred while exporting the simulation."
+      }
+    }
+  },
+  "pages": {
+    "general": {
+      "simulation-title": "Name",
+      "simulation-description": "Description",
+      "modes": {
+        "label": "Simulation modes",
+        "no-mode-selected": {
+          "title": "No simulation mode selected.",
+          "description": "At least one active option is required to save!"
+        },
+        "text": {
+          "title": "Text mode",
+          "description": "Your learners will be playing in an SMS-like conversation."
+        },
+        "audio": {
+          "title": "Audio mode",
+          "description": "Your learners will interact with the agent through a phone call."
+        },
+        "video": {
+          "title": "Video mode",
+          "description": "Your learners will meet the agent in a video call."
+        }
+      },
+      "questions": {
+        "label": "Preparing questions",
+        "description": "The following questions will help the agent prepare for the conversation.",
+        "empty": {
+          "title": "No question",
+          "description": "You have not added any question yet. Start by adding one to the simulation.",
+          "button": "New question"
+        }
+      }
+    },
+    "engine": {
+      "system-prompt": {
+        "label": "System instructions",
+        "description": "Describe the content of the simulation, its scenario, and possible outcomes."
+      },
+      "text-model": "Generation model",
+      "audio-voice": {
+        "label": "Voice",
+        "description": "Used in \"audio\" mode"
+      },
+      "video-replica": {
+        "label": "Replica",
+        "description": "Used in \"video\" mode"
+      }
+    }
+  }
+}

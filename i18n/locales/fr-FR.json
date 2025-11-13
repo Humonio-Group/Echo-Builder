@@ -1,1 +1,111 @@
-{}
+{
+  "btn": {
+    "save": "Enregistrer",
+    "retry": "Ré-essayer"
+  },
+  "navigation": {
+    "file": {
+      "DEFAULT": "Fichier",
+      "save": "Enregistrer",
+      "save-and-close": "Enregistrer et fermer",
+      "close-without-saving": "Fermer sans enregistrer",
+      "export-to-scorm": {
+        "DEFAULT": "Exporter en SCORM",
+        "scorm-12": "SCORM 1.2",
+        "scorm-2004": "SCORM 2004 (1.3)"
+      }
+    },
+    "general": "Général",
+    "engine": "Moteur",
+    "evaluation": "Évaluation"
+  },
+  "alerts": {
+    "close-with-changes": {
+      "title": "Êtes-vous sûr ?",
+      "description": "Vous avez des modifications en cours. Si vous fermez sans enregistrer, vous perdrez vos changements. Êtes-vous sûr de vouloir quitter ?",
+      "cancel": "Non, rester",
+      "confirm": "Oui, fermer"
+    }
+  },
+  "labels": {
+    "saved-since": {
+      "moment-ago": "Enregistré il y a quelques secondes",
+      "seconds-precise": "Enregistré il y a {time} secondes",
+      "minutes-ago": "Enregistré il y a quelques minutes",
+      "minutes-precise": "Enregistré il y a {time} minutes",
+      "hour-ago": "Enregistré il y a une heure | Enregistré il y a {time} heures",
+      "yesterday": "Enregistré hier",
+      "days-ago": "Enregistré il y a un jour | Enregistré il y a {time} jours",
+      "last-week": "Enregistré la semaine dernière",
+      "precisely-at": "Enregistré le {date} à {time}"
+    },
+    "models": {
+      "light-models": "Modèles légers",
+      "heavy-models": "Modèles lourds"
+    },
+    "tooltips": {},
+    "toasts": {
+      "fix-errors-before-saving": "Corrigez les erreurs avant de sauvegarder.",
+      "save-changes-before-exporting": "Enregistrez les modifications avant d'exporter.",
+      "saving-changes": {
+        "loading": "Enregistrement des modifications...",
+        "success": "Les modifications ont été enregistrées !",
+        "error": "Une erreur est survenue en sauvegardant les changements."
+      },
+      "exporting-scorm": {
+        "loading": "Export de la simulation vers SCORM {version}...",
+        "success": "Votre simulation a été exportée vers SCORM {version} !",
+        "error": "Une erreur est survenue en exportant la simulation."
+      }
+    }
+  },
+  "pages": {
+    "general": {
+      "simulation-title": "Nom",
+      "simulation-description": "Description",
+      "modes": {
+        "label": "Modes de simulation",
+        "no-mode-selected": {
+          "title": "Aucun mode de simulation sélectionné.",
+          "description": "Au moins une option active est requise pour enregistrer !"
+        },
+        "text": {
+          "title": "Mode texte",
+          "description": "Vos apprenants joueront dans une conversation de type SMS."
+        },
+        "audio": {
+          "title": "Mode audio",
+          "description": "Vos apprenants seront en contact avec l’agent par un appel téléphonique."
+        },
+        "video": {
+          "title": "Mode vidéo",
+          "description": "Vos apprenants rencontreront l’agent dans une visioconférence."
+        }
+      },
+      "questions": {
+        "label": "Préparation des questions",
+        "description": "Les questions suivantes aideront l’agent à se préparer à la conversation.",
+        "empty": {
+          "title": "Aucune question",
+          "description": "Vous n’avez pas encore ajouté de question. Commencez par en ajouter une à la simulation.",
+          "button": "Nouvelle question"
+        }
+      }
+    },
+    "engine": {
+      "system-prompt": {
+        "label": "Instructions système",
+        "description": "Décrivez le contenu de la simulation, son scénario, ses possibilités de sorties."
+      },
+      "text-model": "Modèle de génération",
+      "audio-voice": {
+        "label": "Voix",
+        "description": "Utilisé dans le mode \"audio\""
+      },
+      "video-replica": {
+        "label": "Replica",
+        "description": "Utilisé dans le mode \"Vidéo\""
+      }
+    }
+  }
+}
