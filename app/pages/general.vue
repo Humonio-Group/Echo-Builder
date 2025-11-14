@@ -46,66 +46,69 @@ function handleFileUpload(event: InputEvent) {
         </p>
       </header>
 
-      <section class="grid grid-cols-[min-content_1fr] gap-4 items-center">
-        <div class="mx-auto relative">
-          <Avatar class="size-18">
-            <AvatarImage
-              v-if="avatarUrl"
-              :src="avatarUrl"
+      <Card>
+        <CardContent class="grid gap-4">
+          <section class="grid grid-cols-[min-content_1fr] gap-4 items-center">
+            <div class="mx-auto relative">
+              <Avatar class="size-18">
+                <AvatarImage
+                  v-if="avatarUrl"
+                  :src="avatarUrl"
+                />
+                <AvatarFallback class="text-2xl">
+                  Si
+                </AvatarFallback>
+              </Avatar>
+              <Button
+                size="icon-sm"
+                variant="secondary"
+                class="absolute -bottom-1 -right-1"
+                @click="openFileDialog"
+              >
+                <Edit />
+              </Button>
+              <input
+                ref="fileInput"
+                type="file"
+                hidden
+                class="absolute"
+                accept="image/*"
+                @change="handleFileUpload"
+              >
+            </div>
+            <section class="space-y-2">
+              <Label
+                for="name"
+                :class="{ 'text-destructive': invalidName }"
+              >{{ $t("pages.general.simulation-title") }}</Label>
+              <Input
+                id="name"
+                v-model="name"
+                placeholder="Bienvenue sur Echo"
+                :class="{ 'border-destructive': invalidName }"
+              />
+            </section>
+          </section>
+          <section class="space-y-2">
+            <Label
+              for="description"
+              :class="{ 'text-destructive': invalidDescription }"
+            >{{ $t("pages.general.simulation-description") }}</Label>
+            <Textarea
+              id="description"
+              v-model="description"
+              class="resize-none min-h-32"
+              :class="{ 'border-destructive': invalidDescription }"
             />
-            <AvatarFallback class="text-2xl">
-              Si
-            </AvatarFallback>
-          </Avatar>
-          <Button
-            size="icon-sm"
-            variant="secondary"
-            class="absolute bottom-0 right-0"
-            @click="openFileDialog"
-          >
-            <Edit />
-          </Button>
-          <input
-            ref="fileInput"
-            type="file"
-            hidden
-            class="absolute"
-            accept="image/*"
-            @change="handleFileUpload"
-          >
-        </div>
-        <section class="space-y-2">
-          <Label
-            for="name"
-            :class="{ 'text-destructive': invalidName }"
-          >{{ $t("pages.general.simulation-title") }}</Label>
-          <Input
-            id="name"
-            v-model="name"
-            placeholder="Bienvenue sur Echo"
-            :class="{ 'border-destructive': invalidName }"
-          />
-        </section>
-      </section>
-      <section class="space-y-2">
-        <Label
-          for="description"
-          :class="{ 'text-destructive': invalidDescription }"
-        >{{ $t("pages.general.simulation-description") }}</Label>
-        <Textarea
-          id="description"
-          v-model="description"
-          class="resize-none min-h-32"
-          :class="{ 'border-destructive': invalidDescription }"
-        />
-      </section>
-      <Separator />
+          </section>
+        </CardContent>
+      </Card>
 
-      <section class="grid gap-4">
-        <header class="grid gap-2">
-          <h2 class="text-xl font-black">
+      <Card>
+        <CardHeader>
+          <CardTitle>
             {{ $t("pages.general.modes.label") }}
-          </h2>
+          </CardTitle>
           <Alert
             v-if="!hasModes"
             variant="destructive"
@@ -118,68 +121,69 @@ function handleFileUpload(event: InputEvent) {
               {{ $t("pages.general.modes.no-mode-selected.description") }}
             </AlertDescription>
           </Alert>
-        </header>
+        </CardHeader>
+        <CardContent>
+          <main class="flex flex-col gap-2">
+            <Label
+              class="block w-full"
+              for="text"
+            >
+              <Card>
+                <CardContent class="w-full flex items-center justify-between">
+                  <div>
+                    <CardTitle>{{ $t("pages.general.modes.text.title") }}</CardTitle>
+                    <CardDescription>{{ $t("pages.general.modes.text.description") }}</CardDescription>
+                  </div>
 
-        <main class="flex flex-col gap-2">
-          <Label
-            class="block w-full"
-            for="text"
-          >
-            <Card>
-              <CardContent class="w-full flex items-center justify-between">
-                <div>
-                  <CardTitle>{{ $t("pages.general.modes.text.title") }}</CardTitle>
-                  <CardDescription>{{ $t("pages.general.modes.text.description") }}</CardDescription>
-                </div>
+                  <Switch
+                    id="text"
+                    :model-value="modes.text"
+                    @update:model-value="modes.text = $event"
+                  />
+                </CardContent>
+              </Card>
+            </Label>
+            <Label
+              class="block w-full"
+              for="audio"
+            >
+              <Card>
+                <CardContent class="w-full flex items-center justify-between">
+                  <div>
+                    <CardTitle>{{ $t("pages.general.modes.audio.title") }}</CardTitle>
+                    <CardDescription>{{ $t("pages.general.modes.audio.description") }}</CardDescription>
+                  </div>
 
-                <Switch
-                  id="text"
-                  :model-value="modes.text"
-                  @update:model-value="modes.text = $event"
-                />
-              </CardContent>
-            </Card>
-          </Label>
-          <Label
-            class="block w-full"
-            for="audio"
-          >
-            <Card>
-              <CardContent class="w-full flex items-center justify-between">
-                <div>
-                  <CardTitle>{{ $t("pages.general.modes.audio.title") }}</CardTitle>
-                  <CardDescription>{{ $t("pages.general.modes.audio.description") }}</CardDescription>
-                </div>
+                  <Switch
+                    id="audio"
+                    :model-value="modes.audio"
+                    @update:model-value="modes.audio = $event"
+                  />
+                </CardContent>
+              </Card>
+            </Label>
+            <Label
+              class="block w-full"
+              for="video"
+            >
+              <Card>
+                <CardContent class="w-full flex items-center justify-between">
+                  <div>
+                    <CardTitle>{{ $t("pages.general.modes.video.title") }}</CardTitle>
+                    <CardDescription>{{ $t("pages.general.modes.video.description") }}</CardDescription>
+                  </div>
 
-                <Switch
-                  id="audio"
-                  :model-value="modes.audio"
-                  @update:model-value="modes.audio = $event"
-                />
-              </CardContent>
-            </Card>
-          </Label>
-          <Label
-            class="block w-full"
-            for="video"
-          >
-            <Card>
-              <CardContent class="w-full flex items-center justify-between">
-                <div>
-                  <CardTitle>{{ $t("pages.general.modes.video.title") }}</CardTitle>
-                  <CardDescription>{{ $t("pages.general.modes.video.description") }}</CardDescription>
-                </div>
-
-                <Switch
-                  id="video"
-                  :model-value="modes.video"
-                  @update:model-value="modes.video = $event"
-                />
-              </CardContent>
-            </Card>
-          </Label>
-        </main>
-      </section>
+                  <Switch
+                    id="video"
+                    :model-value="modes.video"
+                    @update:model-value="modes.video = $event"
+                  />
+                </CardContent>
+              </Card>
+            </Label>
+          </main>
+        </CardContent>
+      </Card>
     </div>
   </Page>
 </template>
