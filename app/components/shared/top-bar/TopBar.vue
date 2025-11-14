@@ -111,6 +111,17 @@ function closeTab() {
         as-child
       >
         <NuxtLinkLocale
+          to="/customize"
+          active-class="bg-secondary! text-secondary-foreground!"
+        >
+          {{ $t("navigation.customize") }}
+        </NuxtLinkLocale>
+      </Button>
+      <Button
+        variant="ghost"
+        as-child
+      >
+        <NuxtLinkLocale
           to="/engine"
           active-class="bg-secondary! text-secondary-foreground!"
         >

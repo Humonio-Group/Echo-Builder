@@ -6,6 +6,12 @@ import type {
   ParagraphEvaluationConfig,
   ScoreEvaluationConfig,
 } from "#shared/types/config/evaluations";
+import type {
+  PrepQuestionType,
+  RangeQuestionConfig,
+  SelectQuestionConfig,
+  TextQuestionConfig,
+} from "#shared/types/config/prep-questions";
 
 export const useBuilderStore = defineStore("builder", {
   state: (): BuilderState => ({
@@ -14,19 +20,7 @@ export const useBuilderStore = defineStore("builder", {
       name: "Sinsim",
       description: "Sinsim description",
       questions: [],
-      evaluations: [
-        {
-          order: 1,
-          type: "score",
-          method: "",
-          config: {
-            mainScore: true,
-            previewMode: "text",
-            min: 0,
-            max: 100,
-          },
-        },
-      ],
+      evaluations: [],
       modes: {
         text: true,
         audio: false,
@@ -51,9 +45,23 @@ export const useBuilderStore = defineStore("builder", {
     isInvalid: (state) => {
       const validName = !!state.attributes.name.trim().length;
       const validDescription = !!state.attributes.description.trim().length;
-      const validQuestions = state.attributes.questions.every(q => !!q.value.trim().length);
       const hasMode = Object.values(state.attributes.modes).some(v => !!v);
       const validSystemPrompt = state.attributes.config.systemPrompt.trim().length > 200;
+      const questionsValid = state.attributes.questions.every((q) => {
+        const global = !!q.label.trim().length;
+
+        switch (q.type) {
+          case "short": case "long": {
+            return global && (q.config as TextQuestionConfig).maxLength;
+          }
+          case "select": {
+            return global && (q.config as SelectQuestionConfig).options.length >= 2;
+          }
+          case "range": {
+            return global && (q.config as RangeQuestionConfig).min <= (q.config as RangeQuestionConfig).max;
+          }
+        }
+      });
       const evaluationsValid = state.attributes.evaluations.every((evaluation) => {
         const global = evaluation.method.trim().length >= 100;
 
@@ -76,44 +84,72 @@ export const useBuilderStore = defineStore("builder", {
       return !state.touched
         || !validName
         || !validDescription
-        || !validQuestions
         || !hasMode
         || !validSystemPrompt
+        || !questionsValid
         || !evaluationsValid
       ;
     },
     hasMainScore: state => state.attributes.evaluations.some(e => e.type === "score" && (e.config as ScoreEvaluationConfig).mainScore),
   },
   actions: {
-    moveUp(index: number) {
-      if (index <= 0) return;
+    addQuestion(type: PrepQuestionType) {
+      let config;
+      switch (type) {
+        case "short": {
+          config = {
+            maxLength: 255,
+          };
+          break;
+        }
+        case "long": {
+          config = {
+            maxLength: 2048,
+          };
+          break;
+        }
+        case "select": {
+          config = {
+            options: ["Option 1", "Option 2"],
+          };
+          break;
+        }
+        case "range": {
+          config = {
+            min: 0,
+            max: 10,
+          };
+          break;
+        }
+      }
 
-      const temp = this.attributes.questions[index];
-      this.attributes.questions[index] = this.attributes.questions[index - 1]!;
-      this.attributes.questions[index - 1] = temp!;
-      this.updateOrder();
+      this.attributes.questions.push({
+        order: -1,
+        label: useNuxtApp().$i18n.t("labels.question-placeholder"),
+        type,
+        required: false,
+        config,
+      });
+      this.updateQuestionsOrder();
     },
-    moveDown(index: number) {
-      if (index >= this.attributes.questions.length - 1) return;
+    removeQuestion(order: number) {
+      this.attributes.questions = this.attributes.questions.filter(q => q.order !== order);
+      this.updateQuestionsOrder();
+    },
+    orderQuestion(order: number, direction: "up" | "down") {
+      switch (direction) {
+        case "up": {
+          break;
+        }
+        case "down": {
+          break;
+        }
+      }
 
-      const temp = this.attributes.questions[index];
-      this.attributes.questions[index] = this.attributes.questions[index + 1]!;
-      this.attributes.questions[index + 1] = temp!;
-      this.updateOrder();
+      this.updateQuestionsOrder();
     },
-    addQuestion() {
-      this.attributes.questions = [...this.attributes.questions, {
-        order: this.attributes.questions.length + 1,
-        value: `Question ${this.attributes.questions.length + 1}`,
-      }];
-      this.updateOrder();
-    },
-    removeQuestion(index: number) {
-      this.attributes.questions = this.attributes.questions.filter(q => q.order !== index);
-      this.updateOrder();
-    },
-    updateOrder() {
-      this.attributes.questions = this.attributes.questions.map((question, index) => ({ ...question, order: index + 1 }));
+    updateQuestionsOrder() {
+      this.attributes.questions = this.attributes.questions.map((q, index) => ({ ...q, order: index }));
     },
 
     addEvaluation(type: EvaluationType, previewMode?: GraphEvaluationPreviewMode) {

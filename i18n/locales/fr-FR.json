@@ -16,6 +16,7 @@
       }
     },
     "general": "Général",
+    "customize": "Personnalisation",
     "engine": "Moteur",
     "evaluation": "Évaluation"
   },
@@ -41,6 +42,8 @@
   },
   "labels": {
     "axis": "Axe",
+    "question-placeholder": "Nouvelle question",
+    "option-placeholder": "Nouvelle option",
     "saved-since": {
       "moment-ago": "Enregistré il y a quelques secondes",
       "seconds-precise": "Enregistré il y a {time} secondes",
@@ -61,7 +64,11 @@
       "make-as-normal-score": "Rétablir comme score normal",
       "delete-score": "Supprimer le score",
       "delete-graph": "Supprimer le graphique",
-      "delete-text": "Supprimer le paragraphe"
+      "delete-text": "Supprimer le paragraphe",
+      "delete-short": "Supprimer la réponse courte",
+      "delete-long": "Supprimer la réponse longue",
+      "delete-select": "Supprimer la sélection",
+      "delete-range": "Supprimer le curseur"
     },
     "toasts": {
       "fix-errors-before-saving": "Corrigez les erreurs avant de sauvegarder.",
@@ -109,6 +116,27 @@
           "description": "Vous n’avez pas encore ajouté de question. Commencez par en ajouter une à la simulation.",
           "button": "Nouvelle question"
         }
+      }
+    },
+    "customize": {
+      "type": {
+        "short": "Réponse courte",
+        "long": "Réponse longue",
+        "select": "Sélection",
+        "range": "Curseur"
+      },
+      "empty": {
+        "title": "Aucune question",
+        "description": "Vous n’avez pas encore ajouté de question de presonnalisation. Commencez par en ajouter une à la simulation.",
+        "button": "Nouvelle question"
+      },
+      "fields": {
+        "label": "Libellé",
+        "min-value": "Minimum",
+        "max-value": "Maximum",
+        "max-length": "Longeur maximum",
+        "make-required": "Rendre cette question obligatoire",
+        "options": "Options"
       }
     },
     "engine": {

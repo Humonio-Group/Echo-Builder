@@ -82,7 +82,8 @@ function scroll() {
       <AddEvaluationSectionDropdownMenu @added="scroll">
         <Button
           size="icon-lg"
-          class="size-14 rounded-full [&_>svg]:size-6! fixed bottom-6 right-6 z-50"
+          class="size-14 rounded-full [&_>svg]:size-6! fixed bottom-6 right-6 z-50 transition-all"
+          :class="{ 'bottom-0 translate-y-[100%]': !attributes.evaluations.length }"
         >
           <Plus />
         </Button>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AlertCircle, ChevronDown, ChevronUp, CircleQuestionMark, Edit, Plus, Trash } from "lucide-vue-next";
+import { AlertCircle, Edit } from "lucide-vue-next";
 import Page from "~/components/primitives/composing/Page.vue";
 
 definePageMeta({
@@ -7,11 +7,11 @@ definePageMeta({
 });
 
 const fileInput = ref();
-const avatarUrl = ref<string | null>(null);
+const avatarUrl = ref<string | null>("images/ia-avatar.gif");
 
 const builderStore = useBuilderStore();
 const { attributes } = storeToRefs(builderStore);
-const { name, description, modes, questions } = toRefs(attributes.value);
+const { name, description, modes } = toRefs(attributes.value);
 
 const hasModes = computed(() => Object.values(modes.value).some(v => !!v));
 const invalidName = computed(() => !name.value?.trim().length);
@@ -168,94 +168,6 @@ function handleFileUpload(event: InputEvent) {
               </CardContent>
             </Card>
           </Label>
-        </main>
-      </section>
-      <Separator />
-
-      <section class="grid gap-4">
-        <header class="flex items-center justify-between gap-4">
-          <div>
-            <h2 class="text-xl font-black">
-              {{ $t("pages.general.questions.label") }}
-            </h2>
-            <span class="max-w-[45ch] text-sm text-muted-foreground">
-              {{ $t("pages.general.questions.description") }}
-            </span>
-          </div>
-
-          <Button
-            v-if="questions.length"
-            size="icon"
-            variant="ghost"
-            @click="builderStore.addQuestion()"
-          >
-            <Plus />
-          </Button>
-        </header>
-
-        <main class="grid gap-2">
-          <template v-if="questions.length">
-            <div
-              v-for="(question, index) in questions"
-              :key="`${question}-${index}`"
-              class="group flex items-center dark:bg-input/30 border border-input rounded-md relative"
-            >
-              <div class="absolute pr-3 left-0 flex items-center -translate-x-[100%] opacity-0 group-hover:opacity-100">
-                <Button
-                  size="icon-sm"
-                  variant="ghost"
-                  :disabled="index <= 0"
-                  @click="builderStore.moveUp(index)"
-                >
-                  <ChevronUp />
-                </Button>
-                <Button
-                  size="icon-sm"
-                  variant="ghost"
-                  :disabled="index >= questions.length - 1"
-                  @click="builderStore.moveDown(index)"
-                >
-                  <ChevronDown />
-                </Button>
-              </div>
-
-              <Input
-                v-model="question.value"
-                class="border-none bg-transparent! ring-0!"
-              />
-              <span class="grid place-items-center w-[8ch] border-l border-input dark:bg-input/30 text-muted-foreground font-medium rounded-r-md h-full px-4">#{{ question.order }}</span>
-
-              <div class="pl-3 absolute right-0 translate-x-[100%] opacity-0 group-hover:opacity-100">
-                <Button
-                  size="icon-sm"
-                  variant="ghost"
-                  class="text-destructive! hover:bg-destructive/10! dark:hover:bg-destructive/20!"
-                  @click="builderStore.removeQuestion(question.order)"
-                >
-                  <Trash />
-                </Button>
-              </div>
-            </div>
-          </template>
-          <Empty v-else>
-            <EmptyHeader>
-              <EmptyMedia variant="icon">
-                <CircleQuestionMark />
-              </EmptyMedia>
-              <EmptyTitle>
-                {{ $t("pages.general.questions.empty.title") }}
-              </EmptyTitle>
-              <EmptyDescription>
-                {{ $t("pages.general.questions.empty.description") }}
-              </EmptyDescription>
-            </EmptyHeader>
-            <EmptyContent>
-              <Button @click="builderStore.addQuestion()">
-                <Plus />
-                {{ $t("pages.general.questions.empty.button") }}
-              </Button>
-            </EmptyContent>
-          </Empty>
         </main>
       </section>
     </div>
