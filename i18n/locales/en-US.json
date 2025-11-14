@@ -25,6 +25,18 @@
       "description": "You have changes in progress. If you close without saving, you'll lose your changes. Are you sure you want to quit?",
       "cancel": "No, stay",
       "confirm": "Yes, close"
+    },
+    "other-main-score-in-use": {
+      "title": "A general score is already defined",
+      "description": "Do you want to make this score your general score?",
+      "cancel": "No",
+      "confirm": "Yes"
+    },
+    "delete-main-score": {
+      "title": "Are you sure?",
+      "description": "You are about to delete the general score of your simulation. Are you sure you want to continue?",
+      "cancel": "No, keep it",
+      "confirm": "Yes, delete"
     }
   },
   "labels": {
@@ -44,7 +56,13 @@
       "light-models": "Light models",
       "heavy-models": "Heavy models"
     },
-    "tooltips": {},
+    "tooltips": {
+      "make-as-main-score": "Set as general score",
+      "make-as-normal-score": "Revert to normal score",
+      "delete-score": "Delete score",
+      "delete-graph": "Delete graph",
+      "delete-text": "Delete paragraph"
+    },
     "toasts": {
       "fix-errors-before-saving": "Fix errors before saving.",
       "save-changes-before-exporting": "Save changes before exporting.",
@@ -72,7 +90,7 @@
         },
         "text": {
           "title": "Text mode",
-          "description": "Your learners will be playing in an SMS-like conversation."
+          "description": "Your learners will play in an SMS-like conversation."
         },
         "audio": {
           "title": "Audio mode",
@@ -80,7 +98,7 @@
         },
         "video": {
           "title": "Video mode",
-          "description": "Your learners will meet the agent in a video call."
+          "description": "Your learners will meet the agent in a video meeting."
         }
       },
       "questions": {
@@ -88,7 +106,7 @@
         "description": "The following questions will help the agent prepare for the conversation.",
         "empty": {
           "title": "No question",
-          "description": "You haven't added any question yet. Start by adding one to the simulation.",
+          "description": "You haven’t added any question yet. Start by adding one to the simulation.",
           "button": "New question"
         }
       }
@@ -96,7 +114,7 @@
     "engine": {
       "system-prompt": {
         "label": "System instructions",
-        "description": "Describe the content of the simulation, its scenario, and possible outcomes."
+        "description": "Describe the content of the simulation, its scenario, and possible outputs."
       },
       "text-model": "Generation model",
       "audio-voice": {
@@ -112,7 +130,11 @@
       "add-score": "Add score",
       "add-paragraph": "Add paragraph",
       "add-graph": "Add graph",
-      "add-section": "Add section",
+      "empty": {
+        "title": "No section",
+        "description": "You have not added any section yet. Start by adding one to the evaluation.",
+        "button": "New section"
+      },
       "type": {
         "general-score": "General score",
         "score": "Score",
@@ -121,7 +143,7 @@
           "line": "Line chart",
           "spider": "Spider chart"
         },
-        "paragraph": "Text feedback"
+        "paragraph": "Paragraph"
       },
       "evaluation-method": {
         "label": "Evaluation method",
@@ -133,7 +155,7 @@
         "axes": "Chart axes",
         "empty": {
           "title": "No axis",
-          "description": "You haven't added any axis yet. Start by adding one to the chart.",
+          "description": "You haven’t added any axis yet. Start by adding one to the graph.",
           "button": "New axis"
         }
       },

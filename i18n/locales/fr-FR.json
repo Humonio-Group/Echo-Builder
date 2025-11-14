@@ -25,6 +25,18 @@
       "description": "Vous avez des modifications en cours. Si vous fermez sans enregistrer, vous perdrez vos changements. Êtes-vous sûr de vouloir quitter ?",
       "cancel": "Non, rester",
       "confirm": "Oui, fermer"
+    },
+    "other-main-score-in-use": {
+      "title": "Un score général a déjà été défini",
+      "description": "Souhaitez-vous faire de ce score votre score général ?",
+      "cancel": "Non",
+      "confirm": "Oui"
+    },
+    "delete-main-score": {
+      "title": "Êtes-vous sûr ?",
+      "description": "Vous êtes sur le point de supprimer le score général de votre simulation. Êtes-vous sûr de vouloir continuer ?",
+      "cancel": "Non, conserver",
+      "confirm": "Oui, supprimer"
     }
   },
   "labels": {
@@ -44,7 +56,13 @@
       "light-models": "Modèles légers",
       "heavy-models": "Modèles lourds"
     },
-    "tooltips": {},
+    "tooltips": {
+      "make-as-main-score": "Utiliser comme score général",
+      "make-as-normal-score": "Rétablir comme score normal",
+      "delete-score": "Supprimer le score",
+      "delete-graph": "Supprimer le graphique",
+      "delete-text": "Supprimer le paragraphe"
+    },
     "toasts": {
       "fix-errors-before-saving": "Corrigez les erreurs avant de sauvegarder.",
       "save-changes-before-exporting": "Enregistrez les modifications avant d'exporter.",
@@ -112,7 +130,11 @@
       "add-score": "Ajouter un score",
       "add-paragraph": "Ajouter un paragraphe",
       "add-graph": "Ajouter un graphique",
-      "add-section": "Ajouter une section",
+      "empty": {
+        "title": "Aucune section",
+        "description": "Vous n’avez pas encore ajouté de section. Commencez par en ajouter une à l'évaluation.",
+        "button": "Nouvelle section"
+      },
       "type": {
         "general-score": "Score général",
         "score": "Score",
@@ -121,7 +143,7 @@
           "line": "Graphique en courbes",
           "spider": "Graphique araignée"
         },
-        "paragraph": "Retour textuel"
+        "paragraph": "Paragraphe"
       },
       "evaluation-method": {
         "label": "Méthode d'évaluation",

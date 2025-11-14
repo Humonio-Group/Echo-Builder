@@ -20,6 +20,8 @@ export const useBuilderStore = defineStore("builder", {
           type: "score",
           method: "",
           config: {
+            mainScore: true,
+            previewMode: "text",
             min: 0,
             max: 100,
           },
@@ -80,6 +82,7 @@ export const useBuilderStore = defineStore("builder", {
         || !evaluationsValid
       ;
     },
+    hasMainScore: state => state.attributes.evaluations.some(e => e.type === "score" && (e.config as ScoreEvaluationConfig).mainScore),
   },
   actions: {
     moveUp(index: number) {
@@ -120,6 +123,8 @@ export const useBuilderStore = defineStore("builder", {
       switch (type) {
         case "score": {
           config = {
+            mainScore: false,
+            previewMode: "text",
             min: 0,
             max: 100,
           };
@@ -157,6 +162,29 @@ export const useBuilderStore = defineStore("builder", {
     },
     updateEvaluationsOrder() {
       this.attributes.evaluations = this.attributes.evaluations.map((e, index) => ({ ...e, order: index }));
+    },
+    makeMainScore(order: number) {
+      const update = (value: boolean) => this.attributes.evaluations = this.attributes.evaluations.map((e) => {
+        if (e.type !== "score") return e;
+        if (e.order !== order) return {
+          ...e,
+          config: {
+            ...e.config as ScoreEvaluationConfig,
+            mainScore: false,
+          },
+        };
+        return {
+          ...e,
+          config: {
+            ...e.config as ScoreEvaluationConfig,
+            mainScore: value,
+          },
+        };
+      });
+
+      const element = this.attributes.evaluations.find(e => e.order === order);
+      if (element!.type !== "score") return;
+      update(!(element!.config as ScoreEvaluationConfig).mainScore);
     },
 
     touch() {

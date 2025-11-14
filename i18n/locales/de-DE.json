@@ -25,6 +25,18 @@
       "description": "Sie haben laufende Änderungen. Wenn Sie ohne Speichern schließen, gehen Ihre Änderungen verloren. Sind Sie sicher, dass Sie beenden möchten?",
       "cancel": "Nein, bleiben",
       "confirm": "Ja, schließen"
+    },
+    "other-main-score-in-use": {
+      "title": "Ein Gesamtscore ist bereits definiert",
+      "description": "Möchten Sie diesen Score als Gesamtscore verwenden?",
+      "cancel": "Nein",
+      "confirm": "Ja"
+    },
+    "delete-main-score": {
+      "title": "Sind Sie sicher?",
+      "description": "Sie sind dabei, den Gesamtscore Ihrer Simulation zu löschen. Möchten Sie wirklich fortfahren?",
+      "cancel": "Nein, behalten",
+      "confirm": "Ja, löschen"
     }
   },
   "labels": {
@@ -44,13 +56,19 @@
       "light-models": "Leichte Modelle",
       "heavy-models": "Schwere Modelle"
     },
-    "tooltips": {},
+    "tooltips": {
+      "make-as-main-score": "Als Gesamtscore verwenden",
+      "make-as-normal-score": "Als normalen Score wiederherstellen",
+      "delete-score": "Score löschen",
+      "delete-graph": "Diagramm löschen",
+      "delete-text": "Absatz löschen"
+    },
     "toasts": {
       "fix-errors-before-saving": "Beheben Sie Fehler vor dem Speichern.",
       "save-changes-before-exporting": "Speichern Sie die Änderungen vor dem Export.",
       "saving-changes": {
         "loading": "Änderungen werden gespeichert...",
-        "success": "Die Änderungen wurden gespeichert!",
+        "success": "Änderungen wurden gespeichert!",
         "error": "Beim Speichern der Änderungen ist ein Fehler aufgetreten."
       },
       "exporting-scorm": {
@@ -76,7 +94,7 @@
         },
         "audio": {
           "title": "Audiomodus",
-          "description": "Die Lernenden stehen mit dem Agenten über einen Telefonanruf in Kontakt."
+          "description": "Die Lernenden werden mit dem Agenten per Telefonanruf interagieren."
         },
         "video": {
           "title": "Videomodus",
@@ -88,7 +106,7 @@
         "description": "Die folgenden Fragen helfen dem Agenten, sich auf das Gespräch vorzubereiten.",
         "empty": {
           "title": "Keine Frage",
-          "description": "Sie haben noch keine Frage hinzugefügt. Beginnen Sie, indem Sie eine zur Simulation hinzufügen.",
+          "description": "Sie haben noch keine Frage hinzugefügt. Starten Sie, indem Sie eine Frage zur Simulation hinzufügen.",
           "button": "Neue Frage"
         }
       }
@@ -96,23 +114,27 @@
     "engine": {
       "system-prompt": {
         "label": "Systemanweisungen",
-        "description": "Beschreiben Sie den Inhalt der Simulation, das Szenario und mögliche Ergebnisse."
+        "description": "Beschreiben Sie den Inhalt der Simulation, ihr Szenario und mögliche Ergebnisse."
       },
       "text-model": "Generierungsmodell",
       "audio-voice": {
         "label": "Stimme",
-        "description": "Wird im \"Audio\"-Modus verwendet"
+        "description": "Wird im „Audio“-Modus verwendet"
       },
       "video-replica": {
         "label": "Replica",
-        "description": "Wird im \"Video\"-Modus verwendet"
+        "description": "Wird im „Video“-Modus verwendet"
       }
     },
     "evaluation": {
       "add-score": "Score hinzufügen",
       "add-paragraph": "Absatz hinzufügen",
       "add-graph": "Diagramm hinzufügen",
-      "add-section": "Abschnitt hinzufügen",
+      "empty": {
+        "title": "Keine Sektion",
+        "description": "Sie haben noch keine Sektion hinzugefügt. Beginnen Sie, indem Sie eine zur Bewertung hinzufügen.",
+        "button": "Neue Sektion"
+      },
       "type": {
         "general-score": "Gesamtscore",
         "score": "Score",
@@ -121,7 +143,7 @@
           "line": "Liniendiagramm",
           "spider": "Spinnennetzdiagramm"
         },
-        "paragraph": "Textuelles Feedback"
+        "paragraph": "Absatz"
       },
       "evaluation-method": {
         "label": "Bewertungsmethode",
@@ -133,7 +155,7 @@
         "axes": "Diagrammachsen",
         "empty": {
           "title": "Keine Achse",
-          "description": "Sie haben noch keine Achse hinzugefügt. Fügen Sie eine zum Diagramm hinzu.",
+          "description": "Sie haben noch keine Achse hinzugefügt. Beginnen Sie, indem Sie eine zum Diagramm hinzufügen.",
           "button": "Neue Achse"
         }
       },

@@ -25,6 +25,7 @@ export interface Evaluation {
 }
 
 export interface ScoreEvaluationConfig {
+  mainScore: boolean;
   previewMode: ScoreEvaluationPreviewMode;
   min: number;
   max: number;
