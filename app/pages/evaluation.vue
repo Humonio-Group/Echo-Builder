@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Plus, Gauge, TextAlignStart, ChartPie, ChartNetwork, ChartColumnBig, ChartSpline, Stars } from "lucide-vue-next";
+import { Plus Stars } from "lucide-vue-next";
 import Page from "~/components/primitives/composing/Page.vue";
 import type {
   GraphEvaluationConfig,
