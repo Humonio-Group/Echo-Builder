@@ -9,8 +9,6 @@ defineProps<{
   order: number;
 }>();
 
-const builderStore = useBuilderStore();
-
 const method = defineModel<GraphEvaluation["method"]>("method", { required: true });
 const config = defineModel<GraphEvaluationConfig>("config", { required: true });
 const invalidMethod = computed(() => method.value?.trim().length < 100);
@@ -25,21 +23,6 @@ function removeAxis(index: number) {
 
 <template>
   <section class="group grid gap-4">
-    <header class="flex items-center justify-between gap-4">
-      <h2 class="text-xl font-extrabold">
-        {{ $t(`pages.evaluation.type.graph.${config.previewMode}`) }}
-      </h2>
-
-      <Button
-        size="icon-sm"
-        variant="ghost"
-        class="text-destructive! group-hover:opacity-100 opacity-100 md:opacity-0"
-        @click="builderStore.removeEvaluation(order)"
-      >
-        <Trash />
-      </Button>
-    </header>
-
     <div class="space-y-2">
       <div>
         <Label

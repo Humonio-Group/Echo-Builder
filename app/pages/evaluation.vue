@@ -10,6 +10,7 @@ import ScoreEvaluation from "~/components/shared/evaluations/parts/ScoreEvaluati
 import GraphEvaluation from "~/components/shared/evaluations/parts/GraphEvaluation.vue";
 import ParagraphEvaluation from "~/components/shared/evaluations/parts/ParagraphEvaluation.vue";
 import AddEvaluationSectionDropdownMenu from "~/components/shared/evaluations/AddEvaluationSectionDropdownMenu.vue";
+import EvaluationRender from "~/components/shared/evaluations/EvaluationRender.vue";
 
 definePageMeta({
   nameKey: "navigation.evaluation",
@@ -41,30 +42,11 @@ function scroll() {
       </header>
 
       <template v-if="attributes.evaluations.length > 0">
-        <template
-          v-for="(evaluation, index) in attributes.evaluations"
+        <EvaluationRender
+          v-for="evaluation in attributes.evaluations"
           :key="evaluation.order"
-        >
-          <Separator v-if="index > 0" />
-          <ScoreEvaluation
-            v-if="evaluation.type === 'score'"
-            v-model:method="evaluation.method"
-            v-model:config="evaluation.config as ScoreEvaluationConfig"
-            :order="evaluation.order"
-          />
-          <GraphEvaluation
-            v-if="evaluation.type === 'graph'"
-            v-model:method="evaluation.method"
-            v-model:config="evaluation.config as GraphEvaluationConfig"
-            :order="evaluation.order"
-          />
-          <ParagraphEvaluation
-            v-if="evaluation.type === 'paragraph'"
-            v-model:method="evaluation.method"
-            v-model:config="evaluation.config as ParagraphEvaluationConfig"
-            :order="evaluation.order"
-          />
-        </template>
+          :evaluation="evaluation"
+        />
       </template>
       <Empty v-else>
         <EmptyHeader>

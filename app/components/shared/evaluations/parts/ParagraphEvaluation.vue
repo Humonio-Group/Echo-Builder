@@ -17,21 +17,6 @@ const invalidWriting = computed(() => config.value.writingMethod.trim().length <
 
 <template>
   <section class="group grid gap-4">
-    <header class="flex items-center justify-between gap-4">
-      <h2 class="text-xl font-extrabold">
-        {{ $t("pages.evaluation.type.paragraph") }}
-      </h2>
-
-      <Button
-        size="icon-sm"
-        variant="ghost"
-        class="text-destructive! group-hover:opacity-100 opacity-100 md:opacity-0"
-        @click="builderStore.removeEvaluation(order)"
-      >
-        <Trash />
-      </Button>
-    </header>
-
     <div class="space-y-2">
       <div>
         <Label
