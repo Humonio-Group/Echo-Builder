@@ -2,6 +2,10 @@
 import { Mars, Square, Venus, Volume2, VolumeOff } from "lucide-vue-next";
 import Page from "~/components/primitives/composing/Page.vue";
 
+definePageMeta({
+  nameKey: "navigation.engine",
+});
+
 const builderStore = useBuilderStore();
 const { attributes } = storeToRefs(builderStore);
 

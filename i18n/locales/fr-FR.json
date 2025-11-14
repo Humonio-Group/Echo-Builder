@@ -28,6 +28,7 @@
     }
   },
   "labels": {
+    "axis": "Axe",
     "saved-since": {
       "moment-ago": "Enregistré il y a quelques secondes",
       "seconds-precise": "Enregistré il y a {time} secondes",
@@ -105,6 +106,40 @@
       "video-replica": {
         "label": "Replica",
         "description": "Utilisé dans le mode \"Vidéo\""
+      }
+    },
+    "evaluation": {
+      "add-score": "Ajouter un score",
+      "add-paragraph": "Ajouter un paragraphe",
+      "add-graph": "Ajouter un graphique",
+      "add-section": "Ajouter une section",
+      "type": {
+        "general-score": "Score général",
+        "score": "Score",
+        "graph": {
+          "bar": "Graphique en barres",
+          "line": "Graphique en courbes",
+          "spider": "Graphique araignée"
+        },
+        "paragraph": "Retour textuel"
+      },
+      "evaluation-method": {
+        "label": "Méthode d'évaluation",
+        "description": "Décrivez comment l'agent doit évaluer la conversation."
+      },
+      "axis": {
+        "min-value": "Valeur minimale",
+        "max-value": "Valeur maximale",
+        "axes": "Axes du graphique",
+        "empty": {
+          "title": "Aucun axe",
+          "description": "Vous n’avez pas encore ajouté d'axe. Commencez par en ajouter un au graphique.",
+          "button": "Nouvel axe"
+        }
+      },
+      "writing-method": {
+        "label": "Méthode de rédaction",
+        "description": "Décrivez à l'agent de quel manière il doit rédiger son retour."
       }
     }
   }

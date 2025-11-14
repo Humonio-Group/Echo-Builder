@@ -28,6 +28,7 @@
     }
   },
   "labels": {
+    "axis": "Achse",
     "saved-since": {
       "moment-ago": "Vor wenigen Sekunden gespeichert",
       "seconds-precise": "Vor {time} Sekunden gespeichert",
@@ -71,11 +72,11 @@
         },
         "text": {
           "title": "Textmodus",
-          "description": "Die Lernenden werden in einer SMS-ähnlichen Unterhaltung spielen."
+          "description": "Die Lernenden spielen in einer SMS-ähnlichen Unterhaltung."
         },
         "audio": {
           "title": "Audiomodus",
-          "description": "Die Lernenden stehen mit dem Agenten per Telefonanruf in Kontakt."
+          "description": "Die Lernenden stehen mit dem Agenten über einen Telefonanruf in Kontakt."
         },
         "video": {
           "title": "Videomodus",
@@ -105,6 +106,40 @@
       "video-replica": {
         "label": "Replica",
         "description": "Wird im \"Video\"-Modus verwendet"
+      }
+    },
+    "evaluation": {
+      "add-score": "Score hinzufügen",
+      "add-paragraph": "Absatz hinzufügen",
+      "add-graph": "Diagramm hinzufügen",
+      "add-section": "Abschnitt hinzufügen",
+      "type": {
+        "general-score": "Gesamtscore",
+        "score": "Score",
+        "graph": {
+          "bar": "Balkendiagramm",
+          "line": "Liniendiagramm",
+          "spider": "Spinnennetzdiagramm"
+        },
+        "paragraph": "Textuelles Feedback"
+      },
+      "evaluation-method": {
+        "label": "Bewertungsmethode",
+        "description": "Beschreiben Sie, wie der Agent das Gespräch bewerten soll."
+      },
+      "axis": {
+        "min-value": "Minimalwert",
+        "max-value": "Maximalwert",
+        "axes": "Diagrammachsen",
+        "empty": {
+          "title": "Keine Achse",
+          "description": "Sie haben noch keine Achse hinzugefügt. Fügen Sie eine zum Diagramm hinzu.",
+          "button": "Neue Achse"
+        }
+      },
+      "writing-method": {
+        "label": "Schreibmethode",
+        "description": "Beschreiben Sie, wie der Agent sein Feedback verfassen soll."
       }
     }
   }

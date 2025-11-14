@@ -28,6 +28,7 @@
     }
   },
   "labels": {
+    "axis": "Axis",
     "saved-since": {
       "moment-ago": "Saved a few seconds ago",
       "seconds-precise": "Saved {time} seconds ago",
@@ -87,7 +88,7 @@
         "description": "The following questions will help the agent prepare for the conversation.",
         "empty": {
           "title": "No question",
-          "description": "You have not added any question yet. Start by adding one to the simulation.",
+          "description": "You haven't added any question yet. Start by adding one to the simulation.",
           "button": "New question"
         }
       }
@@ -105,6 +106,40 @@
       "video-replica": {
         "label": "Replica",
         "description": "Used in \"video\" mode"
+      }
+    },
+    "evaluation": {
+      "add-score": "Add score",
+      "add-paragraph": "Add paragraph",
+      "add-graph": "Add graph",
+      "add-section": "Add section",
+      "type": {
+        "general-score": "General score",
+        "score": "Score",
+        "graph": {
+          "bar": "Bar chart",
+          "line": "Line chart",
+          "spider": "Spider chart"
+        },
+        "paragraph": "Text feedback"
+      },
+      "evaluation-method": {
+        "label": "Evaluation method",
+        "description": "Describe how the agent should evaluate the conversation."
+      },
+      "axis": {
+        "min-value": "Minimum value",
+        "max-value": "Maximum value",
+        "axes": "Chart axes",
+        "empty": {
+          "title": "No axis",
+          "description": "You haven't added any axis yet. Start by adding one to the chart.",
+          "button": "New axis"
+        }
+      },
+      "writing-method": {
+        "label": "Writing method",
+        "description": "Describe how the agent should write their feedback."
       }
     }
   }

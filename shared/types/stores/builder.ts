@@ -1,5 +1,6 @@
 import type { ID } from "../primitives";
-import type { PrepQuestions } from "~~/shares/types/config/prep-questions";
+import type { PrepQuestions } from "~~/shared/types/config/prep-questions";
+import type { Evaluations } from "~~/shared/types/config/evaluations";
 
 export interface BuilderState {
   contentId: ID;
@@ -7,7 +8,7 @@ export interface BuilderState {
     name: string;
     description: string;
     questions: PrepQuestions;
-    evaluations: string[];
+    evaluations: Evaluations;
     modes: {
       text: boolean;
       audio: boolean;

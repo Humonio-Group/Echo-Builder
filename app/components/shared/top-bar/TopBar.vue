@@ -34,7 +34,7 @@ function closeTab() {
 </script>
 
 <template>
-  <header :class="cn('sticky top-0 z-10 flex items-center gap-1 bg-background py-2', props.class)">
+  <header :class="cn('sticky top-0 z-10 flex items-center -mx-6 px-6 md:px-8 gap-1 bg-background py-2 border-b', props.class)">
     <NuxtImg
       v-if="icon"
       :src="icon"

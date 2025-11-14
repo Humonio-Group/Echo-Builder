@@ -1,27 +1,30 @@
-import type { BuilderState } from "~~/shares/types/stores/builder";
+import type { BuilderState } from "~~/shared/types/stores/builder";
 import { toast } from "vue-sonner";
+import type {
+  EvaluationType, GraphEvaluationConfig,
+  GraphEvaluationPreviewMode,
+  ParagraphEvaluationConfig,
+  ScoreEvaluationConfig,
+} from "#shared/types/config/evaluations";
 
 export const useBuilderStore = defineStore("builder", {
   state: (): BuilderState => ({
     contentId: -1,
     attributes: {
-      name: "",
-      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquam commodi distinctio facilis labore, rem. Alias enim magnam modi mollitia quibusdam reprehenderit sit voluptatem?",
-      questions: [
+      name: "Sinsim",
+      description: "Sinsim description",
+      questions: [],
+      evaluations: [
         {
           order: 1,
-          value: "Question 1",
-        },
-        {
-          order: 2,
-          value: "Question 2",
-        },
-        {
-          order: 3,
-          value: "Question 3",
+          type: "score",
+          method: "",
+          config: {
+            min: 0,
+            max: 100,
+          },
         },
       ],
-      evaluations: [],
       modes: {
         text: true,
         audio: false,
@@ -32,10 +35,10 @@ export const useBuilderStore = defineStore("builder", {
         model: "gpt-4o-mini",
         audio: {
           model: "elevenlabs_multilingual_v2",
-          voice: "rebecca",
+          voice: "rony",
         },
         video: {
-          replica: "john",
+          replica: "ashley",
         },
       },
     },
@@ -47,8 +50,26 @@ export const useBuilderStore = defineStore("builder", {
       const validName = !!state.attributes.name.trim().length;
       const validDescription = !!state.attributes.description.trim().length;
       const validQuestions = state.attributes.questions.every(q => !!q.value.trim().length);
-      const hasMode = !!Object.entries(state.attributes.modes).filter(([, value]) => !!value).length;
+      const hasMode = Object.values(state.attributes.modes).some(v => !!v);
       const validSystemPrompt = state.attributes.config.systemPrompt.trim().length > 200;
+      const evaluationsValid = state.attributes.evaluations.every((evaluation) => {
+        const global = evaluation.method.trim().length >= 100;
+
+        switch (evaluation.type) {
+          case "score": {
+            const config = evaluation.config as ScoreEvaluationConfig;
+            return global && config.min <= config.max;
+          }
+          case "graph": {
+            const config = evaluation.config as GraphEvaluationConfig;
+            return global && config.min <= config.max && config.axes.length >= 2;
+          }
+          default: {
+            const config = evaluation.config as ParagraphEvaluationConfig;
+            return global && config.writingMethod.trim().length >= 100;
+          }
+        }
+      });
 
       return !state.touched
         || !validName
@@ -56,6 +77,7 @@ export const useBuilderStore = defineStore("builder", {
         || !validQuestions
         || !hasMode
         || !validSystemPrompt
+        || !evaluationsValid
       ;
     },
   },
@@ -89,6 +111,52 @@ export const useBuilderStore = defineStore("builder", {
     },
     updateOrder() {
       this.attributes.questions = this.attributes.questions.map((question, index) => ({ ...question, order: index + 1 }));
+    },
+
+    addEvaluation(type: EvaluationType, previewMode?: GraphEvaluationPreviewMode) {
+      const { t } = useNuxtApp().$i18n;
+
+      let config;
+      switch (type) {
+        case "score": {
+          config = {
+            min: 0,
+            max: 100,
+          };
+          break;
+        }
+        case "graph": {
+          if (!previewMode) previewMode = "bar";
+          config = {
+            previewMode,
+            min: 0,
+            max: 100,
+            axes: [`${t("labels.axis")} 1`, `${t("labels.axis")} 2`],
+          };
+          break;
+        }
+        default: {
+          config = {
+            writingMethod: "",
+          };
+          break;
+        }
+      }
+
+      this.attributes.evaluations.push({
+        order: this.attributes.evaluations.length + 1,
+        type,
+        method: "",
+        config,
+      });
+      this.updateEvaluationsOrder();
+    },
+    removeEvaluation(index: number) {
+      this.attributes.evaluations = this.attributes.evaluations.filter(e => e.order !== index);
+      this.updateEvaluationsOrder();
+    },
+    updateEvaluationsOrder() {
+      this.attributes.evaluations = this.attributes.evaluations.map((e, index) => ({ ...e, order: index }));
     },
 
     touch() {

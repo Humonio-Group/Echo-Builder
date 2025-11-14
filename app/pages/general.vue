@@ -2,6 +2,10 @@
 import { AlertCircle, ChevronDown, ChevronUp, CircleQuestionMark, Edit, Plus, Trash } from "lucide-vue-next";
 import Page from "~/components/primitives/composing/Page.vue";
 
+definePageMeta({
+  nameKey: "navigation.general",
+});
+
 const fileInput = ref();
 const avatarUrl = ref<string | null>(null);
 

@@ -1,4 +1,4 @@
-import type { TNull } from "~~/shares/types/primitives";
+import type { TNull } from "~~/shared/types/primitives";
 
 export interface CompanyState {
   icon: TNull<string>;

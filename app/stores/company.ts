@@ -1,5 +1,5 @@
-import type { CompanyState } from "~~/shares/types/stores/company";
-import type { CompanyBrandingMeta } from "~~/shares/types/company";
+import type { CompanyState } from "~~/shared/types/stores/company";
+import type { CompanyBrandingMeta } from "~~/shared/types/company";
 
 export const useCompanyStore = defineStore("company", {
   state: (): CompanyState => ({
