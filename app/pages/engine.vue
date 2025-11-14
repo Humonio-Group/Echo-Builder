@@ -29,6 +29,11 @@ watch(isPlayingVoicePreview, (val) => {
     voicePlaying.value = null;
   }
 });
+onBeforeUnmount(() => {
+  if (!voicePlaying.value) return;
+  voicePlaying.value.pause();
+  voicePlaying.value = null;
+});
 </script>
 
 <template>
@@ -36,7 +41,16 @@ watch(isPlayingVoicePreview, (val) => {
     name="engine"
     class="flex justify-center"
   >
-    <div class="w-full max-w-xl gap-6 flex flex-col py-8">
+    <div class="w-full max-w-xl gap-6 flex flex-col py-6">
+      <header>
+        <h1 class="text-2xl font-black">
+          {{ $t("pages.engine.title") }}
+        </h1>
+        <p class="text-muted-foreground">
+          {{ $t("pages.engine.description") }}
+        </p>
+      </header>
+
       <div class="space-y-2">
         <div class="grid relative">
           <Label

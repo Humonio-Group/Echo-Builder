@@ -7,7 +7,7 @@ definePageMeta({
 });
 
 const fileInput = ref();
-const avatarUrl = ref<string | null>("images/ia-avatar.gif");
+const avatarUrl = ref<string | null>("/images/ia-avatar.gif");
 
 const builderStore = useBuilderStore();
 const { attributes } = storeToRefs(builderStore);
@@ -36,46 +36,56 @@ function handleFileUpload(event: InputEvent) {
     name="general"
     class="flex justify-center"
   >
-    <div class="w-full max-w-xl gap-6 flex flex-col py-8">
-      <div class="mx-auto relative">
-        <Avatar class="size-36">
-          <AvatarImage
-            v-if="avatarUrl"
-            :src="avatarUrl"
-          />
-          <AvatarFallback class="text-2xl">
-            Si
-          </AvatarFallback>
-        </Avatar>
-        <Button
-          size="icon-sm"
-          variant="secondary"
-          class="absolute bottom-2 right-2"
-          @click="openFileDialog"
-        >
-          <Edit />
-        </Button>
-        <input
-          ref="fileInput"
-          type="file"
-          hidden
-          class="absolute"
-          accept="image/*"
-          @change="handleFileUpload"
-        >
-      </div>
+    <div class="w-full max-w-xl gap-6 flex flex-col py-6">
+      <header>
+        <h1 class="text-2xl font-black">
+          {{ $t("pages.general.title") }}
+        </h1>
+        <p class="text-muted-foreground">
+          {{ $t("pages.general.description") }}
+        </p>
+      </header>
 
-      <section class="space-y-2">
-        <Label
-          for="name"
-          :class="{ 'text-destructive': invalidName }"
-        >{{ $t("pages.general.simulation-title") }}</Label>
-        <Input
-          id="name"
-          v-model="name"
-          placeholder="Bienvenue sur Echo"
-          :class="{ 'border-destructive': invalidName }"
-        />
+      <section class="grid grid-cols-[min-content_1fr] gap-4 items-center">
+        <div class="mx-auto relative">
+          <Avatar class="size-18">
+            <AvatarImage
+              v-if="avatarUrl"
+              :src="avatarUrl"
+            />
+            <AvatarFallback class="text-2xl">
+              Si
+            </AvatarFallback>
+          </Avatar>
+          <Button
+            size="icon-sm"
+            variant="secondary"
+            class="absolute bottom-0 right-0"
+            @click="openFileDialog"
+          >
+            <Edit />
+          </Button>
+          <input
+            ref="fileInput"
+            type="file"
+            hidden
+            class="absolute"
+            accept="image/*"
+            @change="handleFileUpload"
+          >
+        </div>
+        <section class="space-y-2">
+          <Label
+            for="name"
+            :class="{ 'text-destructive': invalidName }"
+          >{{ $t("pages.general.simulation-title") }}</Label>
+          <Input
+            id="name"
+            v-model="name"
+            placeholder="Bienvenue sur Echo"
+            :class="{ 'border-destructive': invalidName }"
+          />
+        </section>
       </section>
       <section class="space-y-2">
         <Label

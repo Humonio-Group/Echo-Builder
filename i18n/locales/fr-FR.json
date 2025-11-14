@@ -87,6 +87,8 @@
   },
   "pages": {
     "general": {
+      "title": "Informations générales",
+      "description": "Configurez l'affichage et les options de jeux de votre simulation.",
       "simulation-title": "Nom",
       "simulation-description": "Description",
       "modes": {
@@ -119,6 +121,8 @@
       }
     },
     "customize": {
+      "title": "Personnalisation de l'expérience",
+      "description": "Posez des question à l'apprenant lui permettant de personnaliser sa conversation.",
       "type": {
         "short": "Réponse courte",
         "long": "Réponse longue",
@@ -140,6 +144,8 @@
       }
     },
     "engine": {
+      "title": "Moteur de simulation",
+      "description": "Configurez le scénario et les options activés pour votre simulation.",
       "system-prompt": {
         "label": "Instructions système",
         "description": "Décrivez le contenu de la simulation, son scénario, ses possibilités de sorties."
@@ -155,6 +161,8 @@
       }
     },
     "evaluation": {
+      "title": "Évaluation",
+      "description": "Concevez le rapport de simulation généré à la fin du jeu de la simulation.",
       "add-score": "Ajouter un score",
       "add-paragraph": "Ajouter un paragraphe",
       "add-graph": "Ajouter un graphique",

@@ -87,6 +87,8 @@
   },
   "pages": {
     "general": {
+      "title": "General information",
+      "description": "Configure the display and gameplay options of your simulation.",
       "simulation-title": "Name",
       "simulation-description": "Description",
       "modes": {
@@ -119,6 +121,8 @@
       }
     },
     "customize": {
+      "title": "Experience customization",
+      "description": "Ask the learner questions that allow them to personalize their conversation.",
       "type": {
         "short": "Short answer",
         "long": "Long answer",
@@ -140,6 +144,8 @@
       }
     },
     "engine": {
+      "title": "Simulation engine",
+      "description": "Configure the scenario and the enabled options for your simulation.",
       "system-prompt": {
         "label": "System instructions",
         "description": "Describe the simulation content, its scenario, and possible outputs."
@@ -155,6 +161,8 @@
       }
     },
     "evaluation": {
+      "title": "Evaluation",
+      "description": "Design the simulation report generated at the end of the simulation run.",
       "add-score": "Add score",
       "add-paragraph": "Add paragraph",
       "add-graph": "Add graph",

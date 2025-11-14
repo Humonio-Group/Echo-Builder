@@ -30,7 +30,16 @@ function scroll() {
     name="evaluation"
     class="flex flex-col items-center"
   >
-    <div class="w-full max-w-xl grid gap-6">
+    <div class="w-full max-w-xl grid gap-6 py-6">
+      <header>
+        <h1 class="text-2xl font-black">
+          {{ $t("pages.evaluation.title") }}
+        </h1>
+        <p class="text-muted-foreground">
+          {{ $t("pages.evaluation.description") }}
+        </p>
+      </header>
+
       <template v-if="attributes.evaluations.length > 0">
         <template
           v-for="(evaluation, index) in attributes.evaluations"

@@ -23,7 +23,16 @@ function scroll() {
     name="customize"
     class="flex flex-col items-center"
   >
-    <div class="w-full max-w-xl grid gap-6">
+    <div class="w-full max-w-xl grid gap-6 py-6">
+      <header>
+        <h1 class="text-2xl font-black">
+          {{ $t("pages.customize.title") }}
+        </h1>
+        <p class="text-muted-foreground">
+          {{ $t("pages.customize.description") }}
+        </p>
+      </header>
+
       <template v-if="attributes.questions.length">
         <QuestionRender
           v-for="(question, index) in attributes.questions"
