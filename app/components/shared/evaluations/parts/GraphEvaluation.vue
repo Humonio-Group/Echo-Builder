@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { GraphEvaluation, GraphEvaluationConfig } from "~~/shared/types/config/evaluations";
-import { Plus, Trash, TrendingUp } from "lucide-vue-next";
+import { Plus, Trash } from "lucide-vue-next";
 import { NumberField } from "~/components/ui/number-field";
 
 const { t } = useI18n();
@@ -121,7 +121,7 @@ function removeAxis(index: number) {
       </div>
       <template v-if="config.axes.length">
         <div
-          v-for="(axis, index) in config!.axes"
+          v-for="(_, index) in config!.axes"
           :key="`graph-${order}-axis-${index}`"
           class="group/input relative"
         >
