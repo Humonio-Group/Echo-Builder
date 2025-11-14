@@ -9,8 +9,6 @@ withDefaults(defineProps<{
   hasOtherGlobal: false,
 });
 
-const builderStore = useBuilderStore();
-
 const method = defineModel<ScoreEvaluation["method"]>("method", { required: true });
 const config = defineModel<ScoreEvaluation["config"]>("config", { required: true });
 

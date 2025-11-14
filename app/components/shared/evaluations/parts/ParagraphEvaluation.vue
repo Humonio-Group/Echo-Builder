@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import type { ParagraphEvaluation } from "~~/shared/types/config/evaluations";
-import { Trash } from "lucide-vue-next";
 
 defineProps<{
   order: number;
 }>();
-
-const builderStore = useBuilderStore();
 
 const method = defineModel<ParagraphEvaluation["method"]>("method", { required: true });
 const config = defineModel<ParagraphEvaluation["config"]>("config", { required: true });

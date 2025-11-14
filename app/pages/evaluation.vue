@@ -1,14 +1,6 @@
 <script setup lang="ts">
 import { Plus, Stars } from "lucide-vue-next";
 import Page from "~/components/primitives/composing/Page.vue";
-import type {
-  GraphEvaluationConfig,
-  ParagraphEvaluationConfig,
-  ScoreEvaluationConfig,
-} from "~~/shared/types/config/evaluations";
-import ScoreEvaluation from "~/components/shared/evaluations/parts/ScoreEvaluation.vue";
-import GraphEvaluation from "~/components/shared/evaluations/parts/GraphEvaluation.vue";
-import ParagraphEvaluation from "~/components/shared/evaluations/parts/ParagraphEvaluation.vue";
 import AddEvaluationSectionDropdownMenu from "~/components/shared/evaluations/AddEvaluationSectionDropdownMenu.vue";
 import EvaluationRender from "~/components/shared/evaluations/EvaluationRender.vue";
 
