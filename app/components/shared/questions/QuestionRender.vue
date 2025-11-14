@@ -40,7 +40,7 @@ const store = useBuilderStore();
                   size="icon-sm"
                   variant="link"
                   class="text-destructive! md:opacity-0 group-hover/main:opacity-100"
-                  @click="store.removeQuestion(question.order)"
+                  @click.stop="store.removeQuestion(question.order)"
                 >
                   <Trash />
                 </Button>
