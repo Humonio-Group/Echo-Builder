@@ -23,13 +23,13 @@
   "alerts": {
     "close-with-changes": {
       "title": "Sind Sie sicher?",
-      "description": "Sie haben laufende Änderungen. Wenn Sie ohne Speichern schließen, gehen Ihre Änderungen verloren. Sind Sie sicher, dass Sie beenden möchten?",
+      "description": "Sie haben laufende Änderungen. Wenn Sie ohne Speichern schließen, gehen diese verloren. Sind Sie sicher, dass Sie fortfahren möchten?",
       "cancel": "Nein, bleiben",
       "confirm": "Ja, schließen"
     },
     "other-main-score-in-use": {
-      "title": "Ein Gesamtscore ist bereits definiert",
-      "description": "Möchten Sie diesen Score als Gesamtscore verwenden?",
+      "title": "Ein Gesamtscore wurde bereits definiert",
+      "description": "Möchten Sie diesen Score als Ihren Gesamtscore festlegen?",
       "cancel": "Nein",
       "confirm": "Ja"
     },
@@ -42,6 +42,8 @@
   },
   "labels": {
     "axis": "Achse",
+    "question-placeholder": "Neue Frage",
+    "option-placeholder": "Neue Option",
     "saved-since": {
       "moment-ago": "Vor wenigen Sekunden gespeichert",
       "seconds-precise": "Vor {time} Sekunden gespeichert",
@@ -58,11 +60,15 @@
       "heavy-models": "Schwere Modelle"
     },
     "tooltips": {
-      "make-as-main-score": "Als Gesamtscore verwenden",
+      "make-as-main-score": "Als Gesamtscore festlegen",
       "make-as-normal-score": "Als normalen Score wiederherstellen",
       "delete-score": "Score löschen",
       "delete-graph": "Diagramm löschen",
-      "delete-text": "Absatz löschen"
+      "delete-text": "Absatz löschen",
+      "delete-short": "Kurzantwort löschen",
+      "delete-long": "Langantwort löschen",
+      "delete-select": "Auswahl löschen",
+      "delete-range": "Schieberegler löschen"
     },
     "toasts": {
       "fix-errors-before-saving": "Beheben Sie Fehler vor dem Speichern.",
@@ -95,7 +101,7 @@
         },
         "audio": {
           "title": "Audiomodus",
-          "description": "Die Lernenden werden mit dem Agenten per Telefonanruf interagieren."
+          "description": "Die Lernenden kommunizieren mit dem Agenten per Telefon."
         },
         "video": {
           "title": "Videomodus",
@@ -107,15 +113,36 @@
         "description": "Die folgenden Fragen helfen dem Agenten, sich auf das Gespräch vorzubereiten.",
         "empty": {
           "title": "Keine Frage",
-          "description": "Sie haben noch keine Frage hinzugefügt. Starten Sie, indem Sie eine Frage zur Simulation hinzufügen.",
+          "description": "Sie haben noch keine Frage hinzugefügt. Beginnen Sie, indem Sie eine hinzufügen.",
           "button": "Neue Frage"
         }
+      }
+    },
+    "customize": {
+      "type": {
+        "short": "Kurzantwort",
+        "long": "Langantwort",
+        "select": "Auswahl",
+        "range": "Schieberegler"
+      },
+      "empty": {
+        "title": "Keine Frage",
+        "description": "Sie haben noch keine Personalisierungsfrage hinzugefügt. Fügen Sie eine zur Simulation hinzu.",
+        "button": "Neue Frage"
+      },
+      "fields": {
+        "label": "Bezeichnung",
+        "min-value": "Minimum",
+        "max-value": "Maximum",
+        "max-length": "Maximale Länge",
+        "make-required": "Diese Frage verpflichtend machen",
+        "options": "Optionen"
       }
     },
     "engine": {
       "system-prompt": {
         "label": "Systemanweisungen",
-        "description": "Beschreiben Sie den Inhalt der Simulation, ihr Szenario und mögliche Ergebnisse."
+        "description": "Beschreiben Sie den Inhalt der Simulation, das Szenario und mögliche Ergebnisse."
       },
       "text-model": "Generierungsmodell",
       "audio-voice": {
@@ -133,7 +160,7 @@
       "add-graph": "Diagramm hinzufügen",
       "empty": {
         "title": "Keine Sektion",
-        "description": "Sie haben noch keine Sektion hinzugefügt. Beginnen Sie, indem Sie eine zur Bewertung hinzufügen.",
+        "description": "Sie haben noch keine Sektion hinzugefügt. Fügen Sie eine zur Bewertung hinzu.",
         "button": "Neue Sektion"
       },
       "type": {
@@ -156,13 +183,13 @@
         "axes": "Diagrammachsen",
         "empty": {
           "title": "Keine Achse",
-          "description": "Sie haben noch keine Achse hinzugefügt. Beginnen Sie, indem Sie eine zum Diagramm hinzufügen.",
+          "description": "Fügen Sie eine Achse zum Diagramm hinzu.",
           "button": "Neue Achse"
         }
       },
       "writing-method": {
         "label": "Schreibmethode",
-        "description": "Beschreiben Sie, wie der Agent sein Feedback verfassen soll."
+        "description": "Beschreiben Sie, wie der Agent sein Feedback formulieren soll."
       }
     }
   }

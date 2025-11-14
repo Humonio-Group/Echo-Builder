@@ -16,7 +16,7 @@
       }
     },
     "general": "General",
-    "customize": "Personalization",
+    "customize": "Customization",
     "engine": "Engine",
     "evaluation": "Evaluation"
   },
@@ -29,19 +29,21 @@
     },
     "other-main-score-in-use": {
       "title": "A general score is already defined",
-      "description": "Do you want to make this score your general score?",
+      "description": "Would you like to set this score as your general score?",
       "cancel": "No",
       "confirm": "Yes"
     },
     "delete-main-score": {
       "title": "Are you sure?",
-      "description": "You are about to delete the general score of your simulation. Are you sure you want to continue?",
+      "description": "You are about to delete your simulation's general score. Are you sure you want to continue?",
       "cancel": "No, keep it",
       "confirm": "Yes, delete"
     }
   },
   "labels": {
     "axis": "Axis",
+    "question-placeholder": "New question",
+    "option-placeholder": "New option",
     "saved-since": {
       "moment-ago": "Saved a few seconds ago",
       "seconds-precise": "Saved {time} seconds ago",
@@ -58,11 +60,15 @@
       "heavy-models": "Heavy models"
     },
     "tooltips": {
-      "make-as-main-score": "Set as general score",
+      "make-as-main-score": "Use as general score",
       "make-as-normal-score": "Revert to normal score",
       "delete-score": "Delete score",
       "delete-graph": "Delete graph",
-      "delete-text": "Delete paragraph"
+      "delete-text": "Delete paragraph",
+      "delete-short": "Delete short answer",
+      "delete-long": "Delete long answer",
+      "delete-select": "Delete selection",
+      "delete-range": "Delete slider"
     },
     "toasts": {
       "fix-errors-before-saving": "Fix errors before saving.",
@@ -91,11 +97,11 @@
         },
         "text": {
           "title": "Text mode",
-          "description": "Your learners will play in an SMS-like conversation."
+          "description": "Your learners will play in an SMS-type conversation."
         },
         "audio": {
           "title": "Audio mode",
-          "description": "Your learners will interact with the agent through a phone call."
+          "description": "Your learners will communicate with the agent via phone call."
         },
         "video": {
           "title": "Video mode",
@@ -112,10 +118,31 @@
         }
       }
     },
+    "customize": {
+      "type": {
+        "short": "Short answer",
+        "long": "Long answer",
+        "select": "Selection",
+        "range": "Slider"
+      },
+      "empty": {
+        "title": "No question",
+        "description": "You haven’t added any customization question yet. Start by adding one to the simulation.",
+        "button": "New question"
+      },
+      "fields": {
+        "label": "Label",
+        "min-value": "Minimum",
+        "max-value": "Maximum",
+        "max-length": "Maximum length",
+        "make-required": "Make this question mandatory",
+        "options": "Options"
+      }
+    },
     "engine": {
       "system-prompt": {
         "label": "System instructions",
-        "description": "Describe the content of the simulation, its scenario, and possible outputs."
+        "description": "Describe the simulation content, its scenario, and possible outputs."
       },
       "text-model": "Generation model",
       "audio-voice": {
@@ -133,7 +160,7 @@
       "add-graph": "Add graph",
       "empty": {
         "title": "No section",
-        "description": "You have not added any section yet. Start by adding one to the evaluation.",
+        "description": "You haven’t added any section yet. Start by adding one to the evaluation.",
         "button": "New section"
       },
       "type": {
@@ -162,7 +189,7 @@
       },
       "writing-method": {
         "label": "Writing method",
-        "description": "Describe how the agent should write their feedback."
+        "description": "Describe how the agent should write the feedback."
       }
     }
   }
