@@ -10,9 +10,14 @@ const nameKey = computed(() => route.meta.nameKey as string | undefined);
 const builderStore = useBuilderStore();
 const { attributes } = storeToRefs(builderStore);
 
-useHead({
-  title: `${attributes.value.name}${nameKey.value ? `· ${t(nameKey.value)}` : ""}`,
-});
+function updateTitle() {
+  useHead({
+    title: `${attributes.value.name}${nameKey.value ? ` · ${t(nameKey.value)}` : ""}`,
+  });
+}
+
+watch(nameKey, updateTitle);
+updateTitle();
 </script>
 
 <template>
