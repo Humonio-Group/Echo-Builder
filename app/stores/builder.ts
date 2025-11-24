@@ -36,6 +36,12 @@ export const useBuilderStore = defineStore("builder", {
         video: {
           replica: "ashley",
         },
+        end: {
+          user: true,
+          time: false,
+          duration: 10,
+          agent: false,
+        },
       },
     },
     touched: false,

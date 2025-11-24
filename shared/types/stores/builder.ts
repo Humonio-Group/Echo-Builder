@@ -24,6 +24,12 @@ export interface BuilderState {
       video: {
         replica: string;
       };
+      end: {
+        user: boolean;
+        time: boolean;
+        duration: number;
+        agent: boolean;
+      };
     };
   };
   touched: boolean;

@@ -158,6 +158,22 @@
       "video-replica": {
         "label": "Replica",
         "description": "Utilisé dans le mode \"Vidéo\""
+      },
+      "end-modes": {
+        "label": "Modes de sortie",
+        "by-ai": {
+          "label": "Par l'agent",
+          "description": "L'agent conversationnel pourra décider de sortir.",
+          "alert": "Attention, si vous activez cette option, vous devez intégrer les scénarios de sortie dans les instructions systèmes de votre simulation, sinon l'agent ne pourra pas sortir de la simulation."
+        },
+        "by-time": {
+          "label": "Temps limité (en minutes)",
+          "description": "L'utilisateur disposera d'un temps limité pour terminer sa simulation."
+        },
+        "by-user": {
+          "label": "Par l'utilisateur",
+          "description": "L'utilisateur pourra décider de sortir de sa simulation en tout temps."
+        }
       }
     },
     "evaluation": {
