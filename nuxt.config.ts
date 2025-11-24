@@ -11,6 +11,9 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
     "@pinia/nuxt",
   ],
+  app: {
+    baseURL: process.env.APP_BASE_URL || "/",
+  },
   ssr: false,
   devtools: { enabled: true },
   css: ["../tailwind.css"],
