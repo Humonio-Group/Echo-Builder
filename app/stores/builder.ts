@@ -99,6 +99,11 @@ export const useBuilderStore = defineStore("builder", {
     hasMainScore: state => state.attributes.evaluations.some(e => e.type === "score" && (e.config as ScoreEvaluationConfig).mainScore),
   },
   actions: {
+    async loadSimulation(id: number) {
+      this.contentId = id;
+      // TODO: load simulation from API
+    },
+
     addQuestion(type: PrepQuestionType) {
       let config;
       switch (type) {
