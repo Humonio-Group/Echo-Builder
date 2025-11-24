@@ -161,6 +161,10 @@
       },
       "end-modes": {
         "label": "Modes de sortie",
+        "no-end-mode-selected": {
+          "title": "Aucun mode de fin sélectionné.",
+          "description": "Au moins une option active est requise pour enregistrer !"
+        },
         "by-ai": {
           "label": "Par l'agent",
           "description": "L'agent conversationnel pourra décider de sortir.",
