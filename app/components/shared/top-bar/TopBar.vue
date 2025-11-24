@@ -100,7 +100,7 @@ function closeTab() {
         as-child
       >
         <NuxtLinkLocale
-          to="/general"
+          :to="useRelativePath('/general')"
           active-class="bg-secondary! text-secondary-foreground!"
         >
           {{ $t("navigation.general") }}
@@ -111,7 +111,7 @@ function closeTab() {
         as-child
       >
         <NuxtLinkLocale
-          to="/customize"
+          :to="useRelativePath('/customize')"
           active-class="bg-secondary! text-secondary-foreground!"
         >
           {{ $t("navigation.customize") }}
@@ -122,7 +122,7 @@ function closeTab() {
         as-child
       >
         <NuxtLinkLocale
-          to="/engine"
+          :to="useRelativePath('/engine')"
           active-class="bg-secondary! text-secondary-foreground!"
         >
           {{ $t("navigation.engine") }}
@@ -133,7 +133,7 @@ function closeTab() {
         as-child
       >
         <NuxtLinkLocale
-          to="/evaluation"
+          :to="useRelativePath('/evaluation')"
           active-class="bg-secondary! text-secondary-foreground!"
         >
           {{ $t("navigation.evaluation") }}
