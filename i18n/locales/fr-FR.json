@@ -1,1 +1,224 @@
-{}
+{
+  "btn": {
+    "save": "Enregistrer",
+    "retry": "Ré-essayer"
+  },
+  "navigation": {
+    "file": {
+      "DEFAULT": "Fichier",
+      "save": "Enregistrer",
+      "save-and-close": "Enregistrer et fermer",
+      "close-without-saving": "Fermer sans enregistrer",
+      "export-to-scorm": {
+        "DEFAULT": "Exporter en SCORM",
+        "scorm-12": "SCORM 1.2",
+        "scorm-2004": "SCORM 2004 (1.3)"
+      }
+    },
+    "general": "Général",
+    "customize": "Personnalisation",
+    "engine": "Moteur",
+    "evaluation": "Évaluation"
+  },
+  "alerts": {
+    "close-with-changes": {
+      "title": "Êtes-vous sûr ?",
+      "description": "Vous avez des modifications en cours. Si vous fermez sans enregistrer, vous perdrez vos changements. Êtes-vous sûr de vouloir quitter ?",
+      "cancel": "Non, rester",
+      "confirm": "Oui, fermer"
+    },
+    "other-main-score-in-use": {
+      "title": "Un score général a déjà été défini",
+      "description": "Souhaitez-vous faire de ce score votre score général ?",
+      "cancel": "Non",
+      "confirm": "Oui"
+    },
+    "delete-main-score": {
+      "title": "Êtes-vous sûr ?",
+      "description": "Vous êtes sur le point de supprimer le score général de votre simulation. Êtes-vous sûr de vouloir continuer ?",
+      "cancel": "Non, conserver",
+      "confirm": "Oui, supprimer"
+    }
+  },
+  "labels": {
+    "axis": "Axe",
+    "question-placeholder": "Nouvelle question",
+    "option-placeholder": "Nouvelle option",
+    "saved-since": {
+      "moment-ago": "Enregistré il y a quelques secondes",
+      "seconds-precise": "Enregistré il y a {time} secondes",
+      "minutes-ago": "Enregistré il y a quelques minutes",
+      "minutes-precise": "Enregistré il y a {time} minutes",
+      "hour-ago": "Enregistré il y a une heure | Enregistré il y a {time} heures",
+      "yesterday": "Enregistré hier",
+      "days-ago": "Enregistré il y a un jour | Enregistré il y a {time} jours",
+      "last-week": "Enregistré la semaine dernière",
+      "precisely-at": "Enregistré le {date} à {time}"
+    },
+    "models": {
+      "light-models": "Modèles légers",
+      "heavy-models": "Modèles lourds"
+    },
+    "tooltips": {
+      "make-as-main-score": "Utiliser comme score général",
+      "make-as-normal-score": "Rétablir comme score normal",
+      "delete-score": "Supprimer le score",
+      "delete-graph": "Supprimer le graphique",
+      "delete-text": "Supprimer le paragraphe",
+      "delete-short": "Supprimer la réponse courte",
+      "delete-long": "Supprimer la réponse longue",
+      "delete-select": "Supprimer la sélection",
+      "delete-range": "Supprimer le curseur"
+    },
+    "toasts": {
+      "fix-errors-before-saving": "Corrigez les erreurs avant de sauvegarder.",
+      "save-changes-before-exporting": "Enregistrez les modifications avant d'exporter.",
+      "saving-changes": {
+        "loading": "Enregistrement des modifications...",
+        "success": "Les modifications ont été enregistrées !",
+        "error": "Une erreur est survenue en sauvegardant les changements."
+      },
+      "exporting-scorm": {
+        "loading": "Export de la simulation vers SCORM {version}...",
+        "success": "Votre simulation a été exportée vers SCORM {version} !",
+        "error": "Une erreur est survenue en exportant la simulation."
+      }
+    }
+  },
+  "pages": {
+    "general": {
+      "title": "Informations générales",
+      "description": "Configurez l'affichage et les options de jeux de votre simulation.",
+      "simulation-title": "Nom",
+      "simulation-description": "Description",
+      "modes": {
+        "label": "Modes de simulation",
+        "no-mode-selected": {
+          "title": "Aucun mode de simulation sélectionné.",
+          "description": "Au moins une option active est requise pour enregistrer !"
+        },
+        "text": {
+          "title": "Mode texte",
+          "description": "Vos apprenants joueront dans une conversation de type SMS."
+        },
+        "audio": {
+          "title": "Mode audio",
+          "description": "Vos apprenants seront en contact avec l’agent par un appel téléphonique."
+        },
+        "video": {
+          "title": "Mode vidéo",
+          "description": "Vos apprenants rencontreront l’agent dans une visioconférence."
+        }
+      },
+      "questions": {
+        "label": "Préparation des questions",
+        "description": "Les questions suivantes aideront l’agent à se préparer à la conversation.",
+        "empty": {
+          "title": "Aucune question",
+          "description": "Vous n’avez pas encore ajouté de question. Commencez par en ajouter une à la simulation.",
+          "button": "Nouvelle question"
+        }
+      }
+    },
+    "customize": {
+      "title": "Personnalisation de l'expérience",
+      "description": "Posez des question à l'apprenant lui permettant de personnaliser sa conversation.",
+      "type": {
+        "short": "Réponse courte",
+        "long": "Réponse longue",
+        "select": "Sélection",
+        "range": "Curseur"
+      },
+      "empty": {
+        "title": "Aucune question",
+        "description": "Vous n’avez pas encore ajouté de question de presonnalisation. Commencez par en ajouter une à la simulation.",
+        "button": "Nouvelle question"
+      },
+      "fields": {
+        "label": "Libellé",
+        "min-value": "Minimum",
+        "max-value": "Maximum",
+        "max-length": "Longeur maximum",
+        "make-required": "Rendre cette question obligatoire",
+        "options": "Options"
+      }
+    },
+    "engine": {
+      "title": "Moteur de simulation",
+      "description": "Configurez le scénario et les options activés pour votre simulation.",
+      "system-prompt": {
+        "label": "Instructions système",
+        "description": "Décrivez le contenu de la simulation, son scénario, ses possibilités de sorties."
+      },
+      "text-model": "Modèle de génération",
+      "audio-voice": {
+        "label": "Voix",
+        "description": "Utilisé dans le mode \"audio\""
+      },
+      "video-replica": {
+        "label": "Replica",
+        "description": "Utilisé dans le mode \"Vidéo\""
+      },
+      "end-modes": {
+        "label": "Modes de sortie",
+        "no-end-mode-selected": {
+          "title": "Aucun mode de fin sélectionné.",
+          "description": "Au moins une option active est requise pour enregistrer !"
+        },
+        "by-ai": {
+          "label": "Par l'agent",
+          "description": "L'agent conversationnel pourra décider de sortir.",
+          "alert": "Attention, si vous activez cette option, vous devez intégrer les scénarios de sortie dans les instructions systèmes de votre simulation, sinon l'agent ne pourra pas sortir de la simulation."
+        },
+        "by-time": {
+          "label": "Temps limité (en minutes)",
+          "description": "L'utilisateur disposera d'un temps limité pour terminer sa simulation."
+        },
+        "by-user": {
+          "label": "Par l'utilisateur",
+          "description": "L'utilisateur pourra décider de sortir de sa simulation en tout temps."
+        }
+      }
+    },
+    "evaluation": {
+      "title": "Évaluation",
+      "description": "Concevez le rapport de simulation généré à la fin du jeu de la simulation.",
+      "add-score": "Ajouter un score",
+      "add-paragraph": "Ajouter un paragraphe",
+      "add-graph": "Ajouter un graphique",
+      "empty": {
+        "title": "Aucune section",
+        "description": "Vous n’avez pas encore ajouté de section. Commencez par en ajouter une à l'évaluation.",
+        "button": "Nouvelle section"
+      },
+      "type": {
+        "general-score": "Score général",
+        "score": "Score",
+        "graph": {
+          "bar": "Graphique en barres",
+          "line": "Graphique en courbes",
+          "spider": "Graphique araignée"
+        },
+        "paragraph": "Paragraphe"
+      },
+      "evaluation-method": {
+        "label": "Méthode d'évaluation",
+        "description": "Décrivez comment l'agent doit évaluer la conversation."
+      },
+      "axis": {
+        "min-value": "Valeur minimale",
+        "max-value": "Valeur maximale",
+        "axes": "Axes du graphique",
+        "empty": {
+          "title": "Aucun axe",
+          "description": "Vous n’avez pas encore ajouté d'axe. Commencez par en ajouter un au graphique.",
+          "button": "Nouvel axe"
+        }
+      },
+      "writing-method": {
+        "label": "Méthode de rédaction",
+        "description": "Décrivez à l'agent de quel manière il doit rédiger son retour."
+      }
+    }
+  }
+}

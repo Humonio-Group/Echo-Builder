@@ -1,1 +1,204 @@
-{}
+{
+  "btn": {
+    "save": "Save",
+    "retry": "Retry"
+  },
+  "navigation": {
+    "file": {
+      "DEFAULT": "File",
+      "save": "Save",
+      "save-and-close": "Save and close",
+      "close-without-saving": "Close without saving",
+      "export-to-scorm": {
+        "DEFAULT": "Export to SCORM",
+        "scorm-12": "SCORM 1.2",
+        "scorm-2004": "SCORM 2004 (1.3)"
+      }
+    },
+    "general": "General",
+    "customize": "Customization",
+    "engine": "Engine",
+    "evaluation": "Evaluation"
+  },
+  "alerts": {
+    "close-with-changes": {
+      "title": "Are you sure?",
+      "description": "You have changes in progress. If you close without saving, you'll lose your changes. Are you sure you want to quit?",
+      "cancel": "No, stay",
+      "confirm": "Yes, close"
+    },
+    "other-main-score-in-use": {
+      "title": "A general score is already defined",
+      "description": "Would you like to set this score as your general score?",
+      "cancel": "No",
+      "confirm": "Yes"
+    },
+    "delete-main-score": {
+      "title": "Are you sure?",
+      "description": "You are about to delete your simulation's general score. Are you sure you want to continue?",
+      "cancel": "No, keep it",
+      "confirm": "Yes, delete"
+    }
+  },
+  "labels": {
+    "axis": "Axis",
+    "question-placeholder": "New question",
+    "option-placeholder": "New option",
+    "saved-since": {
+      "moment-ago": "Saved a few seconds ago",
+      "seconds-precise": "Saved {time} seconds ago",
+      "minutes-ago": "Saved a few minutes ago",
+      "minutes-precise": "Saved {time} minutes ago",
+      "hour-ago": "Saved an hour ago | Saved {time} hours ago",
+      "yesterday": "Saved yesterday",
+      "days-ago": "Saved a day ago | Saved {time} days ago",
+      "last-week": "Saved last week",
+      "precisely-at": "Saved on {date} at {time}"
+    },
+    "models": {
+      "light-models": "Light models",
+      "heavy-models": "Heavy models"
+    },
+    "tooltips": {
+      "make-as-main-score": "Use as general score",
+      "make-as-normal-score": "Revert to normal score",
+      "delete-score": "Delete score",
+      "delete-graph": "Delete graph",
+      "delete-text": "Delete paragraph",
+      "delete-short": "Delete short answer",
+      "delete-long": "Delete long answer",
+      "delete-select": "Delete selection",
+      "delete-range": "Delete slider"
+    },
+    "toasts": {
+      "fix-errors-before-saving": "Fix errors before saving.",
+      "save-changes-before-exporting": "Save changes before exporting.",
+      "saving-changes": {
+        "loading": "Saving changes...",
+        "success": "Changes have been saved!",
+        "error": "An error occurred while saving changes."
+      },
+      "exporting-scorm": {
+        "loading": "Exporting simulation to SCORM {version}...",
+        "success": "Your simulation has been exported to SCORM {version}!",
+        "error": "An error occurred while exporting the simulation."
+      }
+    }
+  },
+  "pages": {
+    "general": {
+      "title": "General information",
+      "description": "Configure the display and gameplay options of your simulation.",
+      "simulation-title": "Name",
+      "simulation-description": "Description",
+      "modes": {
+        "label": "Simulation modes",
+        "no-mode-selected": {
+          "title": "No simulation mode selected.",
+          "description": "At least one active option is required to save!"
+        },
+        "text": {
+          "title": "Text mode",
+          "description": "Your learners will play in an SMS-type conversation."
+        },
+        "audio": {
+          "title": "Audio mode",
+          "description": "Your learners will communicate with the agent via phone call."
+        },
+        "video": {
+          "title": "Video mode",
+          "description": "Your learners will meet the agent in a video meeting."
+        }
+      },
+      "questions": {
+        "label": "Preparing questions",
+        "description": "The following questions will help the agent prepare for the conversation.",
+        "empty": {
+          "title": "No question",
+          "description": "You haven’t added any question yet. Start by adding one to the simulation.",
+          "button": "New question"
+        }
+      }
+    },
+    "customize": {
+      "title": "Experience customization",
+      "description": "Ask the learner questions that allow them to personalize their conversation.",
+      "type": {
+        "short": "Short answer",
+        "long": "Long answer",
+        "select": "Selection",
+        "range": "Slider"
+      },
+      "empty": {
+        "title": "No question",
+        "description": "You haven’t added any customization question yet. Start by adding one to the simulation.",
+        "button": "New question"
+      },
+      "fields": {
+        "label": "Label",
+        "min-value": "Minimum",
+        "max-value": "Maximum",
+        "max-length": "Maximum length",
+        "make-required": "Make this question mandatory",
+        "options": "Options"
+      }
+    },
+    "engine": {
+      "title": "Simulation engine",
+      "description": "Configure the scenario and the enabled options for your simulation.",
+      "system-prompt": {
+        "label": "System instructions",
+        "description": "Describe the simulation content, its scenario, and possible outputs."
+      },
+      "text-model": "Generation model",
+      "audio-voice": {
+        "label": "Voice",
+        "description": "Used in \"audio\" mode"
+      },
+      "video-replica": {
+        "label": "Replica",
+        "description": "Used in \"video\" mode"
+      }
+    },
+    "evaluation": {
+      "title": "Evaluation",
+      "description": "Design the simulation report generated at the end of the simulation run.",
+      "add-score": "Add score",
+      "add-paragraph": "Add paragraph",
+      "add-graph": "Add graph",
+      "empty": {
+        "title": "No section",
+        "description": "You haven’t added any section yet. Start by adding one to the evaluation.",
+        "button": "New section"
+      },
+      "type": {
+        "general-score": "General score",
+        "score": "Score",
+        "graph": {
+          "bar": "Bar chart",
+          "line": "Line chart",
+          "spider": "Spider chart"
+        },
+        "paragraph": "Paragraph"
+      },
+      "evaluation-method": {
+        "label": "Evaluation method",
+        "description": "Describe how the agent should evaluate the conversation."
+      },
+      "axis": {
+        "min-value": "Minimum value",
+        "max-value": "Maximum value",
+        "axes": "Chart axes",
+        "empty": {
+          "title": "No axis",
+          "description": "You haven’t added any axis yet. Start by adding one to the graph.",
+          "button": "New axis"
+        }
+      },
+      "writing-method": {
+        "label": "Writing method",
+        "description": "Describe how the agent should write the feedback."
+      }
+    }
+  }
+}
