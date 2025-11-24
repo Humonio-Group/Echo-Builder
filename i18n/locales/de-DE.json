@@ -23,13 +23,13 @@
   "alerts": {
     "close-with-changes": {
       "title": "Sind Sie sicher?",
-      "description": "Sie haben laufende Änderungen. Wenn Sie ohne Speichern schließen, gehen diese verloren. Sind Sie sicher, dass Sie fortfahren möchten?",
+      "description": "Sie haben ungespeicherte Änderungen. Wenn Sie schließen, ohne zu speichern, gehen diese verloren. Möchten Sie wirklich fortfahren?",
       "cancel": "Nein, bleiben",
       "confirm": "Ja, schließen"
     },
     "other-main-score-in-use": {
       "title": "Ein Gesamtscore wurde bereits definiert",
-      "description": "Möchten Sie diesen Score als Ihren Gesamtscore festlegen?",
+      "description": "Möchten Sie diesen Score als Gesamtscore festlegen?",
       "cancel": "Nein",
       "confirm": "Ja"
     },
@@ -75,7 +75,7 @@
       "save-changes-before-exporting": "Speichern Sie die Änderungen vor dem Export.",
       "saving-changes": {
         "loading": "Änderungen werden gespeichert...",
-        "success": "Änderungen wurden gespeichert!",
+        "success": "Die Änderungen wurden gespeichert!",
         "error": "Beim Speichern der Änderungen ist ein Fehler aufgetreten."
       },
       "exporting-scorm": {
@@ -88,7 +88,7 @@
   "pages": {
     "general": {
       "title": "Allgemeine Informationen",
-      "description": "Konfigurieren Sie die Anzeige und die Spieloptionen Ihrer Simulation.",
+      "description": "Konfigurieren Sie die Anzeige- und Spieloptionen Ihrer Simulation.",
       "simulation-title": "Name",
       "simulation-description": "Beschreibung",
       "modes": {
@@ -103,7 +103,7 @@
         },
         "audio": {
           "title": "Audiomodus",
-          "description": "Die Lernenden kommunizieren mit dem Agenten per Telefon."
+          "description": "Die Lernenden kommunizieren mit dem Agenten per Telefonanruf."
         },
         "video": {
           "title": "Videomodus",
@@ -115,14 +115,14 @@
         "description": "Die folgenden Fragen helfen dem Agenten, sich auf das Gespräch vorzubereiten.",
         "empty": {
           "title": "Keine Frage",
-          "description": "Sie haben noch keine Frage hinzugefügt. Beginnen Sie, indem Sie eine hinzufügen.",
+          "description": "Sie haben noch keine Frage hinzugefügt. Beginnen Sie, indem Sie eine Frage zur Simulation hinzufügen.",
           "button": "Neue Frage"
         }
       }
     },
     "customize": {
       "title": "Personalisierung des Erlebnisses",
-      "description": "Stellen Sie dem Lernenden Fragen, mit denen er seine Unterhaltung personalisieren kann.",
+      "description": "Stellen Sie dem Lernenden Fragen, die ihm ermöglichen, seine Unterhaltung zu personalisieren.",
       "type": {
         "short": "Kurzantwort",
         "long": "Langantwort",
@@ -131,14 +131,14 @@
       },
       "empty": {
         "title": "Keine Frage",
-        "description": "Sie haben noch keine Personalisierungsfrage hinzugefügt. Fügen Sie eine zur Simulation hinzu.",
+        "description": "Sie haben noch keine Personalisierungsfrage hinzugefügt. Beginnen Sie, indem Sie eine zur Simulation hinzufügen.",
         "button": "Neue Frage"
       },
       "fields": {
         "label": "Bezeichnung",
         "min-value": "Minimum",
         "max-value": "Maximum",
-        "max-length": "Maximale Länge",
+        "max-length": "Maximallänge",
         "make-required": "Diese Frage verpflichtend machen",
         "options": "Optionen"
       }
@@ -148,7 +148,7 @@
       "description": "Konfigurieren Sie das Szenario und die aktivierten Optionen Ihrer Simulation.",
       "system-prompt": {
         "label": "Systemanweisungen",
-        "description": "Beschreiben Sie den Inhalt der Simulation, das Szenario und mögliche Ergebnisse."
+        "description": "Beschreiben Sie den Inhalt der Simulation, das Szenario und die möglichen Ausgänge."
       },
       "text-model": "Generierungsmodell",
       "audio-voice": {
@@ -158,17 +158,37 @@
       "video-replica": {
         "label": "Replica",
         "description": "Wird im „Video“-Modus verwendet"
+      },
+      "end-modes": {
+        "label": "Beendigungsmodi",
+        "no-end-mode-selected": {
+          "title": "Kein Beendigungsmodus ausgewählt.",
+          "description": "Mindestens eine aktive Option ist zum Speichern erforderlich!"
+        },
+        "by-ai": {
+          "label": "Durch den Agenten",
+          "description": "Der Agent kann selbstständig entscheiden, die Simulation zu beenden.",
+          "alert": "Achtung: Wenn diese Option aktiviert ist, müssen Sie Beendigungsszenarien in den Systemanweisungen definieren, sonst kann der Agent die Simulation nicht beenden."
+        },
+        "by-time": {
+          "label": "Zeitlimit (in Minuten)",
+          "description": "Der Benutzer hat eine begrenzte Zeit, um die Simulation abzuschließen."
+        },
+        "by-user": {
+          "label": "Durch den Benutzer",
+          "description": "Der Benutzer kann die Simulation jederzeit verlassen."
+        }
       }
     },
     "evaluation": {
       "title": "Bewertung",
-      "description": "Gestalten Sie den Simulationsbericht, der am Ende des Simulationsdurchlaufs erstellt wird.",
+      "description": "Erstellen Sie den Simulationsbericht, der am Ende des Durchlaufs generiert wird.",
       "add-score": "Score hinzufügen",
       "add-paragraph": "Absatz hinzufügen",
       "add-graph": "Diagramm hinzufügen",
       "empty": {
         "title": "Keine Sektion",
-        "description": "Sie haben noch keine Sektion hinzugefügt. Fügen Sie eine zur Bewertung hinzu.",
+        "description": "Sie haben noch keine Sektion hinzugefügt. Beginnen Sie, indem Sie eine hinzufügen.",
         "button": "Neue Sektion"
       },
       "type": {
@@ -177,7 +197,7 @@
         "graph": {
           "bar": "Balkendiagramm",
           "line": "Liniendiagramm",
-          "spider": "Spinnennetzdiagramm"
+          "spider": "Spinnendiagramm"
         },
         "paragraph": "Absatz"
       },
@@ -191,13 +211,13 @@
         "axes": "Diagrammachsen",
         "empty": {
           "title": "Keine Achse",
-          "description": "Fügen Sie eine Achse zum Diagramm hinzu.",
+          "description": "Sie haben noch keine Achse hinzugefügt. Beginnen Sie, indem Sie eine zum Diagramm hinzufügen.",
           "button": "Neue Achse"
         }
       },
       "writing-method": {
         "label": "Schreibmethode",
-        "description": "Beschreiben Sie, wie der Agent sein Feedback formulieren soll."
+        "description": "Beschreiben Sie, wie der Agent sein Feedback verfassen soll."
       }
     }
   }
