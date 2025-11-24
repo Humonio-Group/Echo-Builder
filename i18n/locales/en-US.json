@@ -23,7 +23,7 @@
   "alerts": {
     "close-with-changes": {
       "title": "Are you sure?",
-      "description": "You have changes in progress. If you close without saving, you'll lose your changes. Are you sure you want to quit?",
+      "description": "You have unsaved changes. If you close without saving, you will lose them. Are you sure you want to quit?",
       "cancel": "No, stay",
       "confirm": "Yes, close"
     },
@@ -60,7 +60,7 @@
       "heavy-models": "Heavy models"
     },
     "tooltips": {
-      "make-as-main-score": "Use as general score",
+      "make-as-main-score": "Set as general score",
       "make-as-normal-score": "Revert to normal score",
       "delete-score": "Delete score",
       "delete-graph": "Delete graph",
@@ -99,15 +99,15 @@
         },
         "text": {
           "title": "Text mode",
-          "description": "Your learners will play in an SMS-type conversation."
+          "description": "Learners will play in an SMS-style conversation."
         },
         "audio": {
           "title": "Audio mode",
-          "description": "Your learners will communicate with the agent via phone call."
+          "description": "Learners will interact with the agent through a phone call."
         },
         "video": {
           "title": "Video mode",
-          "description": "Your learners will meet the agent in a video meeting."
+          "description": "Learners will meet the agent in a video call."
         }
       },
       "questions": {
@@ -115,7 +115,7 @@
         "description": "The following questions will help the agent prepare for the conversation.",
         "empty": {
           "title": "No question",
-          "description": "You haven’t added any question yet. Start by adding one to the simulation.",
+          "description": "You haven't added any question yet. Start by adding one to the simulation.",
           "button": "New question"
         }
       }
@@ -131,7 +131,7 @@
       },
       "empty": {
         "title": "No question",
-        "description": "You haven’t added any customization question yet. Start by adding one to the simulation.",
+        "description": "You have not added any customization question yet. Start by adding one to the simulation.",
         "button": "New question"
       },
       "fields": {
@@ -148,7 +148,7 @@
       "description": "Configure the scenario and the enabled options for your simulation.",
       "system-prompt": {
         "label": "System instructions",
-        "description": "Describe the simulation content, its scenario, and possible outputs."
+        "description": "Describe the content, scenario, and possible outputs of the simulation."
       },
       "text-model": "Generation model",
       "audio-voice": {
@@ -158,17 +158,37 @@
       "video-replica": {
         "label": "Replica",
         "description": "Used in \"video\" mode"
+      },
+      "end-modes": {
+        "label": "Exit modes",
+        "no-end-mode-selected": {
+          "title": "No exit mode selected.",
+          "description": "At least one active option is required to save!"
+        },
+        "by-ai": {
+          "label": "By the agent",
+          "description": "The conversational agent may decide to end the simulation.",
+          "alert": "Warning: if you enable this option, you must integrate exit scenarios inside the system instructions; otherwise, the agent will not be able to end the simulation."
+        },
+        "by-time": {
+          "label": "Time limit (in minutes)",
+          "description": "The user will have a limited time to complete the simulation."
+        },
+        "by-user": {
+          "label": "By the user",
+          "description": "The user may decide to exit the simulation at any time."
+        }
       }
     },
     "evaluation": {
       "title": "Evaluation",
-      "description": "Design the simulation report generated at the end of the simulation run.",
+      "description": "Design the simulation report generated at the end of the simulation.",
       "add-score": "Add score",
       "add-paragraph": "Add paragraph",
       "add-graph": "Add graph",
       "empty": {
         "title": "No section",
-        "description": "You haven’t added any section yet. Start by adding one to the evaluation.",
+        "description": "You haven't added any section yet. Start by adding one to the evaluation.",
         "button": "New section"
       },
       "type": {
@@ -191,13 +211,13 @@
         "axes": "Chart axes",
         "empty": {
           "title": "No axis",
-          "description": "You haven’t added any axis yet. Start by adding one to the graph.",
+          "description": "You haven't added any axis yet. Start by adding one to the chart.",
           "button": "New axis"
         }
       },
       "writing-method": {
         "label": "Writing method",
-        "description": "Describe how the agent should write the feedback."
+        "description": "Describe how the agent should write its feedback."
       }
     }
   }
