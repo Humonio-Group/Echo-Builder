@@ -38,13 +38,13 @@ jobs:
         run: echo "${{ secrets.ENV_FILE }}" > .env
 
       - name: Build for staging
-        run: yarn build
+        run: yarn generate
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: staging-dist
-          path: dist
+          path: ${{ vars.NUXT_PATH }}
           retention-days: 1
 
   build-demo:
@@ -73,13 +73,13 @@ jobs:
         run: echo "${{ secrets.ENV_FILE }}" > .env
 
       - name: Build for demo
-        run: yarn build
+        run: yarn generate
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: demo-dist
-          path: dist
+          path: ${{ vars.NUXT_PATH }}
           retention-days: 1
 
   build-production:
@@ -108,13 +108,13 @@ jobs:
         run: echo "${{ secrets.ENV_FILE }}" > .env
 
       - name: Build for production
-        run: yarn build
+        run: yarn generate
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: production-dist
-          path: dist
+          path: ${{ vars.NUXT_PATH }}
           retention-days: 1
 
   # ============================================
@@ -133,7 +133,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: staging-dist
-          path: dist
+          path: ${{ vars.BUILD_PATH }}
 
       - name: Setup SSH
         env:
@@ -156,7 +156,7 @@ jobs:
           BUILD_PATH: ${{ vars.BUILD_PATH }}
         run: |
           ssh -p $PORT $USER@$HOST "rm -rf $TMP_PATH ; mkdir -p $TMP_PATH"
-          rsync -avzpt -e "ssh -p $PORT" $BUILD_PATH $USER@$HOST:$TMP_PATH/
+          rsync -avzpt -e "ssh -p $PORT" ./$BUILD_PATH/ $USER@$HOST:$TMP_PATH/
           ssh -p $PORT $USER@$HOST "rm -rf $DEFINITIVE_PATH ; mv $TMP_PATH $DEFINITIVE_PATH"
 
       - name: Cleanup SSH
@@ -175,7 +175,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: demo-dist
-          path: dist
+          path: ${{ vars.BUILD_PATH }}
 
       - name: Setup SSH
         env:
@@ -198,7 +198,7 @@ jobs:
           BUILD_PATH: ${{ vars.BUILD_PATH }}
         run: |
           ssh -p $PORT $USER@$HOST "rm -rf $TMP_PATH ; mkdir -p $TMP_PATH"
-          rsync -avzpt -e "ssh -p $PORT" $BUILD_PATH $USER@$HOST:$TMP_PATH/
+          rsync -avzpt -e "ssh -p $PORT" ./$BUILD_PATH/ $USER@$HOST:$TMP_PATH/
           ssh -p $PORT $USER@$HOST "rm -rf $DEFINITIVE_PATH ; mv $TMP_PATH $DEFINITIVE_PATH"
 
       - name: Cleanup SSH
@@ -217,7 +217,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: production-dist
-          path: dist
+          path: ${{ vars.BUILD_PATH }}
 
       - name: Setup SSH
         env:
@@ -240,7 +240,7 @@ jobs:
           BUILD_PATH: ${{ vars.BUILD_PATH }}
         run: |
           ssh -p $PORT $USER@$HOST "rm -rf $TMP_PATH ; mkdir -p $TMP_PATH"
-          rsync -avzpt -e "ssh -p $PORT" $BUILD_PATH $USER@$HOST:$TMP_PATH/
+          rsync -avzpt -e "ssh -p $PORT" ./$BUILD_PATH/ $USER@$HOST:$TMP_PATH/
           ssh -p $PORT $USER@$HOST "rm -rf $DEFINITIVE_PATH ; mv $TMP_PATH $DEFINITIVE_PATH"
 
       - name: Cleanup SSH
