@@ -13,6 +13,9 @@ export default defineNuxtConfig({
   ],
   ssr: false,
   devtools: { enabled: true },
+  app: {
+    baseURL: process.env.APP_BASE_URL || "/",
+  },
   css: ["../tailwind.css"],
   colorMode: {
     preference: "system",
