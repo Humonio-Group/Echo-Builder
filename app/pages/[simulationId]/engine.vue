@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Mars, Square, Venus, Volume2, VolumeOff } from "lucide-vue-next";
+import { AlertCircle, Mars, Square, Venus, Volume2, VolumeOff } from "lucide-vue-next";
 import Page from "~/components/primitives/composing/Page.vue";
 
 definePageMeta({
@@ -230,10 +230,22 @@ onBeforeUnmount(() => {
       </Card>
 
       <Card>
-        <CardHeader class="flex">
+        <CardHeader class="flex flex-col">
           <CardTitle>
             {{ $t("pages.engine.end-modes.label") }}
           </CardTitle>
+          <Alert
+            v-if="!validEnd"
+            variant="destructive"
+          >
+            <AlertCircle />
+            <AlertTitle>
+              {{ $t("pages.engine.end-modes.no-end-mode-selected.title") }}
+            </AlertTitle>
+            <AlertDescription>
+              {{ $t("pages.engine.end-modes.no-end-mode-selected.description") }}
+            </AlertDescription>
+          </Alert>
         </CardHeader>
         <CardContent class="grid gap-4">
           <Label
