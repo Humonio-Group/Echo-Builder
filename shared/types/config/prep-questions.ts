@@ -1,3 +1,5 @@
+import type { TNull } from "#shared/types/primitives";
+
 export const EPrepQuestionTypes = ["short", "long", "select", "range"] as const;
 export type PrepQuestionType = (typeof EPrepQuestionTypes)[number];
 
@@ -18,6 +20,7 @@ export type PrepQuestionConfig = TextQuestionConfig
 ;
 
 export interface PrepQuestion {
+  key?: TNull<string>;
   order: number;
   label: string;
   type: PrepQuestionType;

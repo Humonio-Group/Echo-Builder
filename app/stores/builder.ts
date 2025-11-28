@@ -1,6 +1,7 @@
 import type { BuilderState } from "~~/shared/types/stores/builder";
 import { toast } from "vue-sonner";
 import type {
+  Evaluation,
   EvaluationType, GraphEvaluationConfig,
   GraphEvaluationPreviewMode,
   ParagraphEvaluationConfig,
@@ -17,8 +18,8 @@ export const useBuilderStore = defineStore("builder", {
   state: (): BuilderState => ({
     contentId: -1,
     attributes: {
-      name: "Sinsim",
-      description: "Sinsim description",
+      name: "",
+      description: "",
       questions: [],
       evaluations: [],
       modes: {
@@ -28,13 +29,13 @@ export const useBuilderStore = defineStore("builder", {
       },
       config: {
         systemPrompt: "",
-        model: "gpt-4o-mini",
+        model: "",
         audio: {
-          model: "elevenlabs_multilingual_v2",
-          voice: "rony",
+          model: "",
+          voice: "",
         },
         video: {
-          replica: "ashley",
+          replica: "",
         },
         end: {
           user: true,
@@ -43,6 +44,12 @@ export const useBuilderStore = defineStore("builder", {
           agent: false,
         },
       },
+    },
+    voices: null,
+    replicas: null,
+    loading: {
+      voices: false,
+      replicas: false,
     },
     touched: false,
   }),
@@ -97,11 +104,187 @@ export const useBuilderStore = defineStore("builder", {
       ;
     },
     hasMainScore: state => state.attributes.evaluations.some(e => e.type === "score" && (e.config as ScoreEvaluationConfig).mainScore),
+    hasFirstLoadedVoices: state => state.voices !== null,
+    hasFirstLoadedReplicas: state => state.replicas !== null,
+    selectedVoice: state => state.attributes.config.audio.voice ? state.voices?.find(v => v.id === state.attributes.config.audio.voice) : null,
+    selectedReplica: state => state.attributes.config.video.replica ? state.replicas?.find(v => v.id === state.attributes.config.video.replica) : null,
   },
   actions: {
+    async loadVoices() {
+      this.loading.voices = true;
+
+      try {
+        const voices = await $fetch(useApi2Url("/echo_simulations/elevenlabs/voices", "v2"), { ...useFetchOptions() });
+        if (!voices) return;
+        this.voices = voices.data;
+      }
+      catch (e) {
+        console.error(e);
+      }
+      finally {
+        this.loading.voices = false;
+      }
+    },
+    async loadReplicas() {
+      this.loading.replicas = true;
+
+      try {
+        const replicas = await $fetch(useApi2Url("/echo_simulations/tavus/replicas", "v2"), { ...useFetchOptions() });
+        if (!replicas) return;
+        this.replicas = replicas.data;
+      }
+      catch (e) {
+        console.error(e);
+      }
+      finally {
+        this.loading.replicas = false;
+      }
+    },
     async loadSimulation(id: number) {
-      this.contentId = id;
-      // TODO: load simulation from API
+      try {
+        const response = await $fetch<unknown>(useApi2Url(`/echo_simulations/${id}/specimen`, "v2"), {
+          ...useFetchOptions({
+            params: {
+              include: "questions,evaluations",
+            },
+          }),
+        });
+
+        if (!response) return;
+
+        this.storeSimulation(response);
+      }
+      catch (e) {
+        const error = e as FetchError;
+
+        console.log(error);
+
+        switch (error.statusCode) {
+          case 401: {
+            // navigateTo(useRuntimeConfig().public.auth, { external: true });
+            return;
+          }
+        }
+      }
+    },
+
+    storeSimulation(response: unknown) {
+      const { data: simulation, included } = response;
+      const questions = included.filter(i => i.type === "echoSimulationQuestions");
+      const evaluations = included.filter(i => i.type === "echoSimulationEvaluations");
+
+      this.contentId = simulation.id;
+      this.attributes.name = useTranslation(simulation.attributes.name) ?? "";
+      this.attributes.description = useTranslation(simulation.attributes.description) ?? "";
+      this.attributes.modes = simulation.attributes.modes;
+      this.attributes.config = {
+        ...this.attributes.config,
+        systemPrompt: simulation.attributes.engine.system_prompt || "",
+        model: simulation.attributes.engine.model ?? "gpt-4o-mini",
+        audio: {
+          model: "elevenlabs_multilingual_v2",
+          voice: simulation.attributes.engine.audio?.voice ?? "",
+        },
+        video: {
+          replica: simulation.attributes.engine.tavus?.replica ?? "",
+        },
+      };
+      this.attributes.questions = questions.map(q => ({
+        key: q.attributes.key,
+        order: q.attributes.order,
+        label: useTranslation(q.attributes.label),
+        type: q.attributes.type,
+        required: q.attributes.required,
+        config: {
+          ...q.attributes.config,
+          ...(q.attributes.config.options ? { options: q.attributes.config.options.map(useTranslation) } : {}),
+        },
+      }));
+      this.attributes.evaluations = evaluations.map(e => ({
+        key: e.attributes.key,
+        order: e.attributes.order,
+        type: e.attributes.type,
+        method: e.attributes.method ?? "",
+        config: {
+          ...e.attributes.config,
+          ...(e.attributes.config.axes ? { axes: e.attributes.config.axes.map(useTranslation) } : {}),
+        },
+      }));
+
+      console.log(this.attributes);
+
+      setTimeout(() => this.touched = false, 10);
+    },
+    buildSimulationBody() {
+      const locale = useNuxtApp().$i18n.locale.value;
+
+      const name = {
+        [locale]: this.attributes.name,
+      };
+      const description = {
+        [locale]: this.attributes.description,
+      };
+      const modes = this.attributes.modes;
+      const status = "active";
+
+      const audioConfig = this.attributes.modes.audio
+        ? {
+            audio: {
+              voice: this.attributes.config.audio.voice,
+            },
+          }
+        : {};
+      const videoConfig = this.attributes.modes.video
+        ? {
+            tavus: {
+              replica: this.attributes.config.video.replica,
+            },
+          }
+        : {};
+      const end_modes = {
+        byUser: this.attributes.config.end.user,
+        byTime: {
+          enabled: this.attributes.config.end.time,
+          duration: this.attributes.config.end.duration,
+        },
+        byAI: this.attributes.config.end.agent,
+      };
+      const engine = {
+        system_prompt: this.attributes.config.systemPrompt,
+        temperature: 0.5,
+        ...audioConfig,
+        ...videoConfig,
+        end_modes,
+      };
+
+      const questions = this.attributes.questions.map(q => ({
+        ...q,
+        label: {
+          [locale]: q.label,
+        },
+        config: {
+          ...q.config,
+          ...(Object.keys(q.config).includes("options") ? { options: (q.config as SelectQuestionConfig).options.map(o => ({ [locale]: o })) } : {}),
+        },
+      }));
+      const evaluations = this.attributes.evaluations.map((e: Evaluation) => ({
+        ...e,
+        config: {
+          ...e.config,
+          ...(Object.keys(e.config).includes("axes") ? { axes: (e.config as GraphEvaluationConfig).axes.map(a => ({ [locale]: a })) } : {}),
+        },
+      }));
+
+      return {
+        name,
+        description,
+        modes,
+        status,
+        engine,
+        // Relations
+        questions,
+        evaluations,
+      };
     },
 
     addQuestion(type: PrepQuestionType) {
@@ -238,39 +421,30 @@ export const useBuilderStore = defineStore("builder", {
       this.touched = true;
     },
     save(close?: boolean) {
-      const { t } = useNuxtApp().$i18n;
+      const t = useNuxtApp().$i18n.t;
 
-      const content = {
-        id: this.contentId,
-        attributes: {
-          name: this.attributes.name,
-          description: this.attributes.description,
-          questions: this.attributes.questions,
-          modes: this.attributes.modes,
-        },
-      };
-
-      const save = (retry: boolean = true) => toast.promise(new Promise((resolve, reject) => setTimeout(() => {
-        console.log(content);
-
-        const random = Math.floor(Math.random() * 2);
-        if (random === 0) {
-          this.touched = false;
-          if (close) useWindowContext().close();
-          resolve(content);
-        }
-        else reject(new Error("Failed to save"));
-      }, 1500)), {
+      const save = (retry: boolean = true) => toast.promise($fetch(useApi2Url(`/echo_simulations/${this.contentId}/save`, "v2"), {
+        method: "PUT",
+        ...useFetchOptions({
+          params: {
+            include: "questions,evaluations",
+          },
+        }),
+        body: this.buildSimulationBody(),
+      }), {
         loading: t("labels.toasts.saving-changes.loading"),
-        success: () => t("labels.toasts.saving-changes.success"),
+        success: (data: unknown) => {
+          this.storeSimulation(data);
+
+          if (close) useWindowContext().close();
+          return t("labels.toasts.saving-changes.success");
+        },
         error: () => retry
           ? {
               message: t("labels.toasts.saving-changes.error"),
               action: {
                 label: t("btn.retry"),
-                onClick: () => {
-                  save();
-                },
+                onClick: save(false),
               },
             }
           : t("labels.toasts.saving-changes.error"),

@@ -1,6 +1,8 @@
-import type { ID } from "../primitives";
+import type { ID, TNull } from "../primitives";
 import type { PrepQuestions } from "~~/shared/types/config/prep-questions";
 import type { Evaluations } from "~~/shared/types/config/evaluations";
+import type { Voice } from "~~/shared/types/elevenlabs";
+import type { Replica } from "~~/shared/types/tavus";
 
 export interface BuilderState {
   contentId: ID;
@@ -31,6 +33,12 @@ export interface BuilderState {
         agent: boolean;
       };
     };
+  };
+  voices: TNull<Voice[]>;
+  replicas: TNull<Replica[]>;
+  loading: {
+    voices: boolean;
+    replicas: boolean;
   };
   touched: boolean;
 }
