@@ -1,3 +1,5 @@
+import type { TNull } from "#shared/types/primitives";
+
 export const EEvaluationTypes = [
   "score",
   "graph",
@@ -17,11 +19,13 @@ export type EvaluationType = (typeof EEvaluationTypes)[number];
 export type ScoreEvaluationPreviewMode = (typeof EScoreEvaluationPreviewMode)[number];
 export type GraphEvaluationPreviewMode = (typeof EGraphEvaluationPreviewMode)[number];
 
+export type EvaluationConfig = ScoreEvaluationConfig | GraphEvaluationConfig | ParagraphEvaluationConfig;
 export interface Evaluation {
   order: number;
+  key?: TNull<string>;
   type: EvaluationType;
   method: string;
-  config: unknown;
+  config: EvaluationConfig;
 }
 
 export interface ScoreEvaluationConfig {

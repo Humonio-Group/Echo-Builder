@@ -32,6 +32,7 @@ export default defineNuxtConfig({
         2: "",
       },
       platform: "",
+      auth: "",
     },
   },
   srcDir: "app/",

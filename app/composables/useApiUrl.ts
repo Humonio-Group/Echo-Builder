@@ -17,3 +17,13 @@ export const useParams = (params?: { [key: string]: string }) => {
     ...params,
   };
 };
+export const useFetchOptions = (options?: {
+  headers?: { [key: string]: string };
+  query?: { [key: string]: string };
+  params?: { [key: string]: string };
+}) => ({
+  headers: useHeaders(options?.headers),
+  query: useParams(options?.query),
+  params: options?.params,
+  credentials: "include",
+});

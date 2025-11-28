@@ -4,5 +4,6 @@ export default defineNuxtRouteMiddleware(async (to) => {
   if (!simulationId) return;
 
   const store = useBuilderStore();
+  if (store.isLoaded) return;
   await store.loadSimulation(parseInt(simulationId as string));
 });

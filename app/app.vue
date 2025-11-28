@@ -5,11 +5,9 @@ import "vue-sonner/style.css";
 const { enableConfirmation, disableConfirmation, shouldConfirmBeforeUnload } = useBeforeUnload();
 
 const builderStore = useBuilderStore();
-builderStore.$subscribe((x) => {
-  console.log(x, builderStore.touched);
-  if (x.events.key === "touched") return;
-  builderStore.touch();
-});
+const { attributes } = storeToRefs(builderStore);
+watch(attributes, () => builderStore.touch(), { deep: true });
+
 const { touched } = storeToRefs(builderStore);
 watch(touched, (val) => {
   if (val) enableConfirmation();
@@ -22,6 +20,15 @@ const handleBeforeUnload = (event: BeforeUnloadEvent) => {
     event.returnValue = "";
   }
 };
+
+const companyStore = useCompanyStore();
+const { colors } = storeToRefs(companyStore);
+
+watch(colors, (newColors) => {
+  if (newColors?.first && import.meta.client) {
+    document.documentElement.style.setProperty("--primary", `#${newColors.first}`);
+  }
+}, { immediate: true });
 
 onMounted(() => {
   window.addEventListener("beforeunload", handleBeforeUnload);

@@ -17,12 +17,11 @@ const store = useBuilderStore();
 </script>
 
 <template>
-  <Collapsible>
-    <Card
-      v-model:open="open"
-      class="group/main"
-      @update:open="open = $event"
-    >
+  <Collapsible
+    v-model:open="open"
+    @update:open="open = $event"
+  >
+    <Card class="group/main">
       <CollapsibleTrigger as-child>
         <CardHeader class="flex items-center">
           <template v-if="evaluation.type === 'score'">
