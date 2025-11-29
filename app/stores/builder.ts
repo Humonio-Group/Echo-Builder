@@ -152,7 +152,7 @@ export const useBuilderStore = defineStore("builder", {
 
         if (!response) return;
 
-        this.storeSimulation(response);
+        await this.storeSimulation(response);
       }
       catch (e) {
         const error = e as FetchError;
@@ -168,7 +168,7 @@ export const useBuilderStore = defineStore("builder", {
       }
     },
 
-    storeSimulation(response: unknown) {
+    async storeSimulation(response: unknown) {
       const { data: simulation, included } = response;
       const questions = included.filter(i => i.type === "echoSimulationQuestions");
       const evaluations = included.filter(i => i.type === "echoSimulationEvaluations");
@@ -217,9 +217,8 @@ export const useBuilderStore = defineStore("builder", {
         },
       }));
 
-      console.log(this.attributes);
-
-      setTimeout(() => this.touched = false, 10);
+      await new Promise(resolve => setTimeout(resolve, 10));
+      this.touched = false;
     },
     buildSimulationBody() {
       const locale = useNuxtApp().$i18n.locale.value;
@@ -439,8 +438,8 @@ export const useBuilderStore = defineStore("builder", {
         body: this.buildSimulationBody(),
       }), {
         loading: t("labels.toasts.saving-changes.loading"),
-        success: (data: unknown) => {
-          this.storeSimulation(data);
+        success: async (data: unknown) => {
+          await this.storeSimulation(data);
 
           if (close) useWindowContext().close();
           return t("labels.toasts.saving-changes.success");
