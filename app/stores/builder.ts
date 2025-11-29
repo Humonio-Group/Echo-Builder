@@ -188,6 +188,12 @@ export const useBuilderStore = defineStore("builder", {
         video: {
           replica: simulation.attributes.engine.tavus?.replica ?? "",
         },
+        end: {
+          time: simulation.attributes.engine.end_modes.byTime.enabled,
+          duration: simulation.attributes.engine.end_modes.byTime.duration,
+          agent: simulation.attributes.engine.end_modes.byAI,
+          user: simulation.attributes.engine.end_modes.byUser,
+        },
       };
       this.attributes.questions = questions.map(q => ({
         key: q.attributes.key,
