@@ -186,7 +186,7 @@ export const useBuilderStore = defineStore("builder", {
           voice: simulation.attributes.engine.audio?.voice ?? "",
         },
         video: {
-          replica: simulation.attributes.engine.tavus?.replica ?? "",
+          replica: simulation.attributes.engine.tavus?.default_replica_id ?? "",
         },
         end: {
           time: simulation.attributes.engine.end_modes.byTime.enabled,
