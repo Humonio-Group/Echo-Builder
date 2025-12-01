@@ -2,6 +2,8 @@
 import { AlertCircle, Edit } from "lucide-vue-next";
 import Page from "~/components/primitives/composing/Page.vue";
 
+const locale = useI18n().locale;
+
 definePageMeta({
   nameKey: "navigation.general",
 });
@@ -14,8 +16,8 @@ const { attributes } = storeToRefs(builderStore);
 const { name, description, modes } = toRefs(attributes.value);
 
 const hasModes = computed(() => Object.values(modes.value).some(v => !!v));
-const invalidName = computed(() => !name.value?.trim().length);
-const invalidDescription = computed(() => !description.value?.trim().length);
+const invalidName = computed(() => !name.value?.[locale.value]!.trim().length);
+const invalidDescription = computed(() => !description.value?.[locale.value]!.trim().length);
 
 function openFileDialog() {
   fileInput.value.click();
@@ -83,7 +85,7 @@ function handleFileUpload(event: InputEvent) {
               >{{ $t("pages.general.simulation-title") }}</Label>
               <Input
                 id="name"
-                v-model="name"
+                v-model="name[locale]"
                 placeholder="Bienvenue sur Echo"
                 :class="{ 'border-destructive': invalidName }"
               />
@@ -96,7 +98,7 @@ function handleFileUpload(event: InputEvent) {
             >{{ $t("pages.general.simulation-description") }}</Label>
             <Textarea
               id="description"
-              v-model="description"
+              v-model="description[locale]"
               class="resize-none min-h-32"
               :class="{ 'border-destructive': invalidDescription }"
             />

@@ -3,7 +3,7 @@ import type { GraphEvaluation, GraphEvaluationConfig } from "~~/shared/types/con
 import { Plus, Trash } from "lucide-vue-next";
 import { NumberField } from "~/components/ui/number-field";
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
 defineProps<{
   order: number;
@@ -104,13 +104,13 @@ function removeAxis(index: number) {
       </div>
       <template v-if="config.axes.length">
         <div
-          v-for="(_, index) in config!.axes"
+          v-for="(axis, index) in config!.axes"
           :key="`graph-${order}-axis-${index}`"
           class="group/input relative"
         >
           <Input
-            :model-value="config!.axes[index]"
-            @update:model-value="val => config!.axes[index] = val ?? ''"
+            :model-value="axis[locale]"
+            @update:model-value="val => config!.axes[index][locale] = val ?? ''"
           />
           <Button
             tabindex="-1"

@@ -1,7 +1,7 @@
 import type { BuilderState } from "~~/shared/types/stores/builder";
 import { toast } from "vue-sonner";
 import type {
-  Evaluation,
+  Evaluation, EvaluationConfig,
   EvaluationType, GraphEvaluationConfig,
   GraphEvaluationPreviewMode,
   ParagraphEvaluationConfig,
@@ -14,12 +14,18 @@ import type {
   TextQuestionConfig,
 } from "#shared/types/config/prep-questions";
 
+const defaultTranslations = (codes: string[]): Translations => {
+  const translations: Translations = {};
+  codes.forEach(code => translations[code] = "");
+  return translations;
+};
+
 export const useBuilderStore = defineStore("builder", {
   state: (): BuilderState => ({
     contentId: -1,
     attributes: {
-      name: "",
-      description: "",
+      name: {},
+      description: {},
       questions: [],
       evaluations: [],
       modes: {
@@ -51,58 +57,80 @@ export const useBuilderStore = defineStore("builder", {
       voices: false,
       replicas: false,
     },
+    languages: [],
     touched: false,
   }),
   getters: {
     isLoaded: state => typeof state.contentId === "string" || state.contentId >= 0,
-    isInvalid: (state) => {
-      const validName = !!state.attributes.name.trim().length;
-      const validDescription = !!state.attributes.description.trim().length;
-      const hasMode = Object.values(state.attributes.modes).some(v => !!v);
-      const validSystemPrompt = state.attributes.config.systemPrompt.trim().length > 200;
-      const questionsValid = state.attributes.questions.every((q) => {
-        const global = !!q.label.trim().length;
+    isTouched: state => state.touched,
 
-        switch (q.type) {
-          case "short": case "long": {
-            return global && (q.config as TextQuestionConfig).maxLength;
-          }
-          case "select": {
-            return global && (q.config as SelectQuestionConfig).options.length >= 2;
-          }
-          case "range": {
-            return global && (q.config as RangeQuestionConfig).min <= (q.config as RangeQuestionConfig).max;
-          }
-        }
-      });
-      const evaluationsValid = state.attributes.evaluations.every((evaluation) => {
-        const global = evaluation.method.trim().length >= 100;
-
-        switch (evaluation.type) {
-          case "score": {
-            const config = evaluation.config as ScoreEvaluationConfig;
-            return global && config.min <= config.max;
-          }
-          case "graph": {
-            const config = evaluation.config as GraphEvaluationConfig;
-            return global && config.min <= config.max && config.axes.length >= 2;
-          }
-          default: {
-            const config = evaluation.config as ParagraphEvaluationConfig;
-            return global && config.writingMethod.trim().length >= 100;
-          }
-        }
-      });
-
-      return !state.touched
-        || !validName
-        || !validDescription
-        || !hasMode
-        || !validSystemPrompt
-        || !questionsValid
-        || !evaluationsValid
+    isInvalid() {
+      return !this.isTouched
+        || this.invalidTranslations.length > 0
+        || this.invalidMode
+        || this.invalidSystemPrompt
+        || this.invalidQuestions
+        || this.invalidEvaluations
       ;
     },
+    invalidTranslations: (state) => {
+      const langs = [];
+
+      for (const lang of state.languages) {
+        const validName = !!state.attributes.name[lang]!.trim().length;
+        const validDescription = !!state.attributes.description[lang]!.trim().length;
+        const validQuestions = state.attributes.questions.every((question) => {
+          const validLabel = question.label[lang]!.trim().length;
+          const validOptions = question.type !== "select" || question.config.options[lang]!.trim();
+
+          return validLabel && validOptions;
+        });
+        const validEvaluations = state.attributes.evaluations.filter(e => e.type === "graph").every((evaluation) => {
+          const config = evaluation.config as GraphEvaluationConfig;
+          return config.axes.every(a => a[lang]!.trim().length);
+        });
+
+        if (!validName || !validDescription || !validQuestions || !validEvaluations) langs.push(lang);
+      }
+
+      return langs;
+    },
+    invalidMode: state => !Object.values(state.attributes.modes).some(v => !!v),
+    invalidSystemPrompt: state => state.attributes.config.systemPrompt.trim().length < 200,
+    invalidQuestions: state => !state.attributes.questions.every((q) => {
+      const global = Object.values(!!q.label).every(v => v.trim().length);
+
+      switch (q.type) {
+        case "short": case "long": {
+          return global && (q.config as TextQuestionConfig).maxLength;
+        }
+        case "select": {
+          return global && (q.config as SelectQuestionConfig).options.length >= 2 && (q.config as SelectQuestionConfig).options.every(o => Object.values(o).every(v => v.trim().length));
+        }
+        case "range": {
+          return global && (q.config as RangeQuestionConfig).min <= (q.config as RangeQuestionConfig).max;
+        }
+      }
+    }),
+    invalidEvaluations: state => !state.attributes.evaluations.every((evaluation) => {
+      const global = evaluation.method.trim().length >= 100;
+
+      switch (evaluation.type) {
+        case "score": {
+          const config = evaluation.config as ScoreEvaluationConfig;
+          return global && config.min <= config.max;
+        }
+        case "graph": {
+          const config = evaluation.config as GraphEvaluationConfig;
+          return global && config.min <= config.max && config.axes.length >= 2 && config.axes.every(a => Object.values(a).every(v => v.trim().length));
+        }
+        default: {
+          const config = evaluation.config as ParagraphEvaluationConfig;
+          return global && config.writingMethod.trim().length >= 100;
+        }
+      }
+    }),
+
     hasMainScore: state => state.attributes.evaluations.some(e => e.type === "score" && (e.config as ScoreEvaluationConfig).mainScore),
     hasFirstLoadedVoices: state => state.voices !== null,
     hasFirstLoadedReplicas: state => state.replicas !== null,
@@ -145,7 +173,7 @@ export const useBuilderStore = defineStore("builder", {
         const response = await $fetch<unknown>(useApi2Url(`/echo_simulations/${id}/specimen`, "v2"), {
           ...useFetchOptions({
             params: {
-              include: "questions,evaluations",
+              include: "questions,evaluations,program,program.languages",
             },
           }),
         });
@@ -170,12 +198,30 @@ export const useBuilderStore = defineStore("builder", {
 
     async storeSimulation(response: unknown) {
       const { data: simulation, included } = response;
+      const languages = included.filter(i => i.type === "languages");
       const questions = included.filter(i => i.type === "echoSimulationQuestions");
       const evaluations = included.filter(i => i.type === "echoSimulationEvaluations");
 
+      this.languages = languages.map(l => ({
+        code: l.attributes.code,
+      })).reduce((acc, val) => {
+        acc = [
+          ...acc,
+          val.code,
+        ];
+
+        return acc;
+      }, []);
+
       this.contentId = simulation.id;
-      this.attributes.name = useTranslation(simulation.attributes.name) ?? "";
-      this.attributes.description = useTranslation(simulation.attributes.description) ?? "";
+      this.attributes.name = {
+        ...defaultTranslations(this.languages),
+        ...simulation.attributes.name,
+      };
+      this.attributes.description = {
+        ...defaultTranslations(this.languages),
+        ...simulation.attributes.description,
+      };
       this.attributes.modes = simulation.attributes.modes;
       this.attributes.config = {
         ...this.attributes.config,
@@ -198,12 +244,20 @@ export const useBuilderStore = defineStore("builder", {
       this.attributes.questions = questions.map(q => ({
         key: q.attributes.key,
         order: q.attributes.order,
-        label: useTranslation(q.attributes.label),
+        label: {
+          ...defaultTranslations(this.languages),
+          ...q.attributes.label,
+        },
         type: q.attributes.type,
         required: q.attributes.required,
         config: {
           ...q.attributes.config,
-          ...(q.attributes.config.options ? { options: q.attributes.config.options.map(useTranslation) } : {}),
+          ...(q.attributes.config.options
+            ? { options: q.attributes.config.options.map(o => ({
+                ...defaultTranslations(this.languages),
+                ...o,
+              })) }
+            : {}),
         },
       }));
       this.attributes.evaluations = evaluations.map(e => ({
@@ -213,7 +267,12 @@ export const useBuilderStore = defineStore("builder", {
         method: e.attributes.method ?? "",
         config: {
           ...e.attributes.config,
-          ...(e.attributes.config.axes ? { axes: e.attributes.config.axes.map(useTranslation) } : {}),
+          ...(e.attributes.config.axes
+            ? { axes: e.attributes.config.axes.map(a => ({
+                ...defaultTranslations(this.languages),
+                ...a,
+              })) }
+            : {}),
         },
       }));
 
@@ -223,12 +282,8 @@ export const useBuilderStore = defineStore("builder", {
     buildSimulationBody() {
       const locale = useNuxtApp().$i18n.locale.value;
 
-      const name = {
-        [locale]: this.attributes.name,
-      };
-      const description = {
-        [locale]: this.attributes.description,
-      };
+      const name = this.attributes.name;
+      const description = this.attributes.description;
       const modes = this.attributes.modes;
       const status = "active";
 
@@ -269,14 +324,14 @@ export const useBuilderStore = defineStore("builder", {
         },
         config: {
           ...q.config,
-          ...(Object.keys(q.config).includes("options") ? { options: (q.config as SelectQuestionConfig).options.map(o => ({ [locale]: o })) } : {}),
+          ...(Object.keys(q.config).includes("options") ? { options: (q.config as SelectQuestionConfig).options } : {}),
         },
       }));
       const evaluations = this.attributes.evaluations.map((e: Evaluation) => ({
         ...e,
         config: {
           ...e.config,
-          ...(Object.keys(e.config).includes("axes") ? { axes: (e.config as GraphEvaluationConfig).axes.map(a => ({ [locale]: a })) } : {}),
+          ...(Object.keys(e.config).includes("axes") ? { axes: (e.config as GraphEvaluationConfig).axes } : {}),
         },
       }));
 
@@ -324,7 +379,16 @@ export const useBuilderStore = defineStore("builder", {
 
       this.attributes.questions.push({
         order: -1,
-        label: useNuxtApp().$i18n.t("labels.question-placeholder"),
+        label: {
+          ...this.languages.map(l => ({ [l]: useNuxtApp().$i18n.t("labels.question-placeholder") })).reduce((acc, val) => {
+            acc = {
+              ...acc,
+              ...val,
+            };
+
+            return acc;
+          }),
+        },
         type,
         required: false,
         config,
@@ -354,7 +418,7 @@ export const useBuilderStore = defineStore("builder", {
     addEvaluation(type: EvaluationType, previewMode?: GraphEvaluationPreviewMode) {
       const { t } = useNuxtApp().$i18n;
 
-      let config;
+      let config: EvaluationConfig;
       switch (type) {
         case "score": {
           config = {
@@ -371,7 +435,16 @@ export const useBuilderStore = defineStore("builder", {
             previewMode,
             min: 0,
             max: 100,
-            axes: [`${t("labels.axis")} 1`, `${t("labels.axis")} 2`],
+            axes: [{
+              ...this.languages.map(l => ({ [l]: t("labels.axis-placeholder") })).reduce((acc, val) => {
+                acc = {
+                  ...acc,
+                  ...val,
+                };
+
+                return acc;
+              }, {}),
+            }],
           };
           break;
         }
@@ -432,7 +505,7 @@ export const useBuilderStore = defineStore("builder", {
         method: "PUT",
         ...useFetchOptions({
           params: {
-            include: "questions,evaluations",
+            include: "questions,evaluations,program,program.languages",
           },
         }),
         body: this.buildSimulationBody(),

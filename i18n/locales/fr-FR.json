@@ -68,7 +68,8 @@
       "delete-short": "Supprimer la réponse courte",
       "delete-long": "Supprimer la réponse longue",
       "delete-select": "Supprimer la sélection",
-      "delete-range": "Supprimer le curseur"
+      "delete-range": "Supprimer le curseur",
+      "missing-translations": "Traductions manquantes"
     },
     "toasts": {
       "fix-errors-before-saving": "Corrigez les erreurs avant de sauvegarder.",
