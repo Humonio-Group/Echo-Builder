@@ -2,6 +2,7 @@
 import { DoorClosed, Download, Save } from "lucide-vue-next";
 import type { HTMLAttributes } from "vue";
 import { cn } from "~/lib/utils";
+import LanguageSelector from "~/components/shared/top-bar/LanguageSelector.vue";
 
 const props = defineProps<{
   class?: HTMLAttributes["class"];
@@ -62,7 +63,10 @@ function closeTab() {
                     {{ $t("navigation.file.export-to-scorm.scorm-12") }}
                     <DropdownMenuShortcut>⌘E</DropdownMenuShortcut>
                   </DropdownMenuItem>
-                  <DropdownMenuItem @click="builderStore.export('2004')">
+                  <DropdownMenuItem
+                    disabled
+                    @click="builderStore.export('2004')"
+                  >
                     <Download />
                     {{ $t("navigation.file.export-to-scorm.scorm-2004") }}
                   </DropdownMenuItem>
@@ -142,7 +146,8 @@ function closeTab() {
     </nav>
 
     <div class="flex items-center gap-3">
-      <span class="text-xs text-muted-foreground">{{ $t("labels.saved-since.moment-ago") }}</span>
+      <!-- <span class="text-xs text-muted-foreground">{{ $t("labels.saved-since.moment-ago") }}</span> -->
+      <LanguageSelector />
       <Tooltip>
         <TooltipTrigger as-child>
           <Button

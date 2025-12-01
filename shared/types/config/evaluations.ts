@@ -1,4 +1,4 @@
-import type { TNull } from "#shared/types/primitives";
+import type { TNull, Translations } from "#shared/types/primitives";
 
 export const EEvaluationTypes = [
   "score",
@@ -43,7 +43,7 @@ export interface GraphEvaluationConfig {
   previewMode: GraphEvaluationPreviewMode;
   min: number;
   max: number;
-  axes: string[];
+  axes: Translations[];
 }
 export interface GraphEvaluation extends Evaluation {
   type: "graph";

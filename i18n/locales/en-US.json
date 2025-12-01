@@ -68,7 +68,8 @@
       "delete-short": "Delete short answer",
       "delete-long": "Delete long answer",
       "delete-select": "Delete selection",
-      "delete-range": "Delete slider"
+      "delete-range": "Delete slider",
+      "missing-translations": "Missing translations"
     },
     "toasts": {
       "fix-errors-before-saving": "Fix errors before saving.",
