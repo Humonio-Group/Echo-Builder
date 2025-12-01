@@ -36,7 +36,8 @@ store.loadReplicas();
                 <EyeOff v-else />
               </Button>
             </DialogTrigger>
-            <DialogContent class="p-0! max-w-4xl!">
+            <DialogContent class="p-0! max-w-4xl! isolate">
+              <Spinner class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-10" />
               <video
                 v-if="previewOpened"
                 class="w-full max-h-[80dvh] rounded-lg"
@@ -46,9 +47,9 @@ store.loadReplicas();
             </DialogContent>
           </Dialog>
 
-          <Spinner v-if="!store.hasFirstLoadedVoices && loading" />
+          <Spinner v-if="!store.hasFirstLoadedReplicas && loading" />
           <Select
-            v-if="store.hasFirstLoadedVoices && replicas?.length"
+            v-if="store.hasFirstLoadedReplicas && replicas?.length"
             id="engine-model"
             v-model="attributes.config.video.replica"
           >
