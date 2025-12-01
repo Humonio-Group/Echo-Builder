@@ -242,7 +242,7 @@ export const useBuilderStore = defineStore("builder", {
       const videoConfig = this.attributes.modes.video
         ? {
             tavus: {
-              replica: this.attributes.config.video.replica,
+              default_replica_id: this.attributes.config.video.replica,
             },
           }
         : {};
