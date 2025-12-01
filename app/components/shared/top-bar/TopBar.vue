@@ -63,7 +63,10 @@ function closeTab() {
                     {{ $t("navigation.file.export-to-scorm.scorm-12") }}
                     <DropdownMenuShortcut>⌘E</DropdownMenuShortcut>
                   </DropdownMenuItem>
-                  <DropdownMenuItem @click="builderStore.export('2004')">
+                  <DropdownMenuItem
+                    disabled
+                    @click="builderStore.export('2004')"
+                  >
                     <Download />
                     {{ $t("navigation.file.export-to-scorm.scorm-2004") }}
                   </DropdownMenuItem>

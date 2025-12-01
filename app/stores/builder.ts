@@ -532,15 +532,13 @@ export const useBuilderStore = defineStore("builder", {
     export(version: "1.2" | "2004") {
       const { t } = useNuxtApp().$i18n;
 
-      const exportScorm = (retry: boolean = true) => toast.promise(new Promise((resolve, reject) => setTimeout(() => {
-        console.log(version);
-
-        const random = Math.floor(Math.random() * 2);
-        if (random === 0) resolve(version);
-        else reject(new Error("Failed to save"));
-      }, 1500)), {
+      const exportScorm = (retry: boolean = true) => toast.promise($fetch(useApi2Url(`/echo_simulations/${this.contentId}/export-scorm`, "v2"), { ...useFetchOptions() }), {
         loading: t("labels.toasts.exporting-scorm.loading", { version }),
-        success: () => t("labels.toasts.exporting-scorm.success", { version }),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        success: (response: any) => {
+          window.open(response.data.downloadUrl, "_blank", "noopener,noreferrer");
+          return t("labels.toasts.exporting-scorm.success", { version });
+        },
         error: () => retry
           ? {
               message: t("labels.toasts.exporting-scorm.error"),
