@@ -428,16 +428,28 @@ export const useBuilderStore = defineStore("builder", {
             previewMode,
             min: 0,
             max: 100,
-            axes: [{
-              ...this.languages.map(l => ({ [l]: t("labels.axis-placeholder") })).reduce((acc, val) => {
-                acc = {
-                  ...acc,
-                  ...val,
-                };
+            axes: [
+              {
+                ...this.languages.map(l => ({ [l]: `${t("labels.axis")} 1` })).reduce((acc, val) => {
+                  acc = {
+                    ...acc,
+                    ...val,
+                  };
 
-                return acc;
-              }, {}),
-            }],
+                  return acc;
+                }, {}),
+              },
+              {
+                ...this.languages.map(l => ({ [l]: `${t("labels.axis")} 2` })).reduce((acc, val) => {
+                  acc = {
+                    ...acc,
+                    ...val,
+                  };
+
+                  return acc;
+                }, {}),
+              },
+            ],
           };
           break;
         }
