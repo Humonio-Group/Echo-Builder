@@ -154,7 +154,7 @@ function closeTab() {
             size="icon"
             variant="ghost"
             :disabled="builderStore.isInvalid"
-            @click="builderStore.save"
+            @click="builderStore.save(false)"
           >
             <Save />
           </Button>
