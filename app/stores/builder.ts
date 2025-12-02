@@ -67,10 +67,12 @@ export const useBuilderStore = defineStore("builder", {
     isInvalid() {
       return !this.isTouched
         || this.invalidTranslations.length > 0
-        || this.invalidMode
-        || this.invalidSystemPrompt
-        || this.invalidQuestions
-        || this.invalidEvaluations
+        || !!this.invalidMode
+        || !!this.invalidSystemPrompt
+        || !!this.invalidQuestions
+        || !!this.invalidEvaluations
+        || !!this.invalidVoice
+        || !!this.invalidReplica
       ;
     },
     invalidTranslations: (state) => {
@@ -80,9 +82,8 @@ export const useBuilderStore = defineStore("builder", {
         const validName = !!state.attributes.name[lang]!.trim().length;
         const validDescription = !!state.attributes.description[lang]!.trim().length;
         const validQuestions = state.attributes.questions.every((question) => {
-          console.log(question);
           const validLabel = question.label[lang]!.trim().length;
-          const validOptions = question.type !== "select" || question.config.options.every(o => o[lang]!.trim().length);
+          const validOptions = question.type !== "select" || (question.config as SelectQuestionConfig).options.every(o => Object.values(o).every(v => v.trim().length));
 
           return validLabel && validOptions;
         });
@@ -96,41 +97,91 @@ export const useBuilderStore = defineStore("builder", {
 
       return langs;
     },
+    invalidTabs() {
+      const tabs: string[] = [];
+
+      // general
+      if (this.invalidName || this.invalidDescription || this.invalidMode) tabs.push("general");
+
+      // customize
+      if (this.invalidQuestions) tabs.push("customize");
+
+      // engine
+      if (this.invalidSystemPrompt || this.invalidEndModes || this.invalidVoice || this.invalidReplica) tabs.push("engine");
+
+      // evaluation
+      if (this.invalidEvaluations) tabs.push("evaluation");
+
+      return tabs;
+    },
+    invalidName: state => !Object.values(state.attributes.name).every(v => v.trim().length),
+    invalidDescription: state => !Object.values(state.attributes.description).every(v => v.trim().length),
     invalidMode: state => !Object.values(state.attributes.modes).some(v => !!v),
     invalidSystemPrompt: state => state.attributes.config.systemPrompt.trim().length < 200,
-    invalidQuestions: state => !state.attributes.questions.every((q) => {
-      const global = Object.values(!!q.label).every(v => v.trim().length);
+    invalidEndModes: (state) => {
+      const hasUser = state.attributes.config.end.user;
+      const hasTime = state.attributes.config.end.time && state.attributes.config.end.duration > 0;
+      const hasAgent = state.attributes.config.end.agent;
 
-      switch (q.type) {
-        case "short": case "long": {
-          return global && (q.config as TextQuestionConfig).maxLength;
-        }
-        case "select": {
-          return global && (q.config as SelectQuestionConfig).options.length >= 2 && (q.config as SelectQuestionConfig).options.every(o => Object.values(o).every(v => v.trim().length));
-        }
-        case "range": {
-          return global && (q.config as RangeQuestionConfig).min <= (q.config as RangeQuestionConfig).max;
-        }
-      }
-    }),
-    invalidEvaluations: state => !state.attributes.evaluations.every((evaluation) => {
-      const global = evaluation.method.trim().length >= 100;
+      return !(hasUser || hasTime || hasAgent);
+    },
+    invalidQuestions() {
+      return this.invalidQuestionsList.length > 0;
+    },
+    invalidQuestionsList: (state) => {
+      const questions: number[] = [];
 
-      switch (evaluation.type) {
-        case "score": {
-          const config = evaluation.config as ScoreEvaluationConfig;
-          return global && config.min <= config.max;
+      (state.attributes.questions ?? []).forEach((question, index) => {
+        let s = Object.values(question.label).some(v => !v.trim().length);
+
+        switch (question.type) {
+          case "select": {
+            if ((question.config as SelectQuestionConfig).options.some(o => Object.values(o).some(v => !v.trim().length)))
+              s = true;
+            break;
+          }
+          default: {
+            break;
+          }
         }
-        case "graph": {
-          const config = evaluation.config as GraphEvaluationConfig;
-          return global && config.min <= config.max && config.axes.length >= 2 && config.axes.every(a => Object.values(a).every(v => v.trim().length));
+
+        if (s) questions.push(index);
+      });
+
+      return questions;
+    },
+    invalidEvaluations() {
+      return this.invalidEvaluationsList.length > 0;
+    },
+    invalidEvaluationsList: (state) => {
+      const evaluations: number[] = [];
+
+      (state.attributes.evaluations ?? []).forEach((evaluation, index) => {
+        let s = evaluation.method.trim().length < 100;
+
+        switch (evaluation.type) {
+          case "paragraph": {
+            if (!(evaluation.config as ParagraphEvaluationConfig).writingMethod.trim().length)
+              s = true;
+            break;
+          }
+          case "graph": {
+            if (!(evaluation.config as GraphEvaluationConfig).axes.every(a => Object.values(a).every(v => v.trim().length)))
+              s = true;
+            break;
+          }
+          default: {
+            break;
+          }
         }
-        default: {
-          const config = evaluation.config as ParagraphEvaluationConfig;
-          return global && config.writingMethod.trim().length >= 100;
-        }
-      }
-    }),
+
+        if (s) evaluations.push(index);
+      });
+
+      return evaluations;
+    },
+    invalidVoice: state => state.attributes.modes.audio && !state.attributes.config.audio.voice.length,
+    invalidReplica: state => state.attributes.modes.video && !state.attributes.config.video.replica.length,
 
     hasMainScore: state => state.attributes.evaluations.some(e => e.type === "score" && (e.config as ScoreEvaluationConfig).mainScore),
     hasFirstLoadedVoices: state => state.voices !== null,

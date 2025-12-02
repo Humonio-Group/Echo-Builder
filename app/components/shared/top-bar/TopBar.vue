@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { DoorClosed, Download, Save } from "lucide-vue-next";
+import { DoorClosed, Download, Info, Save } from "lucide-vue-next";
 import type { HTMLAttributes } from "vue";
 import { cn } from "~/lib/utils";
 import LanguageSelector from "~/components/shared/top-bar/LanguageSelector.vue";
+import NavigationButton from "~/components/shared/top-bar/items/NavigationButton.vue";
 
 const props = defineProps<{
   class?: HTMLAttributes["class"];
@@ -12,7 +13,13 @@ const companyStore = useCompanyStore();
 const { icon } = storeToRefs(companyStore);
 
 const builderStore = useBuilderStore();
-const { touched } = storeToRefs(builderStore);
+const { touched, invalidTabs } = storeToRefs(builderStore);
+const errors = computed(() => ({
+  general: invalidTabs.value.includes("general"),
+  customize: invalidTabs.value.includes("customize"),
+  engine: invalidTabs.value.includes("engine"),
+  evaluation: invalidTabs.value.includes("evaluation"),
+}));
 
 const quitConfirm = ref<boolean>(false);
 const { disableConfirmation, shouldConfirmBeforeUnload } = useBeforeUnload();
@@ -99,50 +106,26 @@ function closeTab() {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <Button
-        variant="ghost"
-        as-child
-      >
-        <NuxtLinkLocale
-          :to="useRelativePath('/general')"
-          active-class="bg-secondary! text-secondary-foreground!"
-        >
-          {{ $t("navigation.general") }}
-        </NuxtLinkLocale>
-      </Button>
-      <Button
-        variant="ghost"
-        as-child
-      >
-        <NuxtLinkLocale
-          :to="useRelativePath('/customize')"
-          active-class="bg-secondary! text-secondary-foreground!"
-        >
-          {{ $t("navigation.customize") }}
-        </NuxtLinkLocale>
-      </Button>
-      <Button
-        variant="ghost"
-        as-child
-      >
-        <NuxtLinkLocale
-          :to="useRelativePath('/engine')"
-          active-class="bg-secondary! text-secondary-foreground!"
-        >
-          {{ $t("navigation.engine") }}
-        </NuxtLinkLocale>
-      </Button>
-      <Button
-        variant="ghost"
-        as-child
-      >
-        <NuxtLinkLocale
-          :to="useRelativePath('/evaluation')"
-          active-class="bg-secondary! text-secondary-foreground!"
-        >
-          {{ $t("navigation.evaluation") }}
-        </NuxtLinkLocale>
-      </Button>
+      <NavigationButton
+        link="/general"
+        label-key="general"
+        :has-error="errors.general"
+      />
+      <NavigationButton
+        link="/customize"
+        label-key="customize"
+        :has-error="errors.customize"
+      />
+      <NavigationButton
+        link="/engine"
+        label-key="engine"
+        :has-error="errors.engine"
+      />
+      <NavigationButton
+        link="/evaluation"
+        label-key="evaluation"
+        :has-error="errors.evaluation"
+      />
     </nav>
 
     <div class="flex items-center gap-3">
