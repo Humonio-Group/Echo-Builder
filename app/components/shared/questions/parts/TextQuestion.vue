@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { PrepQuestionText } from "#shared/types/config/prep-questions";
 
+const { locale } = useI18n();
+
 defineProps<{
   order: number;
 }>();
@@ -14,7 +16,7 @@ const question = defineModel<PrepQuestionText>("question", { required: true });
       <Label :for="`range-${order}`">{{ $t("pages.customize.fields.label") }}</Label>
       <Input
         :id="`range-${order}`"
-        v-model="question.label"
+        v-model="question.label[locale]"
         class="w-full"
       />
     </div>

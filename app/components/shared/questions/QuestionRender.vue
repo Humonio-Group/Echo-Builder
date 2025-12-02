@@ -11,6 +11,8 @@ import RangeQuestion from "~/components/shared/questions/parts/RangeQuestion.vue
 import SelectQuestion from "~/components/shared/questions/parts/SelectQuestion.vue";
 import { Collapsible } from "~/components/ui/collapsible";
 
+const { locale } = useI18n();
+
 const question = defineModel<PrepQuestion>("question", { required: true });
 const open = ref<boolean>(false);
 
@@ -30,7 +32,7 @@ const store = useBuilderStore();
           </div>
 
           <CardTitle class="text-normal flex-1">
-            {{ question.label }}
+            {{ question.label[locale] }}
           </CardTitle>
 
           <div class="flex items-center">

@@ -21,7 +21,7 @@ export default defineNuxtPlugin(() => {
       return;
     }
 
-    store.save();
+    store.save(false);
   };
   registerMultiple("save", [
     {

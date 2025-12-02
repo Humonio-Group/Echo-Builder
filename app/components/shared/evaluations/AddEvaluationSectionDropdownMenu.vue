@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ChartColumnBig, ChartNetwork, ChartPie, ChartSpline, Gauge, TextAlignStart } from "lucide-vue-next";
+import { /* ChartColumnBig, */ ChartNetwork, ChartPie, /* ChartSpline, */ Gauge, TextAlignStart } from "lucide-vue-next";
 
 defineEmits<{
   added: [];
@@ -50,7 +50,7 @@ const builderStore = useBuilderStore();
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
             <DropdownMenuSubContent>
-              <DropdownMenuItem
+              <!-- <DropdownMenuItem
                 @click="() => {
                   builderStore.addEvaluation('graph', 'bar');
                   $emit('added');
@@ -67,7 +67,7 @@ const builderStore = useBuilderStore();
               >
                 <ChartSpline />
                 {{ $t("pages.evaluation.type.graph.line") }}
-              </DropdownMenuItem>
+              </DropdownMenuItem> -->
               <DropdownMenuItem
                 @click="() => {
                   builderStore.addEvaluation('graph', 'spider');
