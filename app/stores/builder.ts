@@ -1,7 +1,7 @@
 import type { BuilderState } from "~~/shared/types/stores/builder";
 import { toast } from "vue-sonner";
 import type {
-  Evaluation, EvaluationConfig,
+  EvaluationConfig,
   EvaluationType, GraphEvaluationConfig,
   GraphEvaluationPreviewMode,
   ParagraphEvaluationConfig,
@@ -280,8 +280,6 @@ export const useBuilderStore = defineStore("builder", {
       this.touched = false;
     },
     buildSimulationBody() {
-      const locale = useNuxtApp().$i18n.locale.value;
-
       const name = this.attributes.name;
       const description = this.attributes.description;
       const modes = this.attributes.modes;
@@ -317,23 +315,8 @@ export const useBuilderStore = defineStore("builder", {
         end_modes,
       };
 
-      const questions = this.attributes.questions.map(q => ({
-        ...q,
-        label: {
-          [locale]: q.label,
-        },
-        config: {
-          ...q.config,
-          ...(Object.keys(q.config).includes("options") ? { options: (q.config as SelectQuestionConfig).options } : {}),
-        },
-      }));
-      const evaluations = this.attributes.evaluations.map((e: Evaluation) => ({
-        ...e,
-        config: {
-          ...e.config,
-          ...(Object.keys(e.config).includes("axes") ? { axes: (e.config as GraphEvaluationConfig).axes } : {}),
-        },
-      }));
+      const questions = this.attributes.questions;
+      const evaluations = this.attributes.evaluations;
 
       return {
         name,
@@ -364,7 +347,16 @@ export const useBuilderStore = defineStore("builder", {
         }
         case "select": {
           config = {
-            options: ["Option 1", "Option 2"],
+            options: [
+              this.languages.reduce((acc, val) => {
+                acc[val] = "Option 1";
+                return acc;
+              }, {} as Translations),
+              this.languages.reduce((acc, val) => {
+                acc[val] = "Option 2";
+                return acc;
+              }, {} as Translations),
+            ],
           };
           break;
         }

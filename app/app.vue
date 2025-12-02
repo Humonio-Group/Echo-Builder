@@ -2,6 +2,9 @@
 import { onMounted, onUnmounted } from "vue";
 import "vue-sonner/style.css";
 
+// TODO: remove when implementing dark mode in qigu.
+useColorMode().preference = "light";
+
 const { enableConfirmation, disableConfirmation, shouldConfirmBeforeUnload } = useBeforeUnload();
 
 const builderStore = useBuilderStore();
