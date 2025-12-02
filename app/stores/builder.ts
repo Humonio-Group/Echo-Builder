@@ -80,8 +80,9 @@ export const useBuilderStore = defineStore("builder", {
         const validName = !!state.attributes.name[lang]!.trim().length;
         const validDescription = !!state.attributes.description[lang]!.trim().length;
         const validQuestions = state.attributes.questions.every((question) => {
+          console.log(question);
           const validLabel = question.label[lang]!.trim().length;
-          const validOptions = question.type !== "select" || question.config.options[lang]!.trim();
+          const validOptions = question.type !== "select" || question.config.options.every(o => o[lang]!.trim().length);
 
           return validLabel && validOptions;
         });

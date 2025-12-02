@@ -2,16 +2,22 @@
 import { Minus, Plus } from "lucide-vue-next";
 import type { PrepQuestionSelect } from "#shared/types/config/prep-questions";
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
 defineProps<{
   order: number;
 }>();
 
 const question = defineModel<PrepQuestionSelect>("question", { required: true });
+const { languages } = storeToRefs(useBuilderStore());
 
 function addOption() {
-  question.value.config.options.push(t("labels.option-placeholder"));
+  question.value.config.options.push({
+    ...languages.value.reduce((acc, val) => {
+      acc[val] = t("labels.option-placeholder");
+      return acc;
+    }, {} as Translations),
+  });
 }
 function removeOption(index: number) {
   question.value.config.options.splice(index, 1);
@@ -24,7 +30,7 @@ function removeOption(index: number) {
       <Label :for="`range-${order}`">{{ $t("pages.customize.fields.label") }}</Label>
       <Input
         :id="`range-${order}`"
-        v-model="question.label"
+        v-model="question.label[locale]"
         class="w-full"
       />
     </div>
@@ -46,7 +52,7 @@ function removeOption(index: number) {
         :key="`select-${order}-option-${index}`"
         class="group relative"
       >
-        <Input v-model="question.config.options[index]" />
+        <Input v-model="question.config.options[index]![locale]" />
         <Button
           v-if="question.config.options.length > 2"
           size="icon-sm"
