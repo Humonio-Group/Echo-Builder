@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DoorClosed, Download, Info, Save } from "lucide-vue-next";
+import { DoorClosed, Download, Save } from "lucide-vue-next";
 import type { HTMLAttributes } from "vue";
 import { cn } from "~/lib/utils";
 import LanguageSelector from "~/components/shared/top-bar/LanguageSelector.vue";

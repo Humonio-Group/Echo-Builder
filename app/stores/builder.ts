@@ -9,9 +9,7 @@ import type {
 } from "#shared/types/config/evaluations";
 import type {
   PrepQuestionType,
-  RangeQuestionConfig,
   SelectQuestionConfig,
-  TextQuestionConfig,
 } from "#shared/types/config/prep-questions";
 
 const defaultTranslations = (codes: string[]): Translations => {
