@@ -9,12 +9,19 @@ defineProps<{
   order: number;
 }>();
 
+const { languages } = storeToRefs(useBuilderStore());
+
 const method = defineModel<GraphEvaluation["method"]>("method", { required: true });
 const config = defineModel<GraphEvaluationConfig>("config", { required: true });
 const invalidMethod = computed(() => method.value?.trim().length < 100);
 
 function addAxis() {
-  config.value.axes.push(`${t("labels.axis")} ${config.value.axes.length + 1}`);
+  config.value.axes.push({
+    ...languages.value.reduce((acc, val) => {
+      acc[val] = `${t("labels.axis")} ${config.value.axes.length + 1}`;
+      return acc;
+    }, {} as Translations),
+  });
 }
 function removeAxis(index: number) {
   config.value.axes.splice(index, 1);
@@ -104,12 +111,12 @@ function removeAxis(index: number) {
       </div>
       <template v-if="config.axes.length">
         <div
-          v-for="(axis, index) in config!.axes"
+          v-for="(_, index) in config!.axes"
           :key="`graph-${order}-axis-${index}`"
           class="group/input relative"
         >
           <Input
-            :model-value="axis[locale]"
+            :model-value="config!.axes[index]![locale]"
             @update:model-value="val => config!.axes[index][locale] = val ?? ''"
           />
           <Button
