@@ -29,13 +29,13 @@
     },
     "other-main-score-in-use": {
       "title": "A general score is already defined",
-      "description": "Would you like to set this score as your general score?",
+      "description": "Would you like to make this score your general score?",
       "cancel": "No",
       "confirm": "Yes"
     },
     "delete-main-score": {
       "title": "Are you sure?",
-      "description": "You are about to delete your simulation's general score. Are you sure you want to continue?",
+      "description": "You are about to delete the general score of your simulation. Are you sure you want to continue?",
       "cancel": "No, keep it",
       "confirm": "Yes, delete"
     }
@@ -69,11 +69,12 @@
       "delete-long": "Delete long answer",
       "delete-select": "Delete selection",
       "delete-range": "Delete slider",
-      "missing-translations": "Missing translations"
+      "missing-translations": "Missing translations",
+      "has-error": "Configuration error"
     },
     "toasts": {
       "fix-errors-before-saving": "Fix errors before saving.",
-      "save-changes-before-exporting": "Save changes before exporting.",
+      "save-changes-before-exporting": "Save your changes before exporting.",
       "saving-changes": {
         "loading": "Saving changes...",
         "success": "Changes have been saved!",
@@ -108,22 +109,22 @@
         },
         "video": {
           "title": "Video mode",
-          "description": "Learners will meet the agent in a video call."
+          "description": "Learners will meet the agent in a video conference."
         }
       },
       "questions": {
         "label": "Preparing questions",
-        "description": "The following questions will help the agent prepare for the conversation.",
+        "description": "These questions help the agent prepare for the conversation.",
         "empty": {
           "title": "No question",
-          "description": "You haven't added any question yet. Start by adding one to the simulation.",
+          "description": "You haven't added any question yet. Start by adding one.",
           "button": "New question"
         }
       }
     },
     "customize": {
       "title": "Experience customization",
-      "description": "Ask the learner questions that allow them to personalize their conversation.",
+      "description": "Ask the learner questions to personalize their experience.",
       "type": {
         "short": "Short answer",
         "long": "Long answer",
@@ -132,7 +133,7 @@
       },
       "empty": {
         "title": "No question",
-        "description": "You have not added any customization question yet. Start by adding one to the simulation.",
+        "description": "You have not added any customization question yet. Start by adding one.",
         "button": "New question"
       },
       "fields": {
@@ -146,19 +147,19 @@
     },
     "engine": {
       "title": "Simulation engine",
-      "description": "Configure the scenario and the enabled options for your simulation.",
+      "description": "Configure the scenario and enabled options for your simulation.",
       "system-prompt": {
         "label": "System instructions",
-        "description": "Describe the content, scenario, and possible outputs of the simulation."
+        "description": "Describe the content, scenario, and outputs of your simulation."
       },
       "text-model": "Generation model",
       "audio-voice": {
         "label": "Voice",
-        "description": "Used in \"audio\" mode"
+        "description": "Used in audio mode"
       },
       "video-replica": {
         "label": "Replica",
-        "description": "Used in \"video\" mode"
+        "description": "Used in video mode"
       },
       "end-modes": {
         "label": "Exit modes",
@@ -168,28 +169,28 @@
         },
         "by-ai": {
           "label": "By the agent",
-          "description": "The conversational agent may decide to end the simulation.",
-          "alert": "Warning: if you enable this option, you must integrate exit scenarios inside the system instructions; otherwise, the agent will not be able to end the simulation."
+          "description": "The AI agent may decide to exit the simulation.",
+          "alert": "Warning: If enabled, you must define exit scenarios in the system instructions, otherwise the agent cannot exit."
         },
         "by-time": {
           "label": "Time limit (in minutes)",
-          "description": "The user will have a limited time to complete the simulation."
+          "description": "The user will have limited time to complete the simulation."
         },
         "by-user": {
           "label": "By the user",
-          "description": "The user may decide to exit the simulation at any time."
+          "description": "The user can exit the simulation at any time."
         }
       }
     },
     "evaluation": {
       "title": "Evaluation",
-      "description": "Design the simulation report generated at the end of the simulation.",
+      "description": "Design the report generated at the end of the simulation.",
       "add-score": "Add score",
       "add-paragraph": "Add paragraph",
       "add-graph": "Add graph",
       "empty": {
         "title": "No section",
-        "description": "You haven't added any section yet. Start by adding one to the evaluation.",
+        "description": "You haven't added any section yet. Start by adding one.",
         "button": "New section"
       },
       "type": {
@@ -212,7 +213,7 @@
         "axes": "Chart axes",
         "empty": {
           "title": "No axis",
-          "description": "You haven't added any axis yet. Start by adding one to the chart.",
+          "description": "You haven't added any axis yet. Start by adding one.",
           "button": "New axis"
         }
       },

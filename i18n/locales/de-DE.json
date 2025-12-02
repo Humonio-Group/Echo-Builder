@@ -23,7 +23,7 @@
   "alerts": {
     "close-with-changes": {
       "title": "Sind Sie sicher?",
-      "description": "Sie haben ungespeicherte Änderungen. Wenn Sie schließen, ohne zu speichern, gehen diese verloren. Möchten Sie wirklich fortfahren?",
+      "description": "Sie haben ungespeicherte Änderungen. Wenn Sie schließen, gehen diese verloren. Möchten Sie wirklich fortfahren?",
       "cancel": "Nein, bleiben",
       "confirm": "Ja, schließen"
     },
@@ -68,7 +68,9 @@
       "delete-short": "Kurzantwort löschen",
       "delete-long": "Langantwort löschen",
       "delete-select": "Auswahl löschen",
-      "delete-range": "Schieberegler löschen"
+      "delete-range": "Schieberegler löschen",
+      "missing-translations": "Fehlende Übersetzungen",
+      "has-error": "Konfigurationsfehler"
     },
     "toasts": {
       "fix-errors-before-saving": "Beheben Sie Fehler vor dem Speichern.",
@@ -99,30 +101,30 @@
         },
         "text": {
           "title": "Textmodus",
-          "description": "Die Lernenden spielen in einer SMS-ähnlichen Unterhaltung."
+          "description": "Lernende spielen in einer SMS-ähnlichen Unterhaltung."
         },
         "audio": {
           "title": "Audiomodus",
-          "description": "Die Lernenden kommunizieren mit dem Agenten per Telefonanruf."
+          "description": "Lernende kommunizieren mit dem Agenten per Telefonanruf."
         },
         "video": {
           "title": "Videomodus",
-          "description": "Die Lernenden treffen den Agenten in einer Videokonferenz."
+          "description": "Lernende treffen den Agenten in einer Videokonferenz."
         }
       },
       "questions": {
         "label": "Fragen vorbereiten",
-        "description": "Die folgenden Fragen helfen dem Agenten, sich auf das Gespräch vorzubereiten.",
+        "description": "Diese Fragen helfen dem Agenten, sich auf das Gespräch vorzubereiten.",
         "empty": {
           "title": "Keine Frage",
-          "description": "Sie haben noch keine Frage hinzugefügt. Beginnen Sie, indem Sie eine Frage zur Simulation hinzufügen.",
+          "description": "Sie haben noch keine Frage hinzugefügt. Fügen Sie eine zur Simulation hinzu.",
           "button": "Neue Frage"
         }
       }
     },
     "customize": {
       "title": "Personalisierung des Erlebnisses",
-      "description": "Stellen Sie dem Lernenden Fragen, die ihm ermöglichen, seine Unterhaltung zu personalisieren.",
+      "description": "Stellen Sie dem Lernenden Fragen, um sein Erlebnis zu personalisieren.",
       "type": {
         "short": "Kurzantwort",
         "long": "Langantwort",
@@ -131,7 +133,7 @@
       },
       "empty": {
         "title": "Keine Frage",
-        "description": "Sie haben noch keine Personalisierungsfrage hinzugefügt. Beginnen Sie, indem Sie eine zur Simulation hinzufügen.",
+        "description": "Sie haben noch keine Personalisierungsfrage hinzugefügt. Beginnen Sie, indem Sie eine hinzufügen.",
         "button": "Neue Frage"
       },
       "fields": {
@@ -148,16 +150,16 @@
       "description": "Konfigurieren Sie das Szenario und die aktivierten Optionen Ihrer Simulation.",
       "system-prompt": {
         "label": "Systemanweisungen",
-        "description": "Beschreiben Sie den Inhalt der Simulation, das Szenario und die möglichen Ausgänge."
+        "description": "Beschreiben Sie den Inhalt, das Szenario und die möglichen Ausgänge der Simulation."
       },
       "text-model": "Generierungsmodell",
       "audio-voice": {
         "label": "Stimme",
-        "description": "Wird im „Audio“-Modus verwendet"
+        "description": "Wird im Audiomodus verwendet"
       },
       "video-replica": {
         "label": "Replica",
-        "description": "Wird im „Video“-Modus verwendet"
+        "description": "Wird im Videomodus verwendet"
       },
       "end-modes": {
         "label": "Beendigungsmodi",
@@ -167,12 +169,12 @@
         },
         "by-ai": {
           "label": "Durch den Agenten",
-          "description": "Der Agent kann selbstständig entscheiden, die Simulation zu beenden.",
-          "alert": "Achtung: Wenn diese Option aktiviert ist, müssen Sie Beendigungsszenarien in den Systemanweisungen definieren, sonst kann der Agent die Simulation nicht beenden."
+          "description": "Der Agent kann entscheiden, die Simulation zu beenden.",
+          "alert": "Achtung: Wenn Sie diese Option aktivieren, müssen Sie Beendigungsszenarien in den Systemanweisungen definieren, sonst kann der Agent die Simulation nicht beenden."
         },
         "by-time": {
           "label": "Zeitlimit (in Minuten)",
-          "description": "Der Benutzer hat eine begrenzte Zeit, um die Simulation abzuschließen."
+          "description": "Der Benutzer hat eine begrenzte Zeit, die Simulation abzuschließen."
         },
         "by-user": {
           "label": "Durch den Benutzer",
@@ -182,7 +184,7 @@
     },
     "evaluation": {
       "title": "Bewertung",
-      "description": "Erstellen Sie den Simulationsbericht, der am Ende des Durchlaufs generiert wird.",
+      "description": "Erstellen Sie den Bericht, der am Ende der Simulation generiert wird.",
       "add-score": "Score hinzufügen",
       "add-paragraph": "Absatz hinzufügen",
       "add-graph": "Diagramm hinzufügen",
@@ -211,7 +213,7 @@
         "axes": "Diagrammachsen",
         "empty": {
           "title": "Keine Achse",
-          "description": "Sie haben noch keine Achse hinzugefügt. Beginnen Sie, indem Sie eine zum Diagramm hinzufügen.",
+          "description": "Sie haben noch keine Achse hinzugefügt. Beginnen Sie, indem Sie eine hinzufügen.",
           "button": "Neue Achse"
         }
       },

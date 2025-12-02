@@ -69,7 +69,8 @@
       "delete-long": "Supprimer la réponse longue",
       "delete-select": "Supprimer la sélection",
       "delete-range": "Supprimer le curseur",
-      "missing-translations": "Traductions manquantes"
+      "missing-translations": "Traductions manquantes",
+      "has-error": "Erreur de configuration"
     },
     "toasts": {
       "fix-errors-before-saving": "Corrigez les erreurs avant de sauvegarder.",
