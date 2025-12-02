@@ -132,7 +132,7 @@
       },
       "empty": {
         "title": "Aucune question",
-        "description": "Vous n’avez pas encore ajouté de question de presonnalisation. Commencez par en ajouter une à la simulation.",
+        "description": "Vous n’avez pas encore ajouté de question de personnalisation. Commencez par en ajouter une à la simulation.",
         "button": "Nouvelle question"
       },
       "fields": {
