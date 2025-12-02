@@ -52,7 +52,10 @@ function removeOption(index: number) {
         :key="`select-${order}-option-${index}`"
         class="group relative"
       >
-        <Input v-model="question.config.options[index]![locale]" />
+        <Input
+          v-model="question.config.options[index]![locale]"
+          :class="{ 'border-destructive!': !question.config.options[index]![locale]!.trim().length }"
+        />
         <Button
           v-if="question.config.options.length > 2"
           size="icon-sm"

@@ -38,6 +38,7 @@ function scroll() {
           v-for="(question, index) in attributes.questions"
           :key="`q-${index}`"
           :question="question"
+          :index="index"
         />
       </template>
       <Empty v-else>

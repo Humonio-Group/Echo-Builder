@@ -35,9 +35,10 @@ function scroll() {
 
       <template v-if="attributes.evaluations.length > 0">
         <EvaluationRender
-          v-for="evaluation in attributes.evaluations"
+          v-for="(evaluation, index) in attributes.evaluations"
           :key="evaluation.order"
           :evaluation="evaluation"
+          :index="index"
         />
       </template>
       <Empty v-else>
