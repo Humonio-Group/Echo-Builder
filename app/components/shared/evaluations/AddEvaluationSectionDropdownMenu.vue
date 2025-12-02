@@ -50,7 +50,7 @@ const builderStore = useBuilderStore();
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
             <DropdownMenuSubContent>
-              <DropdownMenuItem
+              <!-- <DropdownMenuItem
                 @click="() => {
                   builderStore.addEvaluation('graph', 'bar');
                   $emit('added');
@@ -67,7 +67,7 @@ const builderStore = useBuilderStore();
               >
                 <ChartSpline />
                 {{ $t("pages.evaluation.type.graph.line") }}
-              </DropdownMenuItem>
+              </DropdownMenuItem> -->
               <DropdownMenuItem
                 @click="() => {
                   builderStore.addEvaluation('graph', 'spider');
