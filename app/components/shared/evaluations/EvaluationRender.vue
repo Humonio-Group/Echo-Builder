@@ -8,12 +8,18 @@ import type {
 import ParagraphEvaluation from "~/components/shared/evaluations/parts/ParagraphEvaluation.vue";
 import ScoreEvaluation from "~/components/shared/evaluations/parts/ScoreEvaluation.vue";
 import GraphEvaluation from "~/components/shared/evaluations/parts/GraphEvaluation.vue";
-import { Star, Trash, ChartColumnBig, ChartNetwork, ChartSpline, Gauge, TextAlignStart, ChevronsDownUp, ChevronsUpDown } from "lucide-vue-next";
+import { Info, Star, Trash, ChartColumnBig, ChartNetwork, ChartSpline, Gauge, TextAlignStart, ChevronsDownUp, ChevronsUpDown } from "lucide-vue-next";
+
+const props = defineProps<{
+  index: number;
+}>();
+
+const store = useBuilderStore();
+const { invalidEvaluationsList } = storeToRefs(store);
 
 const evaluation = defineModel<Evaluation>("evaluation", { required: true });
 const open = ref<boolean>(false);
-
-const store = useBuilderStore();
+const error = computed((): boolean => invalidEvaluationsList.value.includes(props.index));
 </script>
 
 <template>
@@ -25,15 +31,28 @@ const store = useBuilderStore();
       <CollapsibleTrigger as-child>
         <CardHeader class="flex items-center">
           <template v-if="evaluation.type === 'score'">
-            <div class="mr-1 size-8 grid place-items-center rounded-md bg-muted [&_>svg]:size-4">
+            <div
+              class="mr-1 size-8 grid place-items-center rounded-md bg-muted [&_>svg]:size-4"
+              :class="{ 'text-destructive': error }"
+            >
               <Gauge />
             </div>
 
             <CardTitle
               v-if="evaluation.type === 'score'"
-              class="flex-1"
+              class="flex-1 flex items-center gap-2"
+              :class="{ 'text-destructive!': error }"
             >
               {{ $t(`pages.evaluation.type.${(evaluation.config as ScoreEvaluationConfig).mainScore ? "general-" : ""}score`) }}
+
+              <Tooltip v-if="error">
+                <TooltipTrigger as-child>
+                  <Info class="size-4" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  {{ $t("labels.tooltips.has-error") }}
+                </TooltipContent>
+              </Tooltip>
             </CardTitle>
 
             <div class="flex items-center">
@@ -152,12 +171,27 @@ const store = useBuilderStore();
             </div>
           </template>
           <template v-if="evaluation.type === 'paragraph'">
-            <div class="mr-1 size-8 grid place-items-center rounded-md bg-muted [&_>svg]:size-4">
+            <div
+              class="mr-1 size-8 grid place-items-center rounded-md bg-muted [&_>svg]:size-4"
+              :class="{ 'text-destructive': error }"
+            >
               <TextAlignStart />
             </div>
 
-            <CardTitle class="flex-1">
+            <CardTitle
+              class="flex-1 flex items-center gap-2"
+              :class="{ 'text-destructive!': error }"
+            >
               {{ $t("pages.evaluation.type.paragraph") }}
+
+              <Tooltip v-if="error">
+                <TooltipTrigger as-child>
+                  <Info class="size-4" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  {{ $t("labels.tooltips.has-error") }}
+                </TooltipContent>
+              </Tooltip>
             </CardTitle>
 
             <div class="flex items-center">
@@ -179,14 +213,29 @@ const store = useBuilderStore();
             </div>
           </template>
           <template v-if="evaluation.type === 'graph'">
-            <div class="mr-1 size-8 grid place-items-center rounded-md bg-muted [&_>svg]:size-4">
+            <div
+              class="mr-1 size-8 grid place-items-center rounded-md bg-muted [&_>svg]:size-4"
+              :class="{ 'text-destructive': error }"
+            >
               <ChartColumnBig v-if="(evaluation.config as GraphEvaluationConfig).previewMode === 'bar'" />
               <ChartSpline v-if="(evaluation.config as GraphEvaluationConfig).previewMode === 'line'" />
               <ChartNetwork v-if="(evaluation.config as GraphEvaluationConfig).previewMode === 'spider'" />
             </div>
 
-            <CardTitle class="flex-1">
+            <CardTitle
+              class="flex-1 flex items-center gap-2"
+              :class="{ 'text-destructive!': error }"
+            >
               {{ $t(`pages.evaluation.type.graph.${(evaluation.config as GraphEvaluationConfig).previewMode}`) }}
+
+              <Tooltip v-if="error">
+                <TooltipTrigger as-child>
+                  <Info class="size-4" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  {{ $t("labels.tooltips.has-error") }}
+                </TooltipContent>
+              </Tooltip>
             </CardTitle>
 
             <div class="flex items-center">

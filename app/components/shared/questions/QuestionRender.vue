@@ -6,17 +6,31 @@ import type {
   PrepQuestionText,
 } from "#shared/types/config/prep-questions";
 import TextQuestion from "~/components/shared/questions/parts/TextQuestion.vue";
-import { SquareMousePointer, GitCommitHorizontal, TextAlignStart, TextWrap, ChevronsUpDown, ChevronsDownUp, Trash } from "lucide-vue-next";
+import {
+  SquareMousePointer,
+  GitCommitHorizontal,
+  TextAlignStart,
+  TextWrap,
+  ChevronsUpDown,
+  ChevronsDownUp,
+  Trash,
+  Info,
+} from "lucide-vue-next";
 import RangeQuestion from "~/components/shared/questions/parts/RangeQuestion.vue";
 import SelectQuestion from "~/components/shared/questions/parts/SelectQuestion.vue";
 import { Collapsible } from "~/components/ui/collapsible";
 
 const { locale } = useI18n();
 
-const question = defineModel<PrepQuestion>("question", { required: true });
-const open = ref<boolean>(false);
+const props = defineProps<{
+  index: number;
+}>();
 
 const store = useBuilderStore();
+
+const question = defineModel<PrepQuestion>("question", { required: true });
+const open = ref<boolean>(false);
+const error = computed((): boolean => store.invalidQuestionsList.includes(props.index));
 </script>
 
 <template>
@@ -24,15 +38,30 @@ const store = useBuilderStore();
     <Card class="group/main">
       <CollapsibleTrigger as-child>
         <CardHeader class="flex items-center">
-          <div class="mr-1 [&_>svg]:size-4 size-8 grid place-items-center rounded-md bg-muted">
+          <div
+            class="mr-1 [&_>svg]:size-4 size-8 grid place-items-center rounded-md bg-muted"
+            :class="{ 'text-destructive': error }"
+          >
             <TextAlignStart v-if="question.type === 'short'" />
             <TextWrap v-if="question.type === 'long'" />
             <SquareMousePointer v-if="question.type === 'select'" />
             <GitCommitHorizontal v-if="question.type === 'range'" />
           </div>
 
-          <CardTitle class="text-normal flex-1">
+          <CardTitle
+            class="text-normal flex-1 flex items-center gap-2"
+            :class="{ 'text-destructive': error }"
+          >
             {{ question.label[locale] }}
+
+            <Tooltip v-if="error">
+              <TooltipTrigger as-child>
+                <Info class="size-4" />
+              </TooltipTrigger>
+              <TooltipContent>
+                {{ $t("labels.tooltips.has-error") }}
+              </TooltipContent>
+            </Tooltip>
           </CardTitle>
 
           <div class="flex items-center">

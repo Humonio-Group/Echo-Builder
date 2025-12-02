@@ -17,7 +17,10 @@ store.loadReplicas();
     <CardContent>
       <div class="flex items-center justify-between">
         <div>
-          <Label for="engine-model">
+          <Label
+            for="engine-model"
+            :class="{ 'text-destructive': !attributes.config.video.replica?.length }"
+          >
             {{ $t("pages.engine.video-replica.label") }}
           </Label>
           <span class="text-sm text-muted-foreground">
@@ -53,7 +56,7 @@ store.loadReplicas();
             id="engine-model"
             v-model="attributes.config.video.replica"
           >
-            <SelectTrigger>
+            <SelectTrigger :class="{ 'border-destructive! text-destructive/50!': !attributes.config.video.replica?.length }">
               <SelectValue />
             </SelectTrigger>
             <SelectContent align="end">

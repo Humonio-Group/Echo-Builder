@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { GraphEvaluation, GraphEvaluationConfig } from "~~/shared/types/config/evaluations";
-import { Plus, Trash } from "lucide-vue-next";
+import { Plus, Minus } from "lucide-vue-next";
 import { NumberField } from "~/components/ui/number-field";
 
 const { t, locale } = useI18n();
@@ -117,16 +117,18 @@ function removeAxis(index: number) {
         >
           <Input
             :model-value="config!.axes[index]![locale]"
+            :class="{ 'border-destructive!': !config!.axes[index]![locale]!.trim().length }"
             @update:model-value="val => config!.axes[index][locale] = val ?? ''"
           />
           <Button
+            v-if="config!.axes.length > 2"
             tabindex="-1"
             size="icon-sm"
             variant="ghost"
-            class="text-destructive! absolute top-0.5 right-0.5 md:opacity-0 group-hover/input:opacity-100"
+            class="absolute top-0.5 right-0.5 md:opacity-0 group-hover/input:opacity-100"
             @click="removeAxis(index)"
           >
-            <Trash />
+            <Minus />
           </Button>
         </div>
       </template>

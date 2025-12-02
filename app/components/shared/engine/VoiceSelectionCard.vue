@@ -40,7 +40,10 @@ onBeforeUnmount(() => {
     <CardContent>
       <div class="flex items-center justify-between">
         <div>
-          <Label for="engine-model">
+          <Label
+            for="engine-model"
+            :class="{ 'text-destructive': !attributes.config.audio.voice?.length }"
+          >
             {{ $t("pages.engine.audio-voice.label") }}
           </Label>
           <span class="text-sm text-muted-foreground">
@@ -65,7 +68,7 @@ onBeforeUnmount(() => {
             id="engine-model"
             v-model="attributes.config.audio.voice"
           >
-            <SelectTrigger>
+            <SelectTrigger :class="{ 'border-destructive! text-destructive/50!': !attributes.config.audio.voice?.length }">
               <SelectValue placeholder="Select a voice" />
             </SelectTrigger>
             <SelectContent align="end">
