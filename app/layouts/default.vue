@@ -2,7 +2,7 @@
 import Layout from "~/components/primitives/composing/Layout.vue";
 import TopBar from "~/components/shared/top-bar/TopBar.vue";
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
 const route = useRoute();
 const nameKey = computed(() => route.meta.nameKey as string | undefined);
@@ -12,7 +12,7 @@ const { attributes } = storeToRefs(builderStore);
 
 function updateTitle() {
   useHead({
-    title: `${attributes.value.name}${nameKey.value ? ` · ${t(nameKey.value)}` : ""}`,
+    title: `${attributes.value.name[locale.value]}${nameKey.value ? ` · ${t(nameKey.value)}` : ""}`,
   });
 }
 
