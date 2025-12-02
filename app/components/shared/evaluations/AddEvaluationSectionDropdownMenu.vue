@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ChartColumnBig, ChartNetwork, ChartPie, ChartSpline, Gauge, TextAlignStart } from "lucide-vue-next";
+import { /* ChartColumnBig, */ ChartNetwork, ChartPie, /* ChartSpline, */ Gauge, TextAlignStart } from "lucide-vue-next";
 
 defineEmits<{
   added: [];
