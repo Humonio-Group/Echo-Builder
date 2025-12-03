@@ -181,6 +181,9 @@ export const useBuilderStore = defineStore("builder", {
     },
     invalidVoice: state => state.attributes.modes.audio && !state.attributes.config.audio.voice.length,
     invalidReplica: state => state.attributes.modes.video && !state.attributes.config.video.replica.length,
+    invalidAgent() {
+      return this.invalidReplica || this.invalidVoice || this.invalidSystemPrompt;
+    },
 
     hasMainScore: state => state.attributes.evaluations.some(e => e.type === "score" && (e.config as ScoreEvaluationConfig).mainScore),
     hasFirstLoadedVoices: state => state.voices !== null,

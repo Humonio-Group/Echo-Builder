@@ -10,8 +10,6 @@ definePageMeta({
 const store = useBuilderStore();
 const { attributes } = storeToRefs(store);
 
-const promptLength = computed(() => attributes.value.config.systemPrompt.trim().length);
-const invalidSystemPrompt = computed(() => promptLength.value <= 200);
 const validEnd = computed(() => {
   const byUser = attributes.value.config.end.user;
   const byAgent = attributes.value.config.end.agent;

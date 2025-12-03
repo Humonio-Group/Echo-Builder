@@ -1,21 +1,45 @@
 <script setup lang="ts">
+import { Info } from "lucide-vue-next";
 import TemperatureInput from "~/components/shared/engine/TemperatureInput.vue";
 import VoiceModelSelection from "~/components/shared/engine/audio/VoiceModelSelection.vue";
 import VoiceSelectionCard from "~/components/shared/engine/audio/VoiceSelectionCard.vue";
 import ReplicaSelectionCard from "~/components/shared/engine/ReplicaSelectionCard.vue";
 
-const { attributes } = storeToRefs(useBuilderStore());
+const builderStore = useBuilderStore();
+const { attributes } = storeToRefs(builderStore);
 
 const hasAudio = computed(() => attributes.value.modes.audio);
 const hasVideo = computed(() => attributes.value.modes.video);
+const promptLength = computed(() => attributes.value.config.systemPrompt.trim().length);
+const invalidSystemPrompt = computed(() => promptLength.value <= 200);
 </script>
 
 <template>
   <Card class="gap-4">
-    <CardHeader class="flex flex-col">
+    <CardHeader
+      class="flex gap-2"
+      :class="{ 'text-destructive!': builderStore.invalidAgent }"
+    >
       <CardTitle>
         {{ $t("pages.engine.agent") }}
       </CardTitle>
+      <Tooltip>
+        <TooltipTrigger>
+          <Info
+            v-if="builderStore.invalidAgent || attributes.config.temperature >= 1"
+            class="size-4"
+            :class="{ 'text-orange-400 dark:text-orange-300': !builderStore.invalidAgent && attributes.config.temperature >= 1 }"
+          />
+        </TooltipTrigger>
+        <TooltipContent>
+          <p v-if="builderStore.invalidAgent">
+            {{ $t("labels.tooltips.has-error") }}
+          </p>
+          <p v-else-if="attributes.config.temperature >= 1">
+            {{ $t("pages.engine.temperature.alert.title") }}
+          </p>
+        </TooltipContent>
+      </Tooltip>
     </CardHeader>
     <CardContent class="grid gap-4">
       <!-- todo: name -->
