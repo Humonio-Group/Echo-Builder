@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { AlertCircle } from "lucide-vue-next";
 import Page from "~/components/primitives/composing/Page.vue";
-import VoiceSelectionCard from "~/components/shared/engine/VoiceSelectionCard.vue";
-import ReplicaSelectionCard from "~/components/shared/engine/ReplicaSelectionCard.vue";
+import AgentConfigCard from "~/components/shared/engine/AgentConfigCard.vue";
 
 definePageMeta({
   nameKey: "navigation.engine",
@@ -31,7 +30,7 @@ const validEnd = computed(() => {
     name="engine"
     class="flex justify-center"
   >
-    <div class="w-full max-w-xl gap-6 flex flex-col py-6">
+    <div class="w-full max-w-3xl gap-6 flex flex-col py-6">
       <header>
         <h1 class="text-2xl font-black">
           {{ $t("pages.engine.title") }}
@@ -41,80 +40,9 @@ const validEnd = computed(() => {
         </p>
       </header>
 
-      <Card>
-        <CardContent class="grid gap-4">
-          <div class="space-y-2">
-            <div class="grid relative">
-              <Label
-                for="system-prompt"
-                :class="{ 'text-destructive': invalidSystemPrompt }"
-              >{{ $t("pages.engine.system-prompt.label") }}</Label>
-              <span class="text-sm text-muted-foreground font-normal">{{ $t("pages.engine.system-prompt.description") }}</span>
-            </div>
+      <AgentConfigCard />
 
-            <div class="relative">
-              <Textarea
-                id="system-prompt"
-                v-model="attributes.config.systemPrompt"
-                class="min-h-64! resize-y"
-                :class="{ 'border-destructive': invalidSystemPrompt }"
-              />
-              <span
-                v-if="invalidSystemPrompt"
-                class="absolute bottom-2 right-2 text-sm text-destructive"
-              >{{ promptLength }} / 200</span>
-              <span
-                v-else
-                class="absolute bottom-2 right-2 text-sm text-muted-foreground font-normal"
-              >{{ promptLength }}</span>
-            </div>
-          </div>
-          <div
-            v-if="(attributes.modes.text || attributes.modes.audio) && false"
-            class="flex items-center justify-between"
-          >
-            <Label for="engine-model">
-              {{ $t("pages.engine.text-model") }}
-            </Label>
-            <Select
-              id="engine-model"
-              v-model="attributes.config.model"
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>{{ $t("labels.models.light-models") }}</SelectLabel>
-                  <SelectItem value="gpt-4o-mini">
-                    GPT-4o-mini
-                  </SelectItem>
-                </SelectGroup>
-                <SelectSeparator />
-                <SelectGroup>
-                  <SelectLabel>{{ $t("labels.models.heavy-models") }}</SelectLabel>
-                  <SelectItem value="gpt-5">
-                    GPT-5
-                  </SelectItem>
-                  <SelectItem value="grok">
-                    Grok
-                  </SelectItem>
-                  <SelectItem value="mistral-large">
-                    Mistral Large
-                  </SelectItem>
-                  <SelectItem value="deepseek">
-                    Deepseek
-                  </SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
-        </CardContent>
-      </Card>
-      <VoiceSelectionCard v-if="attributes.modes.audio" />
-      <ReplicaSelectionCard v-if="attributes.modes.video" />
-
-      <Card>
+      <Card class="gap-4">
         <CardHeader class="flex flex-col">
           <CardTitle>
             {{ $t("pages.engine.end-modes.label") }}

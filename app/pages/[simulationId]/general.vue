@@ -38,7 +38,7 @@ function handleFileUpload(event: InputEvent) {
     name="general"
     class="flex justify-center"
   >
-    <div class="w-full max-w-xl gap-6 flex flex-col py-6">
+    <div class="w-full max-w-3xl gap-6 flex flex-col py-6">
       <header>
         <h1 class="text-2xl font-black">
           {{ $t("pages.general.title") }}
@@ -106,8 +106,8 @@ function handleFileUpload(event: InputEvent) {
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
+      <Card class="gap-4">
+        <CardHeader class="flex flex-col">
           <CardTitle>
             {{ $t("pages.general.modes.label") }}
           </CardTitle>
@@ -130,58 +130,52 @@ function handleFileUpload(event: InputEvent) {
               class="block w-full"
               for="text"
             >
-              <Card>
-                <CardContent class="w-full flex items-center justify-between">
-                  <div>
-                    <CardTitle>{{ $t("pages.general.modes.text.title") }}</CardTitle>
-                    <CardDescription>{{ $t("pages.general.modes.text.description") }}</CardDescription>
-                  </div>
+              <div class="w-full flex items-center justify-between">
+                <div>
+                  <CardTitle>{{ $t("pages.general.modes.text.title") }}</CardTitle>
+                  <CardDescription class="font-normal!">{{ $t("pages.general.modes.text.description") }}</CardDescription>
+                </div>
 
-                  <Switch
-                    id="text"
-                    :model-value="modes.text"
-                    @update:model-value="modes.text = $event"
-                  />
-                </CardContent>
-              </Card>
+                <Switch
+                  id="text"
+                  :model-value="modes.text"
+                  @update:model-value="modes.text = $event"
+                />
+              </div>
             </Label>
             <Label
               class="block w-full"
               for="audio"
             >
-              <Card>
-                <CardContent class="w-full flex items-center justify-between">
-                  <div>
-                    <CardTitle>{{ $t("pages.general.modes.audio.title") }}</CardTitle>
-                    <CardDescription>{{ $t("pages.general.modes.audio.description") }}</CardDescription>
-                  </div>
+              <div class="w-full flex items-center justify-between">
+                <div>
+                  <CardTitle>{{ $t("pages.general.modes.audio.title") }}</CardTitle>
+                  <CardDescription class="font-normal!">{{ $t("pages.general.modes.audio.description") }}</CardDescription>
+                </div>
 
-                  <Switch
-                    id="audio"
-                    :model-value="modes.audio"
-                    @update:model-value="modes.audio = $event"
-                  />
-                </CardContent>
-              </Card>
+                <Switch
+                  id="audio"
+                  :model-value="modes.audio"
+                  @update:model-value="modes.audio = $event"
+                />
+              </div>
             </Label>
             <Label
               class="block w-full"
               for="video"
             >
-              <Card>
-                <CardContent class="w-full flex items-center justify-between">
-                  <div>
-                    <CardTitle>{{ $t("pages.general.modes.video.title") }}</CardTitle>
-                    <CardDescription>{{ $t("pages.general.modes.video.description") }}</CardDescription>
-                  </div>
+              <div class="w-full flex items-center justify-between">
+                <div>
+                  <CardTitle>{{ $t("pages.general.modes.video.title") }}</CardTitle>
+                  <CardDescription class="font-normal!">{{ $t("pages.general.modes.video.description") }}</CardDescription>
+                </div>
 
-                  <Switch
-                    id="video"
-                    :model-value="modes.video"
-                    @update:model-value="modes.video = $event"
-                  />
-                </CardContent>
-              </Card>
+                <Switch
+                  id="video"
+                  :model-value="modes.video"
+                  @update:model-value="modes.video = $event"
+                />
+              </div>
             </Label>
           </main>
         </CardContent>

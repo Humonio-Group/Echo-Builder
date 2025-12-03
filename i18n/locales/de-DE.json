@@ -148,18 +148,53 @@
     "engine": {
       "title": "Simulationsmotor",
       "description": "Konfigurieren Sie das Szenario und die aktivierten Optionen Ihrer Simulation.",
+      "agent": "Agentenkonfiguration",
       "system-prompt": {
         "label": "Systemanweisungen",
-        "description": "Beschreiben Sie den Inhalt, das Szenario und die möglichen Ausgänge der Simulation."
+        "description": "Beschreiben Sie den Inhalt der Simulation, ihr Szenario und mögliche Ausgänge."
       },
       "text-model": "Generierungsmodell",
-      "audio-voice": {
-        "label": "Stimme",
-        "description": "Wird im Audiomodus verwendet"
+      "temperature": {
+        "label": "Temperatur",
+        "deterministic": "Deterministisch",
+        "standard": "Standard",
+        "creative": "Kreativ",
+        "alert": {
+          "title": "Risiko von Agent-Halluzinationen",
+          "description": "Eine Temperatur über {value} macht die Generierung chaotisch. Übermäßige Kreativität kann die Simulation nahezu inkohärent machen."
+        }
       },
-      "video-replica": {
-        "label": "Replica",
-        "description": "Wird im Videomodus verwendet"
+      "audio": {
+        "voice": {
+          "label": "Stimme",
+          "description": "Wird im Audiomodus verwendet",
+          "placeholder": "Wählen Sie eine Stimme"
+        },
+        "model": {
+          "label": "Generierungsmodell",
+          "description": "Wählen Sie das Modell, das am besten zu Ihrer finalen Nutzung passt."
+        },
+        "models": {
+          "eleven_turbo_v2_5": {
+            "name": "Niedrige Latenz",
+            "caption": "Angemessene Audioqualität und niedrige Latenz."
+          },
+          "eleven_multilingual_v2": {
+            "name": "Hohe Wiedergabetreue",
+            "caption": "Gute Stimmtreue, verlängerte Latenz."
+          },
+          "eleven_v3": {
+            "name": "Emotional",
+            "caption": "Hohe Audioqualität mit Emotionsinterpretation."
+          }
+        }
+      },
+      "video": {
+        "replica": {
+          "label": "Replica",
+          "description": "Wird im Videomodus verwendet",
+          "placeholder": "Wählen Sie ein Replica"
+        }
       },
       "end-modes": {
         "label": "Beendigungsmodi",

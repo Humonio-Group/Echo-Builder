@@ -148,18 +148,53 @@
     "engine": {
       "title": "Simulation engine",
       "description": "Configure the scenario and enabled options for your simulation.",
+      "agent": "Agent configuration",
       "system-prompt": {
         "label": "System instructions",
-        "description": "Describe the content, scenario, and outputs of your simulation."
+        "description": "Describe the content of the simulation, its scenario, and possible outcomes."
       },
       "text-model": "Generation model",
-      "audio-voice": {
-        "label": "Voice",
-        "description": "Used in audio mode"
+      "temperature": {
+        "label": "Temperature",
+        "deterministic": "Deterministic",
+        "standard": "Standard",
+        "creative": "Creative",
+        "alert": {
+          "title": "Agent hallucination risk",
+          "description": "A temperature above {value} makes generation chaotic. Excessive creativity can make the simulation almost incoherent."
+        }
       },
-      "video-replica": {
-        "label": "Replica",
-        "description": "Used in video mode"
+      "audio": {
+        "voice": {
+          "label": "Voice",
+          "description": "Used in audio mode",
+          "placeholder": "Select a voice"
+        },
+        "model": {
+          "label": "Generation model",
+          "description": "Select the model that best fits your final use case."
+        },
+        "models": {
+          "eleven_turbo_v2_5": {
+            "name": "Low latency",
+            "caption": "Decent audio quality and low latency."
+          },
+          "eleven_multilingual_v2": {
+            "name": "High fidelity",
+            "caption": "Good voice fidelity, extended latency."
+          },
+          "eleven_v3": {
+            "name": "Emotional",
+            "caption": "High audio fidelity with emotion interpretation."
+          }
+        }
+      },
+      "video": {
+        "replica": {
+          "label": "Replica",
+          "description": "Used in video mode",
+          "placeholder": "Select a replica"
+        }
       },
       "end-modes": {
         "label": "Exit modes",

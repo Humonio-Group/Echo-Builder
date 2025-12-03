@@ -148,18 +148,53 @@
     "engine": {
       "title": "Moteur de simulation",
       "description": "Configurez le scénario et les options activés pour votre simulation.",
+      "agent": "Configuration de l'agent",
       "system-prompt": {
         "label": "Instructions système",
         "description": "Décrivez le contenu de la simulation, son scénario, ses possibilités de sorties."
       },
       "text-model": "Modèle de génération",
-      "audio-voice": {
-        "label": "Voix",
-        "description": "Utilisé dans le mode \"audio\""
+      "temperature": {
+        "label": "Température",
+        "deterministic": "Déterministe",
+        "standard": "Standard",
+        "creative": "Créatif",
+        "alert": {
+          "title": "Risque d'hallucination de l'agent",
+          "description": "Une température supérieure à {value} rends la génération chaotique. Un excès de créativité peut rendre la simulation presque incohérente."
+        }
       },
-      "video-replica": {
-        "label": "Replica",
-        "description": "Utilisé dans le mode \"Vidéo\""
+      "audio": {
+        "voice": {
+          "label": "Voix",
+          "description": "Utilisé dans le mode \"audio\"",
+          "placeholder": "Sélectionner une voix"
+        },
+        "model": {
+          "label": "Modèle de génération",
+          "description": "Sélectionner le modèle qui colle le plus à votre utilisation finale."
+        },
+        "models": {
+          "eleven_turbo_v2_5": {
+            "name": "Faible latence",
+            "caption": "Qualité de l'audio convenable et faible latence."
+          },
+          "eleven_multilingual_v2": {
+            "name": "Haute fidélité",
+            "caption": "Bonne fidélité de la voix, latence ralongée."
+          },
+          "eleven_v3": {
+            "name": "Émotionelle",
+            "caption": "Haute fidélité audio avec interprétation des émotions."
+          }
+        }
+      },
+      "video": {
+        "replica": {
+          "label": "Replica",
+          "description": "Utilisé dans le mode \"Vidéo\"",
+          "placeholder": "Sélectionner un replica"
+        }
       },
       "end-modes": {
         "label": "Modes de sortie",
