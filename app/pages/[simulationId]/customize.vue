@@ -23,7 +23,7 @@ function scroll() {
     name="customize"
     class="flex flex-col items-center"
   >
-    <div class="w-full max-w-xl grid gap-6 py-6">
+    <div class="w-full max-w-3xl grid gap-6 py-6">
       <header>
         <h1 class="text-2xl font-black">
           {{ $t("pages.customize.title") }}

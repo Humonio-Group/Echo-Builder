@@ -34,8 +34,9 @@ export const useBuilderStore = defineStore("builder", {
       config: {
         systemPrompt: "",
         model: "",
+        temperature: 0.75,
         audio: {
-          model: "",
+          model: "eleven_turbo_v2_5",
           voice: "",
         },
         video: {
@@ -180,6 +181,9 @@ export const useBuilderStore = defineStore("builder", {
     },
     invalidVoice: state => state.attributes.modes.audio && !state.attributes.config.audio.voice.length,
     invalidReplica: state => state.attributes.modes.video && !state.attributes.config.video.replica.length,
+    invalidAgent() {
+      return this.invalidReplica || this.invalidVoice || this.invalidSystemPrompt;
+    },
 
     hasMainScore: state => state.attributes.evaluations.some(e => e.type === "score" && (e.config as ScoreEvaluationConfig).mainScore),
     hasFirstLoadedVoices: state => state.voices !== null,
@@ -252,12 +256,10 @@ export const useBuilderStore = defineStore("builder", {
       const questions = included.filter(i => i.type === "echoSimulationQuestions");
       const evaluations = included.filter(i => i.type === "echoSimulationEvaluations");
 
-      this.languages = languages.map(l => ({
-        code: l.attributes.code,
-      })).reduce((acc, val) => {
+      this.languages = languages.map(l => l.attributes.code).reduce((acc, val) => {
         acc = [
           ...acc,
-          val.code,
+          val,
         ];
 
         return acc;
@@ -277,8 +279,9 @@ export const useBuilderStore = defineStore("builder", {
         ...this.attributes.config,
         systemPrompt: simulation.attributes.engine.system_prompt || "",
         model: simulation.attributes.engine.model ?? "gpt-4o-mini",
+        temperature: simulation.attributes.engine.temperature ?? 0.75,
         audio: {
-          model: "elevenlabs_multilingual_v2",
+          model: simulation.attributes.engine.audio?.model ?? "eleven_turbo_v2_5",
           voice: simulation.attributes.engine.audio?.voice ?? "",
         },
         video: {
@@ -338,6 +341,7 @@ export const useBuilderStore = defineStore("builder", {
       const audioConfig = this.attributes.modes.audio
         ? {
             audio: {
+              model: this.attributes.config.audio.model,
               voice: this.attributes.config.audio.voice,
             },
           }
@@ -359,7 +363,7 @@ export const useBuilderStore = defineStore("builder", {
       };
       const engine = {
         system_prompt: this.attributes.config.systemPrompt,
-        temperature: 0.5,
+        temperature: this.attributes.config.temperature,
         ...audioConfig,
         ...videoConfig,
         end_modes,
