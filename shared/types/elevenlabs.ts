@@ -5,5 +5,6 @@ export interface Voice {
   id: string;
   name: string;
   gender: "male" | "female";
+  language: string;
   preview_url: string;
 }

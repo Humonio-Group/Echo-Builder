@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Mars, Square, Venus, Volume2, VolumeOff } from "lucide-vue-next";
+import { Square, Volume2, VolumeOff } from "lucide-vue-next";
+import VoiceSelectionItem from "~/components/shared/engine/audio/VoiceSelectionItem.vue";
 
 const store = useBuilderStore();
 const { attributes, voices, loading: _loading, selectedVoice } = storeToRefs(store);
@@ -10,6 +11,10 @@ store.loadVoices();
 
 const isPlayingVoicePreview = ref<boolean>(false);
 const voicePlaying = ref<Audio | null>(null);
+
+const maleVoices = computed(() => voices.value?.filter(voice => voice.gender === "male") ?? []);
+const femaleVoices = computed(() => voices.value?.filter(voice => voice.gender === "female") ?? []);
+const otherVoices = computed(() => voices.value?.filter(voice => voice.gender !== "male" && voice.gender !== "female") ?? []);
 
 function clearAudio() {
   voicePlaying.value!.pause();
@@ -66,25 +71,51 @@ onBeforeUnmount(() => {
         id="engine-model"
         v-model="attributes.config.audio.voice"
       >
-        <SelectTrigger :class="{ 'border-destructive! text-destructive/50!': !attributes.config.audio.voice?.length }">
-          <SelectValue :placeholder="$t('pages.engine.video.replica.placeholder')" />
+        <SelectTrigger
+          class="max-w-[200px]"
+          :class="{ 'border-destructive! text-destructive/50!': !attributes.config.audio.voice?.length }"
+        >
+          <SelectValue
+            class="truncate"
+            :placeholder="$t('pages.engine.video.replica.placeholder')"
+          />
         </SelectTrigger>
         <SelectContent align="end">
-          <SelectItem
-            v-for="voice in (voices ?? [])"
-            :key="voice.id"
-            :value="voice.id"
-          >
-            {{ voice.name }}
-            <Venus
-              v-if="voice.gender === 'female'"
-              class="text-pink-400 dark:text-pink-300"
+          <SelectGroup>
+            <SelectLabel>
+              {{ $t("labels.genders.female", 2) }}
+            </SelectLabel>
+
+            <VoiceSelectionItem
+              v-for="voice in femaleVoices"
+              :key="voice.id"
+              :voice="voice"
             />
-            <Mars
-              v-else-if="voice.gender === 'male'"
-              class="text-blue-400 dark:text-blue-300"
+          </SelectGroup>
+
+          <SelectGroup class="mt-4">
+            <SelectLabel>
+              {{ $t("labels.genders.male", 2) }}
+            </SelectLabel>
+
+            <VoiceSelectionItem
+              v-for="voice in maleVoices"
+              :key="voice.id"
+              :voice="voice"
             />
-          </SelectItem>
+          </SelectGroup>
+
+          <SelectGroup class="mt-4">
+            <SelectLabel>
+              {{ $t("labels.genders.other", 2) }}
+            </SelectLabel>
+
+            <VoiceSelectionItem
+              v-for="voice in otherVoices"
+              :key="voice.id"
+              :voice="voice"
+            />
+          </SelectGroup>
         </SelectContent>
       </Select>
     </div>
