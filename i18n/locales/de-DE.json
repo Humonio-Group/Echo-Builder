@@ -42,6 +42,10 @@
   },
   "labels": {
     "axis": "Achse",
+    "beta": {
+      "name": "Beta",
+      "caption": "Dieser Inhalt befindet sich in einer experimentellen Version."
+    },
     "question-placeholder": "Neue Frage",
     "option-placeholder": "Neue Option",
     "saved-since": {
