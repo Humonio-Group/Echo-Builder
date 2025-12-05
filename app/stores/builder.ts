@@ -285,13 +285,13 @@ export const useBuilderStore = defineStore("builder", {
           voice: simulation.attributes.engine.audio?.voice ?? "",
         },
         video: {
-          replica: simulation.attributes.engine.tavus?.default_replica_id ?? "",
+          replica: simulation.attributes.engine.video?.replica ?? "",
         },
         end: {
-          time: simulation.attributes.engine.end_modes.byTime.enabled,
-          duration: simulation.attributes.engine.end_modes.byTime.duration,
-          agent: simulation.attributes.engine.end_modes.byAI,
-          user: simulation.attributes.engine.end_modes.byUser,
+          time: simulation.attributes.engine.endModes.byTime.enabled,
+          duration: simulation.attributes.engine.endModes.byTime.duration,
+          agent: simulation.attributes.engine.endModes.byAI,
+          user: simulation.attributes.engine.endModes.byUser,
         },
       };
       this.attributes.questions = questions.map(q => ({
