@@ -98,9 +98,19 @@ function closeTab() {
               <Save />
               {{ $t("navigation.file.save-and-close") }}
             </DropdownMenuItem>
-            <DropdownMenuItem @click="handleCloseRequest">
+            <DropdownMenuItem
+              v-if="builderStore.isTouched"
+              @click="handleCloseRequest"
+            >
               <DoorClosed />
               {{ $t("navigation.file.close-without-saving") }}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              v-else
+              @click="closeTab"
+            >
+              <DoorClosed />
+              {{ $t("navigation.file.close") }}
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
