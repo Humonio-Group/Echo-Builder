@@ -360,7 +360,7 @@ export const useBuilderStore = defineStore("builder", {
         agent: this.attributes.config.end.agent,
       };
       const config = {
-        system_prompt: this.attributes.config.systemPrompt,
+        systemPrompt: this.attributes.config.systemPrompt,
         temperature: this.attributes.config.temperature,
         ...audioConfig,
         ...videoConfig,
