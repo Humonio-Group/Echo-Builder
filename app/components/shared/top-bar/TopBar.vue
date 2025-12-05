@@ -130,7 +130,19 @@ function closeTab() {
 
     <div class="flex items-center gap-3">
       <!-- <span class="text-xs text-muted-foreground">{{ $t("labels.saved-since.moment-ago") }}</span> -->
+      <Tooltip>
+        <TooltipTrigger as-child>
+          <Badge variant="destructive">
+            {{ $t("labels.beta.name") }}
+          </Badge>
+        </TooltipTrigger>
+        <TooltipContent side="bottom">
+          {{ $t("labels.beta.caption") }}
+        </TooltipContent>
+      </Tooltip>
+
       <LanguageSelector />
+
       <Tooltip>
         <TooltipTrigger as-child>
           <Button
