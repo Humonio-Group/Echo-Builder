@@ -85,6 +85,11 @@
         "success": "Your simulation has been exported to SCORM {version}!",
         "error": "An error occurred while exporting the simulation."
       }
+    },
+    "genders": {
+      "male": "Man | Men",
+      "female": "Woman | Women",
+      "other": "Other | Others"
     }
   },
   "pages": {
