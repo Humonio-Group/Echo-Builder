@@ -348,25 +348,23 @@ export const useBuilderStore = defineStore("builder", {
         : {};
       const videoConfig = this.attributes.modes.video
         ? {
-            tavus: {
-              default_replica_id: this.attributes.config.video.replica,
+            video: {
+              replica: this.attributes.config.video.replica,
             },
           }
         : {};
-      const end_modes = {
-        byUser: this.attributes.config.end.user,
-        byTime: {
-          enabled: this.attributes.config.end.time,
-          duration: this.attributes.config.end.duration,
-        },
-        byAI: this.attributes.config.end.agent,
+      const end = {
+        user: this.attributes.config.end.user,
+        time: this.attributes.config.end.time,
+        duration: this.attributes.config.end.duration,
+        agent: this.attributes.config.end.agent,
       };
-      const engine = {
+      const config = {
         system_prompt: this.attributes.config.systemPrompt,
         temperature: this.attributes.config.temperature,
         ...audioConfig,
         ...videoConfig,
-        end_modes,
+        end,
       };
 
       const questions = this.attributes.questions;
@@ -377,7 +375,7 @@ export const useBuilderStore = defineStore("builder", {
         description,
         modes,
         status,
-        engine,
+        config,
         // Relations
         questions,
         evaluations,
