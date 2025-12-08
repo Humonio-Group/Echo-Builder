@@ -175,6 +175,7 @@
         }
       },
       "audio": {
+        "title": "Configuration Audio",
         "voice": {
           "label": "Voix",
           "description": "Utilisé dans le mode \"audio\"",
@@ -200,6 +201,7 @@
         }
       },
       "video": {
+        "title": "Configuration Vidéo",
         "replica": {
           "label": "Replica",
           "description": "Utilisé dans le mode \"Vidéo\"",
