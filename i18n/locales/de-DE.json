@@ -175,6 +175,7 @@
         }
       },
       "audio": {
+        "title": "Audio-Konfiguration",
         "voice": {
           "label": "Stimme",
           "description": "Wird im Audiomodus verwendet",
@@ -200,6 +201,7 @@
         }
       },
       "video": {
+        "title": "Video-Konfiguration",
         "replica": {
           "label": "Replica",
           "description": "Wird im Videomodus verwendet",
