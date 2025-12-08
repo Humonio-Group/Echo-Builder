@@ -12,6 +12,7 @@ import type {
   PrepQuestionType,
   SelectQuestionConfig,
 } from "#shared/types/config/prep-questions";
+import { isNumberBetween } from "~/lib/numbers";
 
 const defaultTranslations = (codes: string[]): Translations => {
   const translations: Translations = {};
@@ -41,6 +42,10 @@ export const useBuilderStore = defineStore("builder", {
         audio: {
           model: "eleven_turbo_v2_5",
           voice: "",
+          speed: 1,
+          stability: 0.5,
+          similarity: 0.5,
+          exageration: 0.5,
         },
         video: {
           replica: "",
@@ -77,6 +82,7 @@ export const useBuilderStore = defineStore("builder", {
         || !!this.invalidEvaluations
         || !!this.invalidVoice
         || !!this.invalidReplica
+        || !!this.invalidAudioConfiguration
       ;
     },
     invalidTranslations: (state) => {
@@ -185,6 +191,20 @@ export const useBuilderStore = defineStore("builder", {
       return evaluations;
     },
     invalidVoice: state => state.attributes.modes.audio && !state.attributes.config.audio.voice.length,
+    invalidAudioConfiguration: (state) => {
+      const validSpeed = isNumberBetween(state.attributes.config.audio.speed, 0.7, 1.2, true);
+      const validStability = isNumberBetween(state.attributes.config.audio.stability, 0, 1, true);
+      const validSimilarity = isNumberBetween(state.attributes.config.audio.similarity, 0, 1, true);
+      const validExageration = isNumberBetween(state.attributes.config.audio.exageration, 0, 1, true);
+
+      switch (state.attributes.config.audio.model) {
+        case "eleven_turbo_v2_5": return !(validSpeed && validStability && validSimilarity);
+        case "eleven_multilingual_v2": return !(validSpeed && validStability && validSimilarity && validExageration);
+        case "eleven_v3": return !(validStability);
+
+        default: return false;
+      }
+    },
     invalidReplica: state => state.attributes.modes.video && !state.attributes.config.video.replica.length,
 
     hasMainScore: state => state.attributes.evaluations.some(e => e.type === "score" && (e.config as ScoreEvaluationConfig).mainScore),
@@ -286,6 +306,10 @@ export const useBuilderStore = defineStore("builder", {
         audio: {
           model: simulation.attributes.engine.audio?.model ?? "eleven_turbo_v2_5",
           voice: simulation.attributes.engine.audio?.voice ?? "",
+          speed: simulation.attributes.engine.audio?.speed ?? 1,
+          stability: simulation.attributes.engine.audio?.stability ?? 0.5,
+          similarity: simulation.attributes.engine.audio?.similarity ?? 0.5,
+          exageration: simulation.attributes.engine.audio?.exageration ?? 0.5,
         },
         video: {
           replica: simulation.attributes.engine.video?.replica ?? "",
@@ -349,10 +373,7 @@ export const useBuilderStore = defineStore("builder", {
 
       const audioConfig = modes.audio
         ? {
-            audio: {
-              model: this.attributes.config.audio.model,
-              voice: this.attributes.config.audio.voice,
-            },
+            audio: this.attributes.config.audio,
           }
         : {};
       const videoConfig = modes.video
