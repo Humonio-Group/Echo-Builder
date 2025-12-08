@@ -2,8 +2,13 @@
 import { AlertCircle } from "lucide-vue-next";
 import VoiceModelSelection from "~/components/shared/engine/audio/VoiceModelSelection.vue";
 import VoiceSelectionCard from "~/components/shared/engine/audio/VoiceSelectionCard.vue";
+import SpeedControl from "~/components/shared/engine/audio/SpeedControl.vue";
+import StabilityControl from "~/components/shared/engine/audio/StabilityControl.vue";
+import SimilarityControl from "~/components/shared/engine/audio/SimilarityControl.vue";
+import ExagerationControl from "~/components/shared/engine/audio/ExagerationControl.vue";
 
 const store = useBuilderStore();
+const { attributes } = storeToRefs(store);
 </script>
 
 <template>
@@ -30,6 +35,11 @@ const store = useBuilderStore();
       <VoiceModelSelection />
 
       <VoiceSelectionCard />
+
+      <SpeedControl v-if="attributes.config.audio.model !== 'eleven_v3'" />
+      <StabilityControl />
+      <SimilarityControl v-if="attributes.config.audio.model !== 'eleven_v3'" />
+      <ExagerationControl v-if="attributes.config.audio.model === 'eleven_multilingual_v2'" />
     </CardContent>
   </Card>
 </template>
