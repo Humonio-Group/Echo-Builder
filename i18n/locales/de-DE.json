@@ -9,6 +9,7 @@
       "save": "Speichern",
       "save-and-close": "Speichern und schließen",
       "close-without-saving": "Schließen ohne zu speichern",
+      "close": "Schließen",
       "export-to-scorm": {
         "DEFAULT": "Als SCORM exportieren",
         "scorm-12": "SCORM 1.2",
