@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { BuilderState } from "~~/shared/types/stores/builder";
 import { toast } from "vue-sonner";
 import type {
@@ -21,9 +22,11 @@ const defaultTranslations = (codes: string[]): Translations => {
 export const useBuilderStore = defineStore("builder", {
   state: (): BuilderState => ({
     contentId: -1,
+    programId: -1,
     attributes: {
       name: {},
       description: {},
+      avatar: null,
       questions: [],
       evaluations: [],
       modes: {
@@ -55,6 +58,7 @@ export const useBuilderStore = defineStore("builder", {
     loading: {
       voices: false,
       replicas: false,
+      avatar: false,
     },
     languages: [],
     touched: false,
@@ -237,11 +241,9 @@ export const useBuilderStore = defineStore("builder", {
         await this.storeSimulation(response);
       }
       catch (e) {
-        const error = e as FetchError;
+        console.error(e);
 
-        console.log(error);
-
-        switch (error.statusCode) {
+        switch ((e as any).statusCode) {
           case 401: {
             // navigateTo(useRuntimeConfig().public.auth, { external: true });
             return;
@@ -252,6 +254,7 @@ export const useBuilderStore = defineStore("builder", {
 
     async storeSimulation(response: unknown) {
       const { data: simulation, included } = response;
+      const program = included.find(i => i.type === "programs");
       const languages = included.filter(i => i.type === "languages");
       const questions = included.filter(i => i.type === "echoSimulationQuestions");
       const evaluations = included.filter(i => i.type === "echoSimulationEvaluations");
@@ -266,6 +269,7 @@ export const useBuilderStore = defineStore("builder", {
       }, []);
 
       this.contentId = simulation.id;
+      this.programId = program.id;
       this.attributes.name = {
         ...defaultTranslations(this.languages),
         ...simulation.attributes.name,
@@ -274,6 +278,7 @@ export const useBuilderStore = defineStore("builder", {
         ...defaultTranslations(this.languages),
         ...simulation.attributes.description,
       };
+      this.attributes.avatar = simulation.attributes.avatar;
       this.attributes.modes = simulation.attributes.modes;
       this.attributes.config = {
         ...this.attributes.config,
@@ -333,12 +338,10 @@ export const useBuilderStore = defineStore("builder", {
       this.touched = false;
     },
     buildSimulationBody() {
-      const name = this.attributes.name;
-      const description = this.attributes.description;
-      const modes = this.attributes.modes;
+      const { name, description, avatar, modes, config: _conf } = this.attributes;
       const status = "active";
 
-      const audioConfig = this.attributes.modes.audio
+      const audioConfig = modes.audio
         ? {
             audio: {
               model: this.attributes.config.audio.model,
@@ -346,25 +349,19 @@ export const useBuilderStore = defineStore("builder", {
             },
           }
         : {};
-      const videoConfig = this.attributes.modes.video
+      const videoConfig = modes.video
         ? {
             video: {
               replica: this.attributes.config.video.replica,
             },
           }
         : {};
-      const end = {
-        user: this.attributes.config.end.user,
-        time: this.attributes.config.end.time,
-        duration: this.attributes.config.end.duration,
-        agent: this.attributes.config.end.agent,
-      };
       const config = {
-        systemPrompt: this.attributes.config.systemPrompt,
-        temperature: this.attributes.config.temperature,
+        systemPrompt: _conf.systemPrompt,
+        temperature: _conf.temperature,
         ...audioConfig,
         ...videoConfig,
-        end,
+        end: _conf.end,
       };
 
       const questions = this.attributes.questions;
@@ -373,6 +370,7 @@ export const useBuilderStore = defineStore("builder", {
       return {
         name,
         description,
+        avatar,
         modes,
         status,
         config,
@@ -551,6 +549,37 @@ export const useBuilderStore = defineStore("builder", {
       update(!(element!.config as ScoreEvaluationConfig).mainScore);
     },
 
+    async uploadAvatar(file: File) {
+      this.loading.avatar = true;
+      this.attributes.avatar = URL.createObjectURL(file);
+
+      const formData = new FormData();
+      if (this.programId) formData.append("program", String(this.programId));
+      formData.append("type", "8");
+      formData.append("file", file);
+
+      try {
+        const response = await $fetch(useApi2Url("/files", "v1"), {
+          ...useFetchOptions(),
+          method: "POST",
+          body: formData,
+        });
+
+        URL.revokeObjectURL(this.attributes.avatar);
+        this.attributes.avatar = (response as any).data.attributes.file.url;
+      }
+      catch (e) {
+        console.error(e);
+      }
+      finally {
+        this.loading.avatar = false;
+      }
+    },
+    clearAvatar() {
+      console.log("clear avatar");
+      this.attributes.avatar = null;
+    },
+
     touch() {
       this.touched = true;
     },
@@ -590,7 +619,7 @@ export const useBuilderStore = defineStore("builder", {
 
       const exportScorm = (retry: boolean = true) => toast.promise($fetch(useApi2Url(`/echo_simulations/${this.contentId}/export-scorm`, "v2"), { ...useFetchOptions() }), {
         loading: t("labels.toasts.exporting-scorm.loading", { version }),
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
         success: (response: any) => {
           window.open(response.data.downloadUrl, "_blank", "noopener,noreferrer");
           return t("labels.toasts.exporting-scorm.success", { version });
