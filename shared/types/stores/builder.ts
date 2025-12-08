@@ -6,9 +6,11 @@ import type { Replica } from "~~/shared/types/tavus";
 
 export interface BuilderState {
   contentId: ID;
+  programId: ID;
   attributes: {
     name: Translations;
     description: Translations;
+    avatar: TNull<string>;
     questions: PrepQuestions;
     evaluations: Evaluations;
     modes: {
@@ -40,6 +42,7 @@ export interface BuilderState {
   loading: {
     voices: boolean;
     replicas: boolean;
+    avatar: boolean;
   };
   languages: string[];
   touched: boolean;

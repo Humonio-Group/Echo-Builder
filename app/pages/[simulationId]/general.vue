@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import { AlertCircle, Edit } from "lucide-vue-next";
+import { AlertCircle } from "lucide-vue-next";
 import Page from "~/components/primitives/composing/Page.vue";
+import AvatarForm from "~/components/shared/general/AvatarForm.vue";
 
 const locale = useI18n().locale;
 
 definePageMeta({
   nameKey: "navigation.general",
 });
-
-const fileInput = ref();
-const avatarUrl = ref<string | null>("/images/ia-avatar.gif");
 
 const builderStore = useBuilderStore();
 const { attributes } = storeToRefs(builderStore);
@@ -18,19 +16,6 @@ const { name, description, modes } = toRefs(attributes.value);
 const hasModes = computed(() => Object.values(modes.value).some(v => !!v));
 const invalidName = computed(() => !name.value?.[locale.value]!.trim().length);
 const invalidDescription = computed(() => !description.value?.[locale.value]!.trim().length);
-
-function openFileDialog() {
-  fileInput.value.click();
-}
-function handleFileUpload(event: InputEvent) {
-  const file: File | undefined = (event.target as HTMLInputElement)!.files![0];
-  if (!file) {
-    avatarUrl.value = null;
-    return;
-  }
-
-  avatarUrl.value = URL.createObjectURL(file);
-}
 </script>
 
 <template>
@@ -51,33 +36,8 @@ function handleFileUpload(event: InputEvent) {
       <Card>
         <CardContent class="grid gap-4">
           <section class="grid grid-cols-[min-content_1fr] gap-4 items-center">
-            <div class="mx-auto relative">
-              <Avatar class="size-18">
-                <AvatarImage
-                  v-if="avatarUrl"
-                  :src="avatarUrl"
-                />
-                <AvatarFallback class="text-2xl">
-                  Si
-                </AvatarFallback>
-              </Avatar>
-              <Button
-                size="icon-sm"
-                variant="secondary"
-                class="absolute -bottom-1 -right-1"
-                @click="openFileDialog"
-              >
-                <Edit />
-              </Button>
-              <input
-                ref="fileInput"
-                type="file"
-                hidden
-                class="absolute"
-                accept="image/*"
-                @change="handleFileUpload"
-              >
-            </div>
+            <AvatarForm />
+
             <section class="space-y-2">
               <Label
                 for="name"
