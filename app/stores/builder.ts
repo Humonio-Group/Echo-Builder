@@ -550,7 +550,6 @@ export const useBuilderStore = defineStore("builder", {
     },
 
     async uploadAvatar(file: File) {
-      // TODO: upload file to qigu
       this.loading.avatar = true;
       this.attributes.avatar = URL.createObjectURL(file);
 
