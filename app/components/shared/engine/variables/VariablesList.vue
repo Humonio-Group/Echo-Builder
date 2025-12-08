@@ -23,17 +23,17 @@ const { attributes } = storeToRefs(useBuilderStore());
         :key="index"
       >
         <VariableItem
-          :label="`question_${index}`"
-          :description="`Injecter l'intitulé de la question ${index}`"
+          :label="`question_${index + 1}`"
+          :description="`Injecter l'intitulé de la question ${index + 1}`"
           :value="question.label[locale]"
         />
         <VariableItem
-          :label="`answer_${index}`"
-          :description="`Injecter la réponse de l'utilisateur à la question ${index}`"
+          :label="`answer_${index + 1}`"
+          :description="`Injecter la réponse de l'utilisateur à la question ${index + 1}`"
         />
         <VariableItem
-          :label="`q-and-a_${index}`"
-          :description="`Injecter l'intitulé de la question ${index}`"
+          :label="`q-and-a_${index + 1}`"
+          :description="`Injecter l'intitulé de la question ${index + 1}`"
           :value="`${question.label[locale]} -> (défini par l'utilisateur)`"
         />
       </template>
