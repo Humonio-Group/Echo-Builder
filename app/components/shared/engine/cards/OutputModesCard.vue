@@ -7,11 +7,12 @@ const { attributes } = storeToRefs(store);
 const validEnd = computed(() => {
   const byUser = attributes.value.config.end.user;
   const byAgent = attributes.value.config.end.agent;
+  const instructions = attributes.value.config.end.instructions;
   const time = attributes.value.config.end.time;
   const duration = attributes.value.config.end.duration;
 
   return byUser
-    || byAgent
+    || (byAgent && instructions.length > 100)
     || (time && duration)
   ;
 });
@@ -83,21 +84,30 @@ const validEnd = computed(() => {
           </NumberFieldContent>
         </NumberField>
       </div>
-      <Label
-        class="flex items-center justify-between gap-4"
-        for="end-by-ai"
-      >
-        <div class="grid">
-          <span class="text-sm font-medium">{{ $t("pages.engine.end-modes.by-ai.label") }}</span>
-          <span class="text-sm text-muted-foreground">{{ $t("pages.engine.end-modes.by-ai.description") }}</span>
-        </div>
+      <div class="grid gap-2">
+        <Label
+          class="flex items-center justify-between gap-4"
+          for="end-by-ai"
+        >
+          <div class="grid">
+            <span class="text-sm font-medium">{{ $t("pages.engine.end-modes.by-ai.label") }}</span>
+            <span class="text-sm text-muted-foreground">{{ $t("pages.engine.end-modes.by-ai.description") }}</span>
+          </div>
 
-        <Switch
-          id="end-by-ai"
-          :model-value="attributes.config.end.agent"
-          @update:model-value="attributes.config.end.agent = $event"
+          <Switch
+            id="end-by-ai"
+            :model-value="attributes.config.end.agent"
+            @update:model-value="attributes.config.end.agent = $event"
+          />
+        </Label>
+        <Textarea
+          v-if="attributes.config.end.agent"
+          v-model="attributes.config.end.instructions"
+          class="min-h-32"
+          :class="{ 'border-destructive!': attributes.config.end.instructions.length < 100 }"
+          :placeholder="$t('pages.engine.end-modes.output-instructions')"
         />
-      </Label>
+      </div>
     </CardContent>
   </Card>
 </template>
