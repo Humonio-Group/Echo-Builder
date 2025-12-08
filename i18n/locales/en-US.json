@@ -226,7 +226,8 @@
         "by-user": {
           "label": "By the user",
           "description": "The user can exit the simulation at any time."
-        }
+        },
+        "output-instructions": "Output instructions"
       }
     },
     "evaluation": {
