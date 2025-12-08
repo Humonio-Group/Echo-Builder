@@ -34,6 +34,7 @@ export interface BuilderState {
         time: boolean;
         duration: number;
         agent: boolean;
+        instructions: string;
       };
     };
   };

@@ -50,6 +50,7 @@ export const useBuilderStore = defineStore("builder", {
           time: false,
           duration: 10,
           agent: false,
+          instructions: "",
         },
       },
     },
@@ -124,7 +125,7 @@ export const useBuilderStore = defineStore("builder", {
     invalidEndModes: (state) => {
       const hasUser = state.attributes.config.end.user;
       const hasTime = state.attributes.config.end.time && state.attributes.config.end.duration > 0;
-      const hasAgent = state.attributes.config.end.agent;
+      const hasAgent = state.attributes.config.end.agent && state.attributes.config.end.instructions?.trim().length >= 100;
 
       return !(hasUser || hasTime || hasAgent);
     },
@@ -292,7 +293,15 @@ export const useBuilderStore = defineStore("builder", {
         end: {
           time: simulation.attributes.engine.endModes.byTime.enabled,
           duration: simulation.attributes.engine.endModes.byTime.duration,
-          agent: simulation.attributes.engine.endModes.byAI,
+          ...(typeof simulation.attributes.engine.endModes.byAI === "boolean"
+            ? {
+                agent: simulation.attributes.engine.endModes.byAI,
+                instructions: "",
+              }
+            : {
+                agent: simulation.attributes.engine.endModes.byAI.enabled,
+                instructions: simulation.attributes.engine.endModes.byAI.instructions,
+              }),
           user: simulation.attributes.engine.endModes.byUser,
         },
       };
