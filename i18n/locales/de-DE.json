@@ -198,6 +198,35 @@
             "name": "Emotional",
             "caption": "Hohe Audioqualität mit Emotionsinterpretation."
           }
+        },
+        "speed": {
+          "label": "Geschwindigkeit",
+          "tooltip": "Die Sprechgeschwindigkeit anpassen",
+          "slower": "Langsamer",
+          "faster": "Schneller"
+        },
+        "stability": {
+          "label": "Stabilität",
+          "tooltip": "Konsistenz der Stimme zwischen Generationen steuern",
+          "tooltip-v3": "Kühnheit steuern:\n· Kreativ: ausdrucksstark, abwechslungsreiche Phrasierung und Tonlagen, kann sogar singen\n· Natürlich: ausgewogen, gesprächsnah\n· Robust: präzise, stabil und vorhersehbar",
+          "variable": "Variabler",
+          "stable": "Stabiler",
+
+          "creative": "Kreativ",
+          "natural": "Natürlich",
+          "robust": "Robust"
+        },
+        "similarity": {
+          "label": "Ähnlichkeit",
+          "tooltip": "Die allgemeine Klarheit der Stimme steuern",
+          "low": "Niedrig",
+          "high": "Hoch"
+        },
+        "exageration": {
+          "label": "Übertreibung",
+          "tooltip": "Den Grad der sprachlichen Übertreibung steuern",
+          "none": "Keine",
+          "amplified": "Übertrieben"
         }
       },
       "video": {
