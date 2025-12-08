@@ -22,13 +22,22 @@ const { attributes } = storeToRefs(builderStore);
     />
 
     <div class="grid grid-cols-3 gap-4">
-      <span class="text-xs text-muted-foreground">
+      <span
+        class="text-xs text-muted-foreground"
+        :class="{ 'text-primary font-semibold': attributes.config.temperature === 0 }"
+      >
         {{ $t("pages.engine.temperature.deterministic") }}
       </span>
-      <span class="text-xs text-muted-foreground text-center">
+      <span
+        class="text-xs text-muted-foreground text-center"
+        :class="{ 'text-primary font-semibold': attributes.config.temperature === 0.75 }"
+      >
         {{ $t("pages.engine.temperature.standard") }}
       </span>
-      <span class="text-xs text-muted-foreground text-end">
+      <span
+        class="text-xs text-muted-foreground text-end"
+        :class="{ 'text-primary font-semibold': attributes.config.temperature === 1.5 }"
+      >
         {{ $t("pages.engine.temperature.creative") }}
       </span>
     </div>
