@@ -6,18 +6,24 @@ const { attributes } = storeToRefs(useBuilderStore());
 
 <template>
   <div class="space-y-2">
-    <Label class="flex items-center gap-2">
-      {{ $t("pages.engine.audio.exageration.label") }}
+    <div class="flex items-center justify-between gap-4">
+      <Label class="flex items-center gap-2">
+        {{ $t("pages.engine.audio.exageration.label") }}
 
-      <Tooltip>
-        <TooltipTrigger>
-          <Info class="size-3 text-muted-foreground" />
-        </TooltipTrigger>
-        <TooltipContent>
-          {{ $t("pages.engine.audio.exageration.tooltip") }}
-        </TooltipContent>
-      </Tooltip>
-    </Label>
+        <Tooltip>
+          <TooltipTrigger>
+            <Info class="size-3 text-muted-foreground" />
+          </TooltipTrigger>
+          <TooltipContent>
+            {{ $t("pages.engine.audio.exageration.tooltip") }}
+          </TooltipContent>
+        </Tooltip>
+      </Label>
+
+      <span class="text-sm">
+        {{ (attributes.config.audio.exageration * 100).toFixed(0) }}%
+      </span>
+    </div>
 
     <Slider
       :min="0"
