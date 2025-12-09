@@ -25,6 +25,10 @@ export interface BuilderState {
       audio: {
         model: ElevenLabsModel;
         voice: string;
+        speed: number; // turbo, multilingual
+        stability: number; // turbo, multilingual, v3
+        similarity: number; // turbo, multilingual
+        exageration: number; // multilingual
       };
       video: {
         replica: string;

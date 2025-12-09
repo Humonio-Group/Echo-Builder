@@ -198,6 +198,35 @@
             "name": "Emotional",
             "caption": "High audio fidelity with emotion interpretation."
           }
+        },
+        "speed": {
+          "label": "Speed",
+          "tooltip": "Adjust the speaking speed",
+          "slower": "Slower",
+          "faster": "Faster"
+        },
+        "stability": {
+          "label": "Stability",
+          "tooltip": "Manage voice consistency between generations",
+          "tooltip-v3": "Manage boldness:\n· Creative: expressive, varied phrasing and tones, can even sing\n· Natural: conversational balance\n· Robust: precise, stable and predictable",
+          "variable": "More variable",
+          "stable": "More stable",
+
+          "creative": "Creative",
+          "natural": "Natural",
+          "robust": "Robust"
+        },
+        "similarity": {
+          "label": "Similarity",
+          "tooltip": "Manage the overall clarity of the voice",
+          "low": "Low",
+          "high": "High"
+        },
+        "exageration": {
+          "label": "Exaggeration",
+          "tooltip": "Manage the exaggeration in speech",
+          "none": "None",
+          "amplified": "Amplified"
         }
       },
       "video": {

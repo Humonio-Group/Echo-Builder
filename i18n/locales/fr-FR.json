@@ -198,6 +198,35 @@
             "name": "Émotionelle",
             "caption": "Haute fidélité audio avec interprétation des émotions."
           }
+        },
+        "speed": {
+          "label": "Vitesse",
+          "tooltip": "Varier la vitesse de la parole",
+          "slower": "Plus lent",
+          "faster": "Plus rapide"
+        },
+        "stability": {
+          "label": "Stabilité",
+          "tooltip": "Gérer la cohérence de la voix entre générations",
+          "tooltip-v3": "Gérer l'audace :\n· Créatif : expressif, phrasé et tons variés, peut même chanter\n· Naturel : équilibre conversationnel\n· Robuste : précis, stable et prévisible",
+          "variable": "Plus variable",
+          "stable": "Plus stable",
+
+          "creative": "Créatif",
+          "natural": "Naturel",
+          "robust": "Robuste"
+        },
+        "similarity": {
+          "label": "Similarité",
+          "tooltip": "Gérer la clareté globale de la voix",
+          "low": "Faible",
+          "high": "Élevé"
+        },
+        "exageration": {
+          "label": "Exagération",
+          "tooltip": "Gérer l'exagération des paroles",
+          "none": "Aucun",
+          "amplified": "Exagéré"
         }
       },
       "video": {
