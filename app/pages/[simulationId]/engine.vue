@@ -9,6 +9,7 @@ definePageMeta({
   nameKey: "navigation.engine",
 });
 
+const userStore = useUserStore();
 const { attributes } = storeToRefs(useBuilderStore());
 </script>
 
@@ -29,9 +30,9 @@ const { attributes } = storeToRefs(useBuilderStore());
 
       <SystemPromptCard />
 
-      <AudioConfigCard v-if="attributes.modes.audio" />
+      <AudioConfigCard v-if="(attributes.modes.audio || attributes.modes.video) && userStore.hasAudio" />
 
-      <VideoConfigCard v-if="attributes.modes.video" />
+      <VideoConfigCard v-if="attributes.modes.video && userStore.hasVideo" />
 
       <OutputModesCard />
     </div>

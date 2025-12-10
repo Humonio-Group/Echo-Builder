@@ -24,7 +24,7 @@
   "alerts": {
     "close-with-changes": {
       "title": "Sind Sie sicher?",
-      "description": "Sie haben ungespeicherte Änderungen. Wenn Sie schließen, gehen diese verloren. Möchten Sie wirklich fortfahren?",
+      "description": "Sie haben ungespeicherte Änderungen. Wenn Sie schließen, gehen Ihre Änderungen verloren. Möchten Sie wirklich fortfahren?",
       "cancel": "Nein, bleiben",
       "confirm": "Ja, schließen"
     },
@@ -75,7 +75,11 @@
       "delete-select": "Auswahl löschen",
       "delete-range": "Schieberegler löschen",
       "missing-translations": "Fehlende Übersetzungen",
-      "has-error": "Konfigurationsfehler"
+      "has-error": "Konfigurationsfehler",
+      "subscriptions": {
+        "audio": "Abonnieren Sie einen Audio-Plan, um diese Konfiguration freizuschalten | Abonnieren Sie einen Audio-Plan, um diese Konfigurationen freizuschalten",
+        "video": "Abonnieren Sie einen Video-Plan, um diese Konfiguration freizuschalten | Abonnieren Sie einen Video-Plan, um diese Konfigurationen freizuschalten"
+      }
     },
     "toasts": {
       "fix-errors-before-saving": "Beheben Sie Fehler vor dem Speichern.",
@@ -111,30 +115,30 @@
         },
         "text": {
           "title": "Textmodus",
-          "description": "Lernende spielen in einer SMS-ähnlichen Unterhaltung."
+          "description": "Ihre Lernenden spielen in einer SMS-ähnlichen Unterhaltung."
         },
         "audio": {
           "title": "Audiomodus",
-          "description": "Lernende kommunizieren mit dem Agenten per Telefonanruf."
+          "description": "Ihre Lernenden kommunizieren mit dem Agenten per Telefonanruf."
         },
         "video": {
           "title": "Videomodus",
-          "description": "Lernende treffen den Agenten in einer Videokonferenz."
+          "description": "Ihre Lernenden treffen den Agenten in einer Videokonferenz."
         }
       },
       "questions": {
         "label": "Fragen vorbereiten",
-        "description": "Diese Fragen helfen dem Agenten, sich auf das Gespräch vorzubereiten.",
+        "description": "Die folgenden Fragen helfen dem Agenten, sich auf das Gespräch vorzubereiten.",
         "empty": {
-          "title": "Keine Frage",
-          "description": "Sie haben noch keine Frage hinzugefügt. Fügen Sie eine zur Simulation hinzu.",
+          "title": "Keine Fragen",
+          "description": "Sie haben noch keine Fragen hinzugefügt. Fügen Sie zunächst eine zur Simulation hinzu.",
           "button": "Neue Frage"
         }
       }
     },
     "customize": {
       "title": "Personalisierung des Erlebnisses",
-      "description": "Stellen Sie dem Lernenden Fragen, um sein Erlebnis zu personalisieren.",
+      "description": "Stellen Sie dem Lernenden Fragen, um sein Gespräch zu personalisieren.",
       "type": {
         "short": "Kurzantwort",
         "long": "Langantwort",
@@ -142,8 +146,8 @@
         "range": "Schieberegler"
       },
       "empty": {
-        "title": "Keine Frage",
-        "description": "Sie haben noch keine Personalisierungsfrage hinzugefügt. Beginnen Sie, indem Sie eine hinzufügen.",
+        "title": "Keine Fragen",
+        "description": "Sie haben noch keine Personalisierungsfragen hinzugefügt. Fügen Sie zunächst eine zur Simulation hinzu.",
         "button": "Neue Frage"
       },
       "fields": {
@@ -170,7 +174,7 @@
         "standard": "Standard",
         "creative": "Kreativ",
         "alert": {
-          "title": "Risiko von Agent-Halluzinationen",
+          "title": "Risiko von Agenten-Halluzinationen",
           "description": "Eine Temperatur über {value} macht die Generierung chaotisch. Übermäßige Kreativität kann die Simulation nahezu inkohärent machen."
         }
       },
@@ -178,7 +182,7 @@
         "title": "Audio-Konfiguration",
         "voice": {
           "label": "Stimme",
-          "description": "Wird im Audiomodus verwendet",
+          "description": "Wird im \"Audio\"-Modus verwendet",
           "placeholder": "Wählen Sie eine Stimme"
         },
         "model": {
@@ -201,14 +205,14 @@
         },
         "speed": {
           "label": "Geschwindigkeit",
-          "tooltip": "Die Sprechgeschwindigkeit anpassen",
+          "tooltip": "Sprechgeschwindigkeit variieren",
           "slower": "Langsamer",
           "faster": "Schneller"
         },
         "stability": {
           "label": "Stabilität",
-          "tooltip": "Konsistenz der Stimme zwischen Generationen steuern",
-          "tooltip-v3": "Kühnheit steuern:\n· Kreativ: ausdrucksstark, abwechslungsreiche Phrasierung und Tonlagen, kann sogar singen\n· Natürlich: ausgewogen, gesprächsnah\n· Robust: präzise, stabil und vorhersehbar",
+          "tooltip": "Konsistenz der Stimme zwischen Generationen verwalten",
+          "tooltip-v3": "Kühnheit verwalten:\n· Kreativ: ausdrucksstark, abwechslungsreiche Phrasierung und Tonlagen, kann sogar singen\n· Natürlich: gesprächsnahe Balance\n· Robust: präzise, stabil und vorhersehbar",
           "variable": "Variabler",
           "stable": "Stabiler",
 
@@ -218,23 +222,27 @@
         },
         "similarity": {
           "label": "Ähnlichkeit",
-          "tooltip": "Die allgemeine Klarheit der Stimme steuern",
+          "tooltip": "Allgemeine Klarheit der Stimme verwalten",
           "low": "Niedrig",
           "high": "Hoch"
         },
         "exageration": {
           "label": "Übertreibung",
-          "tooltip": "Den Grad der sprachlichen Übertreibung steuern",
+          "tooltip": "Übertreibung der Sprache verwalten",
           "none": "Keine",
-          "amplified": "Übertrieben"
+          "amplified": "Verstärkt"
         }
       },
       "video": {
         "title": "Video-Konfiguration",
         "replica": {
           "label": "Replica",
-          "description": "Wird im Videomodus verwendet",
+          "description": "Wird im \"Video\"-Modus verwendet",
           "placeholder": "Wählen Sie ein Replica"
+        },
+        "enhance-audio": {
+          "label": "Audio verbessern",
+          "description": "Wenn aktiviert, verwendet das Video die oben konfigurierten Stimmeinstellungen."
         }
       },
       "end-modes": {
@@ -245,30 +253,30 @@
         },
         "by-ai": {
           "label": "Durch den Agenten",
-          "description": "Der Agent kann entscheiden, die Simulation zu beenden.",
-          "alert": "Achtung: Wenn Sie diese Option aktivieren, müssen Sie Beendigungsszenarien in den Systemanweisungen definieren, sonst kann der Agent die Simulation nicht beenden."
+          "description": "Der Konversationsagent kann entscheiden, die Simulation zu beenden.",
+          "alert": "Achtung: Wenn Sie diese Option aktivieren, müssen Sie Beendigungsszenarien in den Systemanweisungen Ihrer Simulation integrieren, sonst kann der Agent die Simulation nicht beenden."
         },
         "by-time": {
-          "label": "Zeitlimit (in Minuten)",
-          "description": "Der Benutzer hat eine begrenzte Zeit, die Simulation abzuschließen."
+          "label": "Zeitbegrenzt (in Minuten)",
+          "description": "Der Benutzer hat eine begrenzte Zeit, um seine Simulation abzuschließen."
         },
         "by-user": {
           "label": "Durch den Benutzer",
-          "description": "Der Benutzer kann die Simulation jederzeit verlassen."
+          "description": "Der Benutzer kann jederzeit entscheiden, seine Simulation zu verlassen."
         },
         "output-instructions": "Ausgabeanweisungen"
       }
     },
     "evaluation": {
       "title": "Bewertung",
-      "description": "Erstellen Sie den Bericht, der am Ende der Simulation generiert wird.",
+      "description": "Entwerfen Sie den Simulationsbericht, der am Ende des Simulationsspiels generiert wird.",
       "add-score": "Score hinzufügen",
       "add-paragraph": "Absatz hinzufügen",
       "add-graph": "Diagramm hinzufügen",
       "empty": {
-        "title": "Keine Sektion",
-        "description": "Sie haben noch keine Sektion hinzugefügt. Beginnen Sie, indem Sie eine hinzufügen.",
-        "button": "Neue Sektion"
+        "title": "Keine Abschnitte",
+        "description": "Sie haben noch keine Abschnitte hinzugefügt. Fügen Sie zunächst einen zur Bewertung hinzu.",
+        "button": "Neuer Abschnitt"
       },
       "type": {
         "general-score": "Gesamtscore",
@@ -289,14 +297,14 @@
         "max-value": "Maximalwert",
         "axes": "Diagrammachsen",
         "empty": {
-          "title": "Keine Achse",
-          "description": "Sie haben noch keine Achse hinzugefügt. Beginnen Sie, indem Sie eine hinzufügen.",
+          "title": "Keine Achsen",
+          "description": "Sie haben noch keine Achsen hinzugefügt. Fügen Sie zunächst eine zum Diagramm hinzu.",
           "button": "Neue Achse"
         }
       },
       "writing-method": {
         "label": "Schreibmethode",
-        "description": "Beschreiben Sie, wie der Agent sein Feedback verfassen soll."
+        "description": "Beschreiben Sie dem Agenten, wie er sein Feedback verfassen soll."
       }
     }
   }

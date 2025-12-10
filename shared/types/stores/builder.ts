@@ -32,6 +32,7 @@ export interface BuilderState {
       };
       video: {
         replica: string;
+        enhance: boolean;
       };
       end: {
         user: boolean;

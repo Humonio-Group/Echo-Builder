@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { AlertCircle } from "lucide-vue-next";
 import ReplicaSelectionCard from "~/components/shared/engine/video/ReplicaSelectionCard.vue";
+import VideoAudioEnhancementControl from "~/components/shared/engine/video/VideoAudioEnhancementControl.vue";
 
 const store = useBuilderStore();
 </script>
@@ -27,6 +28,7 @@ const store = useBuilderStore();
 
     <CardContent class="grid gap-4">
       <ReplicaSelectionCard />
+      <VideoAudioEnhancementControl />
     </CardContent>
   </Card>
 </template>

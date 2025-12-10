@@ -75,7 +75,11 @@
       "delete-select": "Supprimer la sélection",
       "delete-range": "Supprimer le curseur",
       "missing-translations": "Traductions manquantes",
-      "has-error": "Erreur de configuration"
+      "has-error": "Erreur de configuration",
+      "subscriptions": {
+        "audio": "Souscris à un plan audio pour débloquer cette configuration | Souscris à un plan audio pour débloquer ces configurations",
+        "video": "Souscris à un plan vidéo pour débloquer cette configuration | Souscris à un plan vidéo pour débloquer ces configurations"
+      }
     },
     "toasts": {
       "fix-errors-before-saving": "Corrigez les erreurs avant de sauvegarder.",
@@ -235,6 +239,10 @@
           "label": "Replica",
           "description": "Utilisé dans le mode \"Vidéo\"",
           "placeholder": "Sélectionner un replica"
+        },
+        "enhance-audio": {
+          "label": "Améliorer l'audio",
+          "description": "Si activée, la vidéo utilisera les paramètres vocaux configurés ci-dessus."
         }
       },
       "end-modes": {
