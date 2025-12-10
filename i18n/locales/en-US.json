@@ -24,20 +24,20 @@
   "alerts": {
     "close-with-changes": {
       "title": "Are you sure?",
-      "description": "You have unsaved changes. If you close without saving, you will lose them. Are you sure you want to quit?",
+      "description": "You have unsaved changes. If you close without saving, you will lose your changes. Are you sure you want to quit?",
       "cancel": "No, stay",
       "confirm": "Yes, close"
     },
     "other-main-score-in-use": {
-      "title": "A general score is already defined",
-      "description": "Would you like to make this score your general score?",
+      "title": "A main score has already been defined",
+      "description": "Do you want to make this score your main score?",
       "cancel": "No",
       "confirm": "Yes"
     },
     "delete-main-score": {
       "title": "Are you sure?",
-      "description": "You are about to delete the general score of your simulation. Are you sure you want to continue?",
-      "cancel": "No, keep it",
+      "description": "You are about to delete the main score of your simulation. Are you sure you want to continue?",
+      "cancel": "No, keep",
       "confirm": "Yes, delete"
     }
   },
@@ -50,13 +50,13 @@
     "question-placeholder": "New question",
     "option-placeholder": "New option",
     "saved-since": {
-      "moment-ago": "Saved a few seconds ago",
+      "moment-ago": "Saved a moment ago",
       "seconds-precise": "Saved {time} seconds ago",
       "minutes-ago": "Saved a few minutes ago",
       "minutes-precise": "Saved {time} minutes ago",
-      "hour-ago": "Saved an hour ago | Saved {time} hours ago",
+      "hour-ago": "Saved one hour ago | Saved {time} hours ago",
       "yesterday": "Saved yesterday",
-      "days-ago": "Saved a day ago | Saved {time} days ago",
+      "days-ago": "Saved one day ago | Saved {time} days ago",
       "last-week": "Saved last week",
       "precisely-at": "Saved on {date} at {time}"
     },
@@ -65,8 +65,8 @@
       "heavy-models": "Heavy models"
     },
     "tooltips": {
-      "make-as-main-score": "Set as general score",
-      "make-as-normal-score": "Revert to normal score",
+      "make-as-main-score": "Use as main score",
+      "make-as-normal-score": "Restore as normal score",
       "delete-score": "Delete score",
       "delete-graph": "Delete graph",
       "delete-text": "Delete paragraph",
@@ -75,11 +75,15 @@
       "delete-select": "Delete selection",
       "delete-range": "Delete slider",
       "missing-translations": "Missing translations",
-      "has-error": "Configuration error"
+      "has-error": "Configuration error",
+      "subscriptions": {
+        "audio": "Subscribe to an audio plan to unlock this configuration | Subscribe to an audio plan to unlock these configurations",
+        "video": "Subscribe to a video plan to unlock this configuration | Subscribe to a video plan to unlock these configurations"
+      }
     },
     "toasts": {
       "fix-errors-before-saving": "Fix errors before saving.",
-      "save-changes-before-exporting": "Save your changes before exporting.",
+      "save-changes-before-exporting": "Save changes before exporting.",
       "saving-changes": {
         "loading": "Saving changes...",
         "success": "Changes have been saved!",
@@ -92,15 +96,15 @@
       }
     },
     "genders": {
-      "male": "Man | Men",
-      "female": "Woman | Women",
+      "male": "Male | Males",
+      "female": "Female | Females",
       "other": "Other | Others"
     }
   },
   "pages": {
     "general": {
       "title": "General information",
-      "description": "Configure the display and gameplay options of your simulation.",
+      "description": "Configure the display and game options of your simulation.",
       "simulation-title": "Name",
       "simulation-description": "Description",
       "modes": {
@@ -111,30 +115,30 @@
         },
         "text": {
           "title": "Text mode",
-          "description": "Learners will play in an SMS-style conversation."
+          "description": "Your learners will play in an SMS-like conversation."
         },
         "audio": {
           "title": "Audio mode",
-          "description": "Learners will interact with the agent through a phone call."
+          "description": "Your learners will be in contact with the agent via a phone call."
         },
         "video": {
           "title": "Video mode",
-          "description": "Learners will meet the agent in a video conference."
+          "description": "Your learners will meet the agent in a video conference."
         }
       },
       "questions": {
-        "label": "Preparing questions",
-        "description": "These questions help the agent prepare for the conversation.",
+        "label": "Question preparation",
+        "description": "The following questions will help the agent prepare for the conversation.",
         "empty": {
-          "title": "No question",
-          "description": "You haven't added any question yet. Start by adding one.",
+          "title": "No questions",
+          "description": "You haven't added any questions yet. Start by adding one to the simulation.",
           "button": "New question"
         }
       }
     },
     "customize": {
       "title": "Experience customization",
-      "description": "Ask the learner questions to personalize their experience.",
+      "description": "Ask learners questions to personalize their conversation.",
       "type": {
         "short": "Short answer",
         "long": "Long answer",
@@ -142,8 +146,8 @@
         "range": "Slider"
       },
       "empty": {
-        "title": "No question",
-        "description": "You have not added any customization question yet. Start by adding one.",
+        "title": "No questions",
+        "description": "You haven't added any customization questions yet. Start by adding one to the simulation.",
         "button": "New question"
       },
       "fields": {
@@ -151,7 +155,7 @@
         "min-value": "Minimum",
         "max-value": "Maximum",
         "max-length": "Maximum length",
-        "make-required": "Make this question mandatory",
+        "make-required": "Make this question required",
         "options": "Options"
       }
     },
@@ -161,7 +165,7 @@
       "agent": "Agent configuration",
       "system-prompt": {
         "label": "System instructions",
-        "description": "Describe the content of the simulation, its scenario, and possible outcomes."
+        "description": "Describe the simulation content, its scenario, its possible outcomes."
       },
       "text-model": "Generation model",
       "temperature": {
@@ -170,7 +174,7 @@
         "standard": "Standard",
         "creative": "Creative",
         "alert": {
-          "title": "Agent hallucination risk",
+          "title": "Risk of agent hallucination",
           "description": "A temperature above {value} makes generation chaotic. Excessive creativity can make the simulation almost incoherent."
         }
       },
@@ -178,12 +182,12 @@
         "title": "Audio Configuration",
         "voice": {
           "label": "Voice",
-          "description": "Used in audio mode",
+          "description": "Used in \"audio\" mode",
           "placeholder": "Select a voice"
         },
         "model": {
           "label": "Generation model",
-          "description": "Select the model that best fits your final use case."
+          "description": "Select the model that best fits your final use."
         },
         "models": {
           "eleven_turbo_v2_5": {
@@ -201,7 +205,7 @@
         },
         "speed": {
           "label": "Speed",
-          "tooltip": "Adjust the speaking speed",
+          "tooltip": "Vary speech rate",
           "slower": "Slower",
           "faster": "Faster"
         },
@@ -218,13 +222,13 @@
         },
         "similarity": {
           "label": "Similarity",
-          "tooltip": "Manage the overall clarity of the voice",
+          "tooltip": "Manage overall voice clarity",
           "low": "Low",
           "high": "High"
         },
         "exageration": {
           "label": "Exaggeration",
-          "tooltip": "Manage the exaggeration in speech",
+          "tooltip": "Manage speech exaggeration",
           "none": "None",
           "amplified": "Amplified"
         }
@@ -233,45 +237,49 @@
         "title": "Video Configuration",
         "replica": {
           "label": "Replica",
-          "description": "Used in video mode",
+          "description": "Used in \"Video\" mode",
           "placeholder": "Select a replica"
+        },
+        "enhance-audio": {
+          "label": "Enhance audio",
+          "description": "If enabled, the video will use the voice settings configured above."
         }
       },
       "end-modes": {
         "label": "Exit modes",
         "no-end-mode-selected": {
-          "title": "No exit mode selected.",
+          "title": "No end mode selected.",
           "description": "At least one active option is required to save!"
         },
         "by-ai": {
-          "label": "By the agent",
-          "description": "The AI agent may decide to exit the simulation.",
-          "alert": "Warning: If enabled, you must define exit scenarios in the system instructions, otherwise the agent cannot exit."
+          "label": "By agent",
+          "description": "The conversational agent will be able to decide to exit.",
+          "alert": "Warning, if you enable this option, you must integrate exit scenarios into the system instructions of your simulation, otherwise the agent will not be able to exit the simulation."
         },
         "by-time": {
-          "label": "Time limit (in minutes)",
-          "description": "The user will have limited time to complete the simulation."
+          "label": "Time-limited (in minutes)",
+          "description": "The user will have a limited time to complete their simulation."
         },
         "by-user": {
-          "label": "By the user",
-          "description": "The user can exit the simulation at any time."
+          "label": "By user",
+          "description": "The user will be able to decide to exit their simulation at any time."
         },
-        "output-instructions": "Output instructions"
+        "output-instructions": "Exit instructions"
       }
     },
     "evaluation": {
       "title": "Evaluation",
-      "description": "Design the report generated at the end of the simulation.",
+      "description": "Design the simulation report generated at the end of the simulation game.",
       "add-score": "Add score",
       "add-paragraph": "Add paragraph",
       "add-graph": "Add graph",
       "empty": {
-        "title": "No section",
-        "description": "You haven't added any section yet. Start by adding one.",
+        "title": "No sections",
+        "description": "You haven't added any sections yet. Start by adding one to the evaluation.",
         "button": "New section"
       },
       "type": {
-        "general-score": "General score",
+        "general-score": "Main score",
         "score": "Score",
         "graph": {
           "bar": "Bar chart",
@@ -287,16 +295,16 @@
       "axis": {
         "min-value": "Minimum value",
         "max-value": "Maximum value",
-        "axes": "Chart axes",
+        "axes": "Graph axes",
         "empty": {
-          "title": "No axis",
-          "description": "You haven't added any axis yet. Start by adding one.",
+          "title": "No axes",
+          "description": "You haven't added any axes yet. Start by adding one to the graph.",
           "button": "New axis"
         }
       },
       "writing-method": {
         "label": "Writing method",
-        "description": "Describe how the agent should write its feedback."
+        "description": "Describe to the agent how they should write their feedback."
       }
     }
   }
