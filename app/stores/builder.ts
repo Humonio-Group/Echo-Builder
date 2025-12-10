@@ -49,6 +49,7 @@ export const useBuilderStore = defineStore("builder", {
         },
         video: {
           replica: "",
+          enhance: false,
         },
         end: {
           user: true,
@@ -313,6 +314,7 @@ export const useBuilderStore = defineStore("builder", {
         },
         video: {
           replica: simulation.attributes.engine.video?.replica ?? "",
+          enhance: simulation.attributes.engine.video?.enhance ?? false,
         },
         end: {
           time: simulation.attributes.engine.endModes.byTime.enabled,
@@ -373,14 +375,12 @@ export const useBuilderStore = defineStore("builder", {
 
       const audioConfig = modes.audio
         ? {
-            audio: this.attributes.config.audio,
+            audio: _conf.audio,
           }
         : {};
       const videoConfig = modes.video
         ? {
-            video: {
-              replica: this.attributes.config.video.replica,
-            },
+            video: _conf.video,
           }
         : {};
       const config = {
