@@ -21,8 +21,14 @@ function handleFileUpload(event: InputEvent) {
 </script>
 
 <template>
-  <div class="mx-auto relative">
-    <Avatar class="size-18">
+  <div
+    class="group/overlay mx-auto relative cursor-pointer"
+    :class="{ 'cursor-loading': loading }"
+  >
+    <Avatar
+      class="size-18"
+      @click.stop="openFileDialog"
+    >
       <AvatarImage
         v-if="attributes.avatar"
         :src="attributes.avatar"
@@ -34,21 +40,12 @@ function handleFileUpload(event: InputEvent) {
     </Avatar>
 
     <div
-      v-if="loading"
-      class="absolute inset-0 grid place-items-center bg-foreground/30 rounded-full text-background"
+      class="absolute inset-0 grid place-items-center bg-primary/60 rounded-full text-background pointer-events-none opacity-0 group-hover/overlay:opacity-100 transition-opacity"
+      :class="{ 'opacity-100! bg-foreground/50!': loading }"
     >
-      <Spinner />
+      <Spinner v-if="loading" />
+      <Edit v-else />
     </div>
-
-    <Button
-      size="icon-sm"
-      variant="secondary"
-      class="absolute -bottom-1 -right-1"
-      :disabled="loading"
-      @click="openFileDialog"
-    >
-      <Edit />
-    </Button>
 
     <input
       ref="fileInput"
