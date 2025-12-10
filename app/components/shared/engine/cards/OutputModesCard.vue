@@ -104,7 +104,7 @@ const validEnd = computed(() => {
           v-if="attributes.config.end.agent"
           v-model="attributes.config.end.instructions"
           class="min-h-32"
-          :class="{ 'border-destructive!': attributes.config.end.instructions.length < 100 }"
+          :class="{ 'border-destructive!': (attributes.config.end.instructions?.length ?? 0) < 100 }"
           :placeholder="$t('pages.engine.end-modes.output-instructions')"
         />
       </div>
