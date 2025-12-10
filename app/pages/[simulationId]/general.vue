@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AlertCircle } from "lucide-vue-next";
+import { AlertCircle, Crown } from "lucide-vue-next";
 import Page from "~/components/primitives/composing/Page.vue";
 import AvatarForm from "~/components/shared/general/AvatarForm.vue";
 
@@ -9,6 +9,7 @@ definePageMeta({
   nameKey: "navigation.general",
 });
 
+const userStore = useUserStore();
 const builderStore = useBuilderStore();
 const { attributes } = storeToRefs(builderStore);
 const { name, description, modes } = toRefs(attributes.value);
@@ -106,16 +107,28 @@ const invalidDescription = computed(() => !description.value?.[locale.value]!.tr
             <Label
               class="block w-full"
               for="audio"
+              :class="{ 'text-muted-foreground cursor-not-allowed': !userStore.hasAudio }"
             >
               <div class="w-full flex items-center justify-between">
                 <div>
-                  <CardTitle>{{ $t("pages.general.modes.audio.title") }}</CardTitle>
+                  <CardTitle class="flex items-center gap-2">
+                    {{ $t("pages.general.modes.audio.title") }}
+                    <Tooltip v-if="!userStore.hasAudio">
+                      <TooltipTrigger>
+                        <Crown class="size-4 text-yellow-500 dark:text-yellow-400" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        {{ $t("labels.tooltips.subscriptions.audio", 1) }}
+                      </TooltipContent>
+                    </Tooltip>
+                  </CardTitle>
                   <CardDescription class="font-normal!">{{ $t("pages.general.modes.audio.description") }}</CardDescription>
                 </div>
 
                 <Switch
                   id="audio"
-                  :model-value="modes.audio"
+                  :model-value="modes.audio && userStore.hasAudio"
+                  :disabled="!userStore.hasAudio"
                   @update:model-value="modes.audio = $event"
                 />
               </div>
@@ -123,16 +136,28 @@ const invalidDescription = computed(() => !description.value?.[locale.value]!.tr
             <Label
               class="block w-full"
               for="video"
+              :class="{ 'text-muted-foreground cursor-not-allowed': !userStore.hasVideo }"
             >
               <div class="w-full flex items-center justify-between">
                 <div>
-                  <CardTitle>{{ $t("pages.general.modes.video.title") }}</CardTitle>
+                  <CardTitle class="flex items-center gap-2">
+                    {{ $t("pages.general.modes.video.title") }}
+                    <Tooltip v-if="!userStore.hasVideo">
+                      <TooltipTrigger>
+                        <Crown class="size-4 text-yellow-500 dark:text-yellow-400" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        {{ $t("labels.tooltips.subscriptions.video", 1) }}
+                      </TooltipContent>
+                    </Tooltip>
+                  </CardTitle>
                   <CardDescription class="font-normal!">{{ $t("pages.general.modes.video.description") }}</CardDescription>
                 </div>
 
                 <Switch
                   id="video"
-                  :model-value="modes.video"
+                  :model-value="modes.video && userStore.hasVideo"
+                  :disabled="!userStore.hasVideo"
                   @update:model-value="modes.video = $event"
                 />
               </div>
