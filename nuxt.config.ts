@@ -13,7 +13,10 @@ export default defineNuxtConfig({
   ],
   ssr: false,
   devtools: { enabled: true },
-  css: ["./tailwind.css"],
+  app: {
+    baseURL: process.env.APP_BASE_URL || "/",
+  },
+  css: ["../tailwind.css"],
   colorMode: {
     preference: "system",
     fallback: "light",
@@ -21,6 +24,18 @@ export default defineNuxtConfig({
     classSuffix: "",
     storageKey: "qigu-color-scheme",
   },
+  runtimeConfig: {
+    public: {
+      api: {
+        key: "",
+        1: "",
+        2: "",
+      },
+      platform: "",
+      auth: "",
+    },
+  },
+  srcDir: "app/",
   compatibilityDate: "2025-07-15",
   vite: {
     plugins: [
@@ -50,9 +65,7 @@ export default defineNuxtConfig({
     ],
     defaultLocale: "fr",
     strategy: "prefix_except_default",
-  },
-  pinia: {
-    storesDirs: ["app/stores"],
+    langDir: "../i18n/locales",
   },
   shadcn: {
     prefix: "",

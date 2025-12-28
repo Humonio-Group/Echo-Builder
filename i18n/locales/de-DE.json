@@ -1,1 +1,311 @@
-{}
+{
+  "btn": {
+    "save": "Speichern",
+    "retry": "Erneut versuchen"
+  },
+  "navigation": {
+    "file": {
+      "DEFAULT": "Datei",
+      "save": "Speichern",
+      "save-and-close": "Speichern und schließen",
+      "close-without-saving": "Schließen ohne zu speichern",
+      "close": "Schließen",
+      "export-to-scorm": {
+        "DEFAULT": "Als SCORM exportieren",
+        "scorm-12": "SCORM 1.2",
+        "scorm-2004": "SCORM 2004 (1.3)"
+      }
+    },
+    "general": "Allgemein",
+    "customize": "Personalisierung",
+    "engine": "Engine",
+    "evaluation": "Bewertung"
+  },
+  "alerts": {
+    "close-with-changes": {
+      "title": "Sind Sie sicher?",
+      "description": "Sie haben ungespeicherte Änderungen. Wenn Sie schließen, gehen Ihre Änderungen verloren. Möchten Sie wirklich fortfahren?",
+      "cancel": "Nein, bleiben",
+      "confirm": "Ja, schließen"
+    },
+    "other-main-score-in-use": {
+      "title": "Ein Gesamtscore wurde bereits definiert",
+      "description": "Möchten Sie diesen Score als Gesamtscore festlegen?",
+      "cancel": "Nein",
+      "confirm": "Ja"
+    },
+    "delete-main-score": {
+      "title": "Sind Sie sicher?",
+      "description": "Sie sind dabei, den Gesamtscore Ihrer Simulation zu löschen. Möchten Sie wirklich fortfahren?",
+      "cancel": "Nein, behalten",
+      "confirm": "Ja, löschen"
+    }
+  },
+  "labels": {
+    "axis": "Achse",
+    "beta": {
+      "name": "Beta",
+      "caption": "Dieser Inhalt befindet sich in einer experimentellen Version."
+    },
+    "question-placeholder": "Neue Frage",
+    "option-placeholder": "Neue Option",
+    "saved-since": {
+      "moment-ago": "Vor wenigen Sekunden gespeichert",
+      "seconds-precise": "Vor {time} Sekunden gespeichert",
+      "minutes-ago": "Vor einigen Minuten gespeichert",
+      "minutes-precise": "Vor {time} Minuten gespeichert",
+      "hour-ago": "Vor einer Stunde gespeichert | Vor {time} Stunden gespeichert",
+      "yesterday": "Gestern gespeichert",
+      "days-ago": "Vor einem Tag gespeichert | Vor {time} Tagen gespeichert",
+      "last-week": "Letzte Woche gespeichert",
+      "precisely-at": "Gespeichert am {date} um {time}"
+    },
+    "models": {
+      "light-models": "Leichte Modelle",
+      "heavy-models": "Schwere Modelle"
+    },
+    "tooltips": {
+      "make-as-main-score": "Als Gesamtscore festlegen",
+      "make-as-normal-score": "Als normalen Score wiederherstellen",
+      "delete-score": "Score löschen",
+      "delete-graph": "Diagramm löschen",
+      "delete-text": "Absatz löschen",
+      "delete-short": "Kurzantwort löschen",
+      "delete-long": "Langantwort löschen",
+      "delete-select": "Auswahl löschen",
+      "delete-range": "Schieberegler löschen",
+      "missing-translations": "Fehlende Übersetzungen",
+      "has-error": "Konfigurationsfehler",
+      "subscriptions": {
+        "audio": "Abonnieren Sie einen Audio-Plan, um diese Konfiguration freizuschalten | Abonnieren Sie einen Audio-Plan, um diese Konfigurationen freizuschalten",
+        "video": "Abonnieren Sie einen Video-Plan, um diese Konfiguration freizuschalten | Abonnieren Sie einen Video-Plan, um diese Konfigurationen freizuschalten"
+      }
+    },
+    "toasts": {
+      "fix-errors-before-saving": "Beheben Sie Fehler vor dem Speichern.",
+      "save-changes-before-exporting": "Speichern Sie die Änderungen vor dem Export.",
+      "saving-changes": {
+        "loading": "Änderungen werden gespeichert...",
+        "success": "Die Änderungen wurden gespeichert!",
+        "error": "Beim Speichern der Änderungen ist ein Fehler aufgetreten."
+      },
+      "exporting-scorm": {
+        "loading": "Simulation wird nach SCORM {version} exportiert...",
+        "success": "Ihre Simulation wurde erfolgreich nach SCORM {version} exportiert!",
+        "error": "Beim Exportieren der Simulation ist ein Fehler aufgetreten."
+      }
+    },
+    "genders": {
+      "male": "Mann | Männer",
+      "female": "Frau | Frauen",
+      "other": "Andere | Andere"
+    }
+  },
+  "pages": {
+    "general": {
+      "title": "Allgemeine Informationen",
+      "description": "Konfigurieren Sie die Anzeige- und Spieloptionen Ihrer Simulation.",
+      "simulation-title": "Name",
+      "simulation-description": "Beschreibung",
+      "modes": {
+        "label": "Simulationsmodi",
+        "no-mode-selected": {
+          "title": "Kein Simulationsmodus ausgewählt.",
+          "description": "Mindestens eine aktive Option ist zum Speichern erforderlich!"
+        },
+        "text": {
+          "title": "Textmodus",
+          "description": "Ihre Lernenden spielen in einer SMS-ähnlichen Unterhaltung."
+        },
+        "audio": {
+          "title": "Audiomodus",
+          "description": "Ihre Lernenden kommunizieren mit dem Agenten per Telefonanruf."
+        },
+        "video": {
+          "title": "Videomodus",
+          "description": "Ihre Lernenden treffen den Agenten in einer Videokonferenz."
+        }
+      },
+      "questions": {
+        "label": "Fragen vorbereiten",
+        "description": "Die folgenden Fragen helfen dem Agenten, sich auf das Gespräch vorzubereiten.",
+        "empty": {
+          "title": "Keine Fragen",
+          "description": "Sie haben noch keine Fragen hinzugefügt. Fügen Sie zunächst eine zur Simulation hinzu.",
+          "button": "Neue Frage"
+        }
+      }
+    },
+    "customize": {
+      "title": "Personalisierung des Erlebnisses",
+      "description": "Stellen Sie dem Lernenden Fragen, um sein Gespräch zu personalisieren.",
+      "type": {
+        "short": "Kurzantwort",
+        "long": "Langantwort",
+        "select": "Auswahl",
+        "range": "Schieberegler"
+      },
+      "empty": {
+        "title": "Keine Fragen",
+        "description": "Sie haben noch keine Personalisierungsfragen hinzugefügt. Fügen Sie zunächst eine zur Simulation hinzu.",
+        "button": "Neue Frage"
+      },
+      "fields": {
+        "label": "Bezeichnung",
+        "min-value": "Minimum",
+        "max-value": "Maximum",
+        "max-length": "Maximallänge",
+        "make-required": "Diese Frage verpflichtend machen",
+        "options": "Optionen"
+      }
+    },
+    "engine": {
+      "title": "Simulationsmotor",
+      "description": "Konfigurieren Sie das Szenario und die aktivierten Optionen Ihrer Simulation.",
+      "agent": "Agentenkonfiguration",
+      "system-prompt": {
+        "label": "Systemanweisungen",
+        "description": "Beschreiben Sie den Inhalt der Simulation, ihr Szenario und mögliche Ausgänge."
+      },
+      "text-model": "Generierungsmodell",
+      "temperature": {
+        "label": "Temperatur",
+        "deterministic": "Deterministisch",
+        "standard": "Standard",
+        "creative": "Kreativ",
+        "alert": {
+          "title": "Risiko von Agenten-Halluzinationen",
+          "description": "Eine Temperatur über {value} macht die Generierung chaotisch. Übermäßige Kreativität kann die Simulation nahezu inkohärent machen."
+        }
+      },
+      "audio": {
+        "title": "Audio-Konfiguration",
+        "voice": {
+          "label": "Stimme",
+          "description": "Wird im \"Audio\"-Modus verwendet",
+          "placeholder": "Wählen Sie eine Stimme"
+        },
+        "model": {
+          "label": "Generierungsmodell",
+          "description": "Wählen Sie das Modell, das am besten zu Ihrer finalen Nutzung passt."
+        },
+        "models": {
+          "eleven_turbo_v2_5": {
+            "name": "Niedrige Latenz",
+            "caption": "Angemessene Audioqualität und niedrige Latenz."
+          },
+          "eleven_multilingual_v2": {
+            "name": "Hohe Wiedergabetreue",
+            "caption": "Gute Stimmtreue, verlängerte Latenz."
+          },
+          "eleven_v3": {
+            "name": "Emotional",
+            "caption": "Hohe Audioqualität mit Emotionsinterpretation."
+          }
+        },
+        "speed": {
+          "label": "Geschwindigkeit",
+          "tooltip": "Sprechgeschwindigkeit variieren",
+          "slower": "Langsamer",
+          "faster": "Schneller"
+        },
+        "stability": {
+          "label": "Stabilität",
+          "tooltip": "Konsistenz der Stimme zwischen Generationen verwalten",
+          "tooltip-v3": "Kühnheit verwalten:\n· Kreativ: ausdrucksstark, abwechslungsreiche Phrasierung und Tonlagen, kann sogar singen\n· Natürlich: gesprächsnahe Balance\n· Robust: präzise, stabil und vorhersehbar",
+          "variable": "Variabler",
+          "stable": "Stabiler",
+
+          "creative": "Kreativ",
+          "natural": "Natürlich",
+          "robust": "Robust"
+        },
+        "similarity": {
+          "label": "Ähnlichkeit",
+          "tooltip": "Allgemeine Klarheit der Stimme verwalten",
+          "low": "Niedrig",
+          "high": "Hoch"
+        },
+        "exageration": {
+          "label": "Übertreibung",
+          "tooltip": "Übertreibung der Sprache verwalten",
+          "none": "Keine",
+          "amplified": "Verstärkt"
+        }
+      },
+      "video": {
+        "title": "Video-Konfiguration",
+        "replica": {
+          "label": "Replica",
+          "description": "Wird im \"Video\"-Modus verwendet",
+          "placeholder": "Wählen Sie ein Replica"
+        },
+        "enhance-audio": {
+          "label": "Audio verbessern",
+          "description": "Wenn aktiviert, verwendet das Video die oben konfigurierten Stimmeinstellungen."
+        }
+      },
+      "end-modes": {
+        "label": "Beendigungsmodi",
+        "no-end-mode-selected": {
+          "title": "Kein Beendigungsmodus ausgewählt.",
+          "description": "Mindestens eine aktive Option ist zum Speichern erforderlich!"
+        },
+        "by-ai": {
+          "label": "Durch den Agenten",
+          "description": "Der Konversationsagent kann entscheiden, die Simulation zu beenden.",
+          "alert": "Achtung: Wenn Sie diese Option aktivieren, müssen Sie Beendigungsszenarien in den Systemanweisungen Ihrer Simulation integrieren, sonst kann der Agent die Simulation nicht beenden."
+        },
+        "by-time": {
+          "label": "Zeitbegrenzt (in Minuten)",
+          "description": "Der Benutzer hat eine begrenzte Zeit, um seine Simulation abzuschließen."
+        },
+        "by-user": {
+          "label": "Durch den Benutzer",
+          "description": "Der Benutzer kann jederzeit entscheiden, seine Simulation zu verlassen."
+        },
+        "output-instructions": "Ausgabeanweisungen"
+      }
+    },
+    "evaluation": {
+      "title": "Bewertung",
+      "description": "Entwerfen Sie den Simulationsbericht, der am Ende des Simulationsspiels generiert wird.",
+      "add-score": "Score hinzufügen",
+      "add-paragraph": "Absatz hinzufügen",
+      "add-graph": "Diagramm hinzufügen",
+      "empty": {
+        "title": "Keine Abschnitte",
+        "description": "Sie haben noch keine Abschnitte hinzugefügt. Fügen Sie zunächst einen zur Bewertung hinzu.",
+        "button": "Neuer Abschnitt"
+      },
+      "type": {
+        "general-score": "Gesamtscore",
+        "score": "Score",
+        "graph": {
+          "bar": "Balkendiagramm",
+          "line": "Liniendiagramm",
+          "spider": "Spinnendiagramm"
+        },
+        "paragraph": "Absatz"
+      },
+      "evaluation-method": {
+        "label": "Bewertungsmethode",
+        "description": "Beschreiben Sie, wie der Agent das Gespräch bewerten soll."
+      },
+      "axis": {
+        "min-value": "Minimalwert",
+        "max-value": "Maximalwert",
+        "axes": "Diagrammachsen",
+        "empty": {
+          "title": "Keine Achsen",
+          "description": "Sie haben noch keine Achsen hinzugefügt. Fügen Sie zunächst eine zum Diagramm hinzu.",
+          "button": "Neue Achse"
+        }
+      },
+      "writing-method": {
+        "label": "Schreibmethode",
+        "description": "Beschreiben Sie dem Agenten, wie er sein Feedback verfassen soll."
+      }
+    }
+  }
+}

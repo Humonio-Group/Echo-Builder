@@ -1,0 +1,669 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { BuilderState } from "~~/shared/types/stores/builder";
+import { toast } from "vue-sonner";
+import type {
+  EvaluationConfig,
+  EvaluationType, GraphEvaluationConfig,
+  GraphEvaluationPreviewMode,
+  ParagraphEvaluationConfig,
+  ScoreEvaluationConfig,
+} from "#shared/types/config/evaluations";
+import type {
+  PrepQuestionType,
+  SelectQuestionConfig,
+} from "#shared/types/config/prep-questions";
+import { isNumberBetween } from "~/lib/numbers";
+
+const defaultTranslations = (codes: string[]): Translations => {
+  const translations: Translations = {};
+  codes.forEach(code => translations[code] = "");
+  return translations;
+};
+
+export const useBuilderStore = defineStore("builder", {
+  state: (): BuilderState => ({
+    contentId: -1,
+    programId: -1,
+    attributes: {
+      name: {},
+      description: {},
+      avatar: null,
+      questions: [],
+      evaluations: [],
+      modes: {
+        text: true,
+        audio: false,
+        video: false,
+      },
+      config: {
+        systemPrompt: "",
+        model: "",
+        temperature: 0.75,
+        audio: {
+          model: "eleven_turbo_v2_5",
+          voice: "",
+          speed: 1,
+          stability: 0.5,
+          similarity: 0.5,
+          exageration: 0.5,
+        },
+        video: {
+          replica: "",
+          enhance: false,
+        },
+        end: {
+          user: true,
+          time: false,
+          duration: 10,
+          agent: false,
+          instructions: "",
+        },
+      },
+    },
+    voices: null,
+    replicas: null,
+    loading: {
+      voices: false,
+      replicas: false,
+      avatar: false,
+    },
+    languages: [],
+    touched: false,
+  }),
+  getters: {
+    isLoaded: state => typeof state.contentId === "string" || state.contentId >= 0,
+    isTouched: state => state.touched,
+
+    isInvalid() {
+      return !this.isTouched
+        || this.invalidTranslations.length > 0
+        || !!this.invalidMode
+        || !!this.invalidSystemPrompt
+        || !!this.invalidQuestions
+        || !!this.invalidEvaluations
+        || !!this.invalidVoice
+        || !!this.invalidReplica
+        || !!this.invalidAudioConfiguration
+      ;
+    },
+    invalidTranslations: (state) => {
+      const langs = [];
+
+      for (const lang of state.languages) {
+        const validName = !!state.attributes.name[lang]!.trim().length;
+        const validDescription = !!state.attributes.description[lang]!.trim().length;
+        const validQuestions = state.attributes.questions.every((question) => {
+          const validLabel = question.label[lang]!.trim().length;
+          const validOptions = question.type !== "select" || (question.config as SelectQuestionConfig).options.every(o => Object.values(o).every(v => v.trim().length));
+
+          return validLabel && validOptions;
+        });
+        const validEvaluations = state.attributes.evaluations.filter(e => e.type === "graph").every((evaluation) => {
+          const config = evaluation.config as GraphEvaluationConfig;
+          return config.axes.every(a => a[lang]!.trim().length);
+        });
+
+        if (!validName || !validDescription || !validQuestions || !validEvaluations) langs.push(lang);
+      }
+
+      return langs;
+    },
+    invalidTabs() {
+      const tabs: string[] = [];
+
+      // general
+      if (this.invalidName || this.invalidDescription || this.invalidMode) tabs.push("general");
+
+      // customize
+      if (this.invalidQuestions) tabs.push("customize");
+
+      // engine
+      if (this.invalidSystemPrompt || this.invalidEndModes || this.invalidVoice || this.invalidReplica) tabs.push("engine");
+
+      // evaluation
+      if (this.invalidEvaluations) tabs.push("evaluation");
+
+      return tabs;
+    },
+    invalidName: state => !Object.values(state.attributes.name).every(v => v.trim().length),
+    invalidDescription: state => !Object.values(state.attributes.description).every(v => v.trim().length),
+    invalidMode: state => !Object.values(state.attributes.modes).some(v => !!v),
+    invalidSystemPrompt: state => state.attributes.config.systemPrompt.trim().length < 200,
+    invalidEndModes: (state) => {
+      const hasUser = state.attributes.config.end.user;
+      const hasTime = state.attributes.config.end.time && state.attributes.config.end.duration > 0;
+      const hasAgent = state.attributes.config.end.agent && state.attributes.config.end.instructions?.trim().length >= 100;
+
+      return !(hasUser || hasTime || hasAgent);
+    },
+    invalidQuestions() {
+      return this.invalidQuestionsList.length > 0;
+    },
+    invalidQuestionsList: (state) => {
+      const questions: number[] = [];
+
+      (state.attributes.questions ?? []).forEach((question, index) => {
+        let s = Object.values(question.label).some(v => !v.trim().length);
+
+        switch (question.type) {
+          case "select": {
+            if ((question.config as SelectQuestionConfig).options.some(o => Object.values(o).some(v => !v.trim().length)))
+              s = true;
+            break;
+          }
+          default: {
+            break;
+          }
+        }
+
+        if (s) questions.push(index);
+      });
+
+      return questions;
+    },
+    invalidEvaluations() {
+      return this.invalidEvaluationsList.length > 0;
+    },
+    invalidEvaluationsList: (state) => {
+      const evaluations: number[] = [];
+
+      (state.attributes.evaluations ?? []).forEach((evaluation, index) => {
+        let s = evaluation.method.trim().length < 100;
+
+        switch (evaluation.type) {
+          case "paragraph": {
+            if (!(evaluation.config as ParagraphEvaluationConfig).writingMethod.trim().length)
+              s = true;
+            break;
+          }
+          case "graph": {
+            if (!(evaluation.config as GraphEvaluationConfig).axes.every(a => Object.values(a).every(v => v.trim().length)))
+              s = true;
+            break;
+          }
+          default: {
+            break;
+          }
+        }
+
+        if (s) evaluations.push(index);
+      });
+
+      return evaluations;
+    },
+    invalidVoice: state => state.attributes.modes.audio && !state.attributes.config.audio.voice.length,
+    invalidAudioConfiguration: (state) => {
+      const validSpeed = isNumberBetween(state.attributes.config.audio.speed, 0.7, 1.2, true);
+      const validStability = isNumberBetween(state.attributes.config.audio.stability, 0, 1, true);
+      const validSimilarity = isNumberBetween(state.attributes.config.audio.similarity, 0, 1, true);
+      const validExageration = isNumberBetween(state.attributes.config.audio.exageration, 0, 1, true);
+
+      switch (state.attributes.config.audio.model) {
+        case "eleven_turbo_v2_5": return !(validSpeed && validStability && validSimilarity);
+        case "eleven_multilingual_v2": return !(validSpeed && validStability && validSimilarity && validExageration);
+        case "eleven_v3": return !(validStability);
+
+        default: return false;
+      }
+    },
+    invalidReplica: state => state.attributes.modes.video && !state.attributes.config.video.replica.length,
+
+    hasMainScore: state => state.attributes.evaluations.some(e => e.type === "score" && (e.config as ScoreEvaluationConfig).mainScore),
+    hasFirstLoadedVoices: state => state.voices !== null,
+    hasFirstLoadedReplicas: state => state.replicas !== null,
+    selectedVoice: state => state.attributes.config.audio.voice ? state.voices?.find(v => v.id === state.attributes.config.audio.voice) : null,
+    selectedReplica: state => state.attributes.config.video.replica ? state.replicas?.find(v => v.id === state.attributes.config.video.replica) : null,
+  },
+  actions: {
+    async loadVoices() {
+      this.loading.voices = true;
+
+      try {
+        const voices = await $fetch(useApi2Url("/echo_simulations/elevenlabs/voices", "v2"), { ...useFetchOptions() });
+        if (!voices) return;
+        this.voices = voices.data;
+      }
+      catch (e) {
+        console.error(e);
+      }
+      finally {
+        this.loading.voices = false;
+      }
+    },
+    async loadReplicas() {
+      this.loading.replicas = true;
+
+      try {
+        const replicas = await $fetch(useApi2Url("/echo_simulations/tavus/replicas", "v2"), { ...useFetchOptions() });
+        if (!replicas) return;
+        this.replicas = replicas.data;
+      }
+      catch (e) {
+        console.error(e);
+      }
+      finally {
+        this.loading.replicas = false;
+      }
+    },
+    async loadSimulation(id: number) {
+      try {
+        const response = await $fetch<unknown>(useApi2Url(`/echo_simulations/${id}/specimen`, "v2"), {
+          ...useFetchOptions({
+            params: {
+              include: "questions,evaluations,program,program.languages",
+            },
+          }),
+        });
+
+        if (!response) return;
+
+        await this.storeSimulation(response);
+      }
+      catch (e) {
+        console.error(e);
+
+        switch ((e as any).statusCode) {
+          case 401: {
+            // navigateTo(useRuntimeConfig().public.auth, { external: true });
+            return;
+          }
+        }
+      }
+    },
+
+    async storeSimulation(response: unknown) {
+      const { data: simulation, included } = response;
+      const program = included.find(i => i.type === "programs");
+      const languages = included.filter(i => i.type === "languages");
+      const questions = included.filter(i => i.type === "echoSimulationQuestions");
+      const evaluations = included.filter(i => i.type === "echoSimulationEvaluations");
+
+      this.languages = languages.map(l => l.attributes.code).reduce((acc, val) => {
+        acc = [
+          ...acc,
+          val,
+        ];
+
+        return acc;
+      }, []);
+
+      this.contentId = simulation.id;
+      this.programId = program.id;
+      this.attributes.name = {
+        ...defaultTranslations(this.languages),
+        ...simulation.attributes.name,
+      };
+      this.attributes.description = {
+        ...defaultTranslations(this.languages),
+        ...simulation.attributes.description,
+      };
+      this.attributes.avatar = simulation.attributes.avatar;
+      this.attributes.modes = simulation.attributes.modes;
+      this.attributes.config = {
+        ...this.attributes.config,
+        systemPrompt: simulation.attributes.engine.system_prompt || "",
+        model: simulation.attributes.engine.model ?? "gpt-4o-mini",
+        temperature: simulation.attributes.engine.temperature ?? 0.75,
+        audio: {
+          model: simulation.attributes.engine.audio?.model ?? "eleven_turbo_v2_5",
+          voice: simulation.attributes.engine.audio?.voice ?? "",
+          speed: simulation.attributes.engine.audio?.speed ?? 1,
+          stability: simulation.attributes.engine.audio?.stability ?? 0.5,
+          similarity: simulation.attributes.engine.audio?.similarity ?? 0.5,
+          exageration: simulation.attributes.engine.audio?.exageration ?? 0.5,
+        },
+        video: {
+          replica: simulation.attributes.engine.video?.replica ?? "",
+          enhance: simulation.attributes.engine.video?.enhance ?? false,
+        },
+        end: {
+          time: simulation.attributes.engine.endModes.byTime.enabled,
+          duration: simulation.attributes.engine.endModes.byTime.duration,
+          ...(typeof simulation.attributes.engine.endModes.byAI === "boolean"
+            ? {
+                agent: simulation.attributes.engine.endModes.byAI,
+                instructions: "",
+              }
+            : {
+                agent: simulation.attributes.engine.endModes.byAI.enabled,
+                instructions: simulation.attributes.engine.endModes.byAI.instructions,
+              }),
+          user: simulation.attributes.engine.endModes.byUser,
+        },
+      };
+      this.attributes.questions = questions.map(q => ({
+        key: q.attributes.key,
+        order: q.attributes.order,
+        label: {
+          ...defaultTranslations(this.languages),
+          ...q.attributes.label,
+        },
+        type: q.attributes.type,
+        required: q.attributes.required,
+        config: {
+          ...q.attributes.config,
+          ...(q.attributes.config.options
+            ? { options: q.attributes.config.options.map(o => ({
+                ...defaultTranslations(this.languages),
+                ...o,
+              })) }
+            : {}),
+        },
+      }));
+      this.attributes.evaluations = evaluations.map(e => ({
+        key: e.attributes.key,
+        order: e.attributes.order,
+        type: e.attributes.type,
+        method: e.attributes.method ?? "",
+        config: {
+          ...e.attributes.config,
+          ...(e.attributes.config.axes
+            ? { axes: e.attributes.config.axes.map(a => ({
+                ...defaultTranslations(this.languages),
+                ...a,
+              })) }
+            : {}),
+        },
+      }));
+
+      await new Promise(resolve => setTimeout(resolve, 10));
+      this.touched = false;
+    },
+    buildSimulationBody() {
+      const { name, description, avatar, modes, config: _conf } = this.attributes;
+      const status = "active";
+
+      const audioConfig = modes.audio
+        ? {
+            audio: _conf.audio,
+          }
+        : {};
+      const videoConfig = modes.video
+        ? {
+            video: _conf.video,
+          }
+        : {};
+      const config = {
+        systemPrompt: _conf.systemPrompt,
+        temperature: _conf.temperature,
+        ...audioConfig,
+        ...videoConfig,
+        end: _conf.end,
+      };
+
+      const questions = this.attributes.questions;
+      const evaluations = this.attributes.evaluations;
+
+      return {
+        name,
+        description,
+        avatar,
+        modes,
+        status,
+        config,
+        // Relations
+        questions,
+        evaluations,
+      };
+    },
+
+    addQuestion(type: PrepQuestionType) {
+      let config;
+      switch (type) {
+        case "short": {
+          config = {
+            maxLength: 255,
+          };
+          break;
+        }
+        case "long": {
+          config = {
+            maxLength: 2048,
+          };
+          break;
+        }
+        case "select": {
+          config = {
+            options: [
+              this.languages.reduce((acc, val) => {
+                acc[val] = "Option 1";
+                return acc;
+              }, {} as Translations),
+              this.languages.reduce((acc, val) => {
+                acc[val] = "Option 2";
+                return acc;
+              }, {} as Translations),
+            ],
+          };
+          break;
+        }
+        case "range": {
+          config = {
+            min: 0,
+            max: 10,
+          };
+          break;
+        }
+      }
+
+      this.attributes.questions.push({
+        order: -1,
+        label: {
+          ...this.languages.map(l => ({ [l]: useNuxtApp().$i18n.t("labels.question-placeholder") })).reduce((acc, val) => {
+            acc = {
+              ...acc,
+              ...val,
+            };
+
+            return acc;
+          }),
+        },
+        type,
+        required: false,
+        config,
+      });
+      this.updateQuestionsOrder();
+    },
+    removeQuestion(order: number) {
+      this.attributes.questions = this.attributes.questions.filter(q => q.order !== order);
+      this.updateQuestionsOrder();
+    },
+    orderQuestion(order: number, direction: "up" | "down") {
+      switch (direction) {
+        case "up": {
+          break;
+        }
+        case "down": {
+          break;
+        }
+      }
+
+      this.updateQuestionsOrder();
+    },
+    updateQuestionsOrder() {
+      this.attributes.questions = this.attributes.questions.map((q, index) => ({ ...q, order: index }));
+    },
+
+    addEvaluation(type: EvaluationType, previewMode?: GraphEvaluationPreviewMode) {
+      const { t } = useNuxtApp().$i18n;
+
+      let config: EvaluationConfig;
+      switch (type) {
+        case "score": {
+          config = {
+            mainScore: false,
+            previewMode: "text",
+            min: 0,
+            max: 100,
+          };
+          break;
+        }
+        case "graph": {
+          if (!previewMode) previewMode = "bar";
+          config = {
+            previewMode,
+            min: 0,
+            max: 100,
+            axes: [
+              {
+                ...this.languages.map(l => ({ [l]: `${t("labels.axis")} 1` })).reduce((acc, val) => {
+                  acc = {
+                    ...acc,
+                    ...val,
+                  };
+
+                  return acc;
+                }, {}),
+              },
+              {
+                ...this.languages.map(l => ({ [l]: `${t("labels.axis")} 2` })).reduce((acc, val) => {
+                  acc = {
+                    ...acc,
+                    ...val,
+                  };
+
+                  return acc;
+                }, {}),
+              },
+            ],
+          };
+          break;
+        }
+        default: {
+          config = {
+            writingMethod: "",
+          };
+          break;
+        }
+      }
+
+      this.attributes.evaluations.push({
+        order: this.attributes.evaluations.length + 1,
+        type,
+        method: "",
+        config,
+      });
+      this.updateEvaluationsOrder();
+    },
+    removeEvaluation(index: number) {
+      this.attributes.evaluations = this.attributes.evaluations.filter(e => e.order !== index);
+      this.updateEvaluationsOrder();
+    },
+    updateEvaluationsOrder() {
+      this.attributes.evaluations = this.attributes.evaluations.map((e, index) => ({ ...e, order: index }));
+    },
+    makeMainScore(order: number) {
+      const update = (value: boolean) => this.attributes.evaluations = this.attributes.evaluations.map((e) => {
+        if (e.type !== "score") return e;
+        if (e.order !== order) return {
+          ...e,
+          config: {
+            ...e.config as ScoreEvaluationConfig,
+            mainScore: false,
+          },
+        };
+        return {
+          ...e,
+          config: {
+            ...e.config as ScoreEvaluationConfig,
+            mainScore: value,
+          },
+        };
+      });
+
+      const element = this.attributes.evaluations.find(e => e.order === order);
+      if (element!.type !== "score") return;
+      update(!(element!.config as ScoreEvaluationConfig).mainScore);
+    },
+
+    async uploadAvatar(file: File) {
+      this.loading.avatar = true;
+      this.attributes.avatar = URL.createObjectURL(file);
+
+      const formData = new FormData();
+      if (this.programId) formData.append("program", String(this.programId));
+      formData.append("type", "8");
+      formData.append("file", file);
+
+      try {
+        const response = await $fetch(useApi2Url("/files", "v1"), {
+          ...useFetchOptions(),
+          method: "POST",
+          body: formData,
+        });
+
+        URL.revokeObjectURL(this.attributes.avatar);
+        this.attributes.avatar = (response as any).data.attributes.file.url;
+      }
+      catch (e) {
+        console.error(e);
+      }
+      finally {
+        this.loading.avatar = false;
+      }
+    },
+    clearAvatar() {
+      console.log("clear avatar");
+      this.attributes.avatar = null;
+    },
+
+    touch() {
+      this.touched = true;
+    },
+    save(close?: boolean) {
+      const t = useNuxtApp().$i18n.t;
+
+      const save = (retry: boolean = true) => toast.promise($fetch(useApi2Url(`/echo_simulations/${this.contentId}/save`, "v2"), {
+        method: "PUT",
+        ...useFetchOptions({
+          params: {
+            include: "questions,evaluations,program,program.languages",
+          },
+        }),
+        body: this.buildSimulationBody(),
+      }), {
+        loading: t("labels.toasts.saving-changes.loading"),
+        success: async (data: unknown) => {
+          await this.storeSimulation(data);
+
+          if (close) useWindowContext().close();
+          return t("labels.toasts.saving-changes.success");
+        },
+        error: () => retry
+          ? {
+              message: t("labels.toasts.saving-changes.error"),
+              action: {
+                label: t("btn.retry"),
+                onClick: save(false),
+              },
+            }
+          : t("labels.toasts.saving-changes.error"),
+      });
+      save();
+    },
+    export(version: "1.2" | "2004") {
+      const { t } = useNuxtApp().$i18n;
+
+      const exportScorm = (retry: boolean = true) => toast.promise($fetch(useApi2Url(`/echo_simulations/${this.contentId}/export-scorm`, "v2"), { ...useFetchOptions() }), {
+        loading: t("labels.toasts.exporting-scorm.loading", { version }),
+
+        success: (response: any) => {
+          window.open(response.data.downloadUrl, "_blank", "noopener,noreferrer");
+          return t("labels.toasts.exporting-scorm.success", { version });
+        },
+        error: () => retry
+          ? {
+              message: t("labels.toasts.exporting-scorm.error"),
+              action: {
+                label: t("btn.retry"),
+                onClick: () => {
+                  exportScorm(false);
+                },
+              },
+            }
+          : t("labels.toasts.exporting-scorm.error"),
+      });
+      exportScorm();
+    },
+  },
+});

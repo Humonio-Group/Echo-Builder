@@ -1,1 +1,311 @@
-{}
+{
+  "btn": {
+    "save": "Save",
+    "retry": "Retry"
+  },
+  "navigation": {
+    "file": {
+      "DEFAULT": "File",
+      "save": "Save",
+      "save-and-close": "Save and close",
+      "close-without-saving": "Close without saving",
+      "close": "Close",
+      "export-to-scorm": {
+        "DEFAULT": "Export to SCORM",
+        "scorm-12": "SCORM 1.2",
+        "scorm-2004": "SCORM 2004 (1.3)"
+      }
+    },
+    "general": "General",
+    "customize": "Customization",
+    "engine": "Engine",
+    "evaluation": "Evaluation"
+  },
+  "alerts": {
+    "close-with-changes": {
+      "title": "Are you sure?",
+      "description": "You have unsaved changes. If you close without saving, you will lose your changes. Are you sure you want to quit?",
+      "cancel": "No, stay",
+      "confirm": "Yes, close"
+    },
+    "other-main-score-in-use": {
+      "title": "A main score has already been defined",
+      "description": "Do you want to make this score your main score?",
+      "cancel": "No",
+      "confirm": "Yes"
+    },
+    "delete-main-score": {
+      "title": "Are you sure?",
+      "description": "You are about to delete the main score of your simulation. Are you sure you want to continue?",
+      "cancel": "No, keep",
+      "confirm": "Yes, delete"
+    }
+  },
+  "labels": {
+    "axis": "Axis",
+    "beta": {
+      "name": "Beta",
+      "caption": "This content is in its experimental version."
+    },
+    "question-placeholder": "New question",
+    "option-placeholder": "New option",
+    "saved-since": {
+      "moment-ago": "Saved a moment ago",
+      "seconds-precise": "Saved {time} seconds ago",
+      "minutes-ago": "Saved a few minutes ago",
+      "minutes-precise": "Saved {time} minutes ago",
+      "hour-ago": "Saved one hour ago | Saved {time} hours ago",
+      "yesterday": "Saved yesterday",
+      "days-ago": "Saved one day ago | Saved {time} days ago",
+      "last-week": "Saved last week",
+      "precisely-at": "Saved on {date} at {time}"
+    },
+    "models": {
+      "light-models": "Light models",
+      "heavy-models": "Heavy models"
+    },
+    "tooltips": {
+      "make-as-main-score": "Use as main score",
+      "make-as-normal-score": "Restore as normal score",
+      "delete-score": "Delete score",
+      "delete-graph": "Delete graph",
+      "delete-text": "Delete paragraph",
+      "delete-short": "Delete short answer",
+      "delete-long": "Delete long answer",
+      "delete-select": "Delete selection",
+      "delete-range": "Delete slider",
+      "missing-translations": "Missing translations",
+      "has-error": "Configuration error",
+      "subscriptions": {
+        "audio": "Subscribe to an audio plan to unlock this configuration | Subscribe to an audio plan to unlock these configurations",
+        "video": "Subscribe to a video plan to unlock this configuration | Subscribe to a video plan to unlock these configurations"
+      }
+    },
+    "toasts": {
+      "fix-errors-before-saving": "Fix errors before saving.",
+      "save-changes-before-exporting": "Save changes before exporting.",
+      "saving-changes": {
+        "loading": "Saving changes...",
+        "success": "Changes have been saved!",
+        "error": "An error occurred while saving changes."
+      },
+      "exporting-scorm": {
+        "loading": "Exporting simulation to SCORM {version}...",
+        "success": "Your simulation has been exported to SCORM {version}!",
+        "error": "An error occurred while exporting the simulation."
+      }
+    },
+    "genders": {
+      "male": "Male | Males",
+      "female": "Female | Females",
+      "other": "Other | Others"
+    }
+  },
+  "pages": {
+    "general": {
+      "title": "General information",
+      "description": "Configure the display and game options of your simulation.",
+      "simulation-title": "Name",
+      "simulation-description": "Description",
+      "modes": {
+        "label": "Simulation modes",
+        "no-mode-selected": {
+          "title": "No simulation mode selected.",
+          "description": "At least one active option is required to save!"
+        },
+        "text": {
+          "title": "Text mode",
+          "description": "Your learners will play in an SMS-like conversation."
+        },
+        "audio": {
+          "title": "Audio mode",
+          "description": "Your learners will be in contact with the agent via a phone call."
+        },
+        "video": {
+          "title": "Video mode",
+          "description": "Your learners will meet the agent in a video conference."
+        }
+      },
+      "questions": {
+        "label": "Question preparation",
+        "description": "The following questions will help the agent prepare for the conversation.",
+        "empty": {
+          "title": "No questions",
+          "description": "You haven't added any questions yet. Start by adding one to the simulation.",
+          "button": "New question"
+        }
+      }
+    },
+    "customize": {
+      "title": "Experience customization",
+      "description": "Ask learners questions to personalize their conversation.",
+      "type": {
+        "short": "Short answer",
+        "long": "Long answer",
+        "select": "Selection",
+        "range": "Slider"
+      },
+      "empty": {
+        "title": "No questions",
+        "description": "You haven't added any customization questions yet. Start by adding one to the simulation.",
+        "button": "New question"
+      },
+      "fields": {
+        "label": "Label",
+        "min-value": "Minimum",
+        "max-value": "Maximum",
+        "max-length": "Maximum length",
+        "make-required": "Make this question required",
+        "options": "Options"
+      }
+    },
+    "engine": {
+      "title": "Simulation engine",
+      "description": "Configure the scenario and enabled options for your simulation.",
+      "agent": "Agent configuration",
+      "system-prompt": {
+        "label": "System instructions",
+        "description": "Describe the simulation content, its scenario, its possible outcomes."
+      },
+      "text-model": "Generation model",
+      "temperature": {
+        "label": "Temperature",
+        "deterministic": "Deterministic",
+        "standard": "Standard",
+        "creative": "Creative",
+        "alert": {
+          "title": "Risk of agent hallucination",
+          "description": "A temperature above {value} makes generation chaotic. Excessive creativity can make the simulation almost incoherent."
+        }
+      },
+      "audio": {
+        "title": "Audio Configuration",
+        "voice": {
+          "label": "Voice",
+          "description": "Used in \"audio\" mode",
+          "placeholder": "Select a voice"
+        },
+        "model": {
+          "label": "Generation model",
+          "description": "Select the model that best fits your final use."
+        },
+        "models": {
+          "eleven_turbo_v2_5": {
+            "name": "Low latency",
+            "caption": "Decent audio quality and low latency."
+          },
+          "eleven_multilingual_v2": {
+            "name": "High fidelity",
+            "caption": "Good voice fidelity, extended latency."
+          },
+          "eleven_v3": {
+            "name": "Emotional",
+            "caption": "High audio fidelity with emotion interpretation."
+          }
+        },
+        "speed": {
+          "label": "Speed",
+          "tooltip": "Vary speech rate",
+          "slower": "Slower",
+          "faster": "Faster"
+        },
+        "stability": {
+          "label": "Stability",
+          "tooltip": "Manage voice consistency between generations",
+          "tooltip-v3": "Manage boldness:\n· Creative: expressive, varied phrasing and tones, can even sing\n· Natural: conversational balance\n· Robust: precise, stable and predictable",
+          "variable": "More variable",
+          "stable": "More stable",
+
+          "creative": "Creative",
+          "natural": "Natural",
+          "robust": "Robust"
+        },
+        "similarity": {
+          "label": "Similarity",
+          "tooltip": "Manage overall voice clarity",
+          "low": "Low",
+          "high": "High"
+        },
+        "exageration": {
+          "label": "Exaggeration",
+          "tooltip": "Manage speech exaggeration",
+          "none": "None",
+          "amplified": "Amplified"
+        }
+      },
+      "video": {
+        "title": "Video Configuration",
+        "replica": {
+          "label": "Replica",
+          "description": "Used in \"Video\" mode",
+          "placeholder": "Select a replica"
+        },
+        "enhance-audio": {
+          "label": "Enhance audio",
+          "description": "If enabled, the video will use the voice settings configured above."
+        }
+      },
+      "end-modes": {
+        "label": "Exit modes",
+        "no-end-mode-selected": {
+          "title": "No end mode selected.",
+          "description": "At least one active option is required to save!"
+        },
+        "by-ai": {
+          "label": "By agent",
+          "description": "The conversational agent will be able to decide to exit.",
+          "alert": "Warning, if you enable this option, you must integrate exit scenarios into the system instructions of your simulation, otherwise the agent will not be able to exit the simulation."
+        },
+        "by-time": {
+          "label": "Time-limited (in minutes)",
+          "description": "The user will have a limited time to complete their simulation."
+        },
+        "by-user": {
+          "label": "By user",
+          "description": "The user will be able to decide to exit their simulation at any time."
+        },
+        "output-instructions": "Exit instructions"
+      }
+    },
+    "evaluation": {
+      "title": "Evaluation",
+      "description": "Design the simulation report generated at the end of the simulation game.",
+      "add-score": "Add score",
+      "add-paragraph": "Add paragraph",
+      "add-graph": "Add graph",
+      "empty": {
+        "title": "No sections",
+        "description": "You haven't added any sections yet. Start by adding one to the evaluation.",
+        "button": "New section"
+      },
+      "type": {
+        "general-score": "Main score",
+        "score": "Score",
+        "graph": {
+          "bar": "Bar chart",
+          "line": "Line chart",
+          "spider": "Spider chart"
+        },
+        "paragraph": "Paragraph"
+      },
+      "evaluation-method": {
+        "label": "Evaluation method",
+        "description": "Describe how the agent should evaluate the conversation."
+      },
+      "axis": {
+        "min-value": "Minimum value",
+        "max-value": "Maximum value",
+        "axes": "Graph axes",
+        "empty": {
+          "title": "No axes",
+          "description": "You haven't added any axes yet. Start by adding one to the graph.",
+          "button": "New axis"
+        }
+      },
+      "writing-method": {
+        "label": "Writing method",
+        "description": "Describe to the agent how they should write their feedback."
+      }
+    }
+  }
+}
